@@ -21,25 +21,24 @@ void Draw::drawBackgroundGrid(sf::RenderWindow &window, Camera &view, sf::Sprite
 	reset_pos.x = view.getView()->getCenter().x - (view.getView()->getSize().x / 2.0); //reset position for the x-axis when each row is finished
 	reset_pos.y = view.getView()->getCenter().y - (view.getView()->getSize().y / 2.0); //just used to start the first y-axis row
 
+	sf::Vector2f max_position;
+	max_position.x = view.getView()->getCenter().x + (view.getView()->getSize().x / 2.0);
+	max_position.y = view.getView()->getCenter().y + (view.getView()->getSize().y / 2.0);
 	 
 	sf::Vector2f source_position(reset_pos.x, reset_pos.y); //the current starting position to add a new sprite
 
-	//cout << "size: " << source_position.x << ", " << source_position.y << endl;
-	cout << "size: " << view.getView()->getSize().x << ", " << view.getView()->getSize().y << endl;
-
-	while(source_position.y < view.getView()->getSize().y) //while there is at least one more row
+	while(source_position.y < max_position.y) //while there is at least one more row
 	{
-		while(source_position.x < view.getView()->getSize().x) //while there is at least one more column
+		while(source_position.x < max_position.x) //while there is at least one more column
 		{
 			background_sprite.setPosition(source_position);
 			window.draw( background_sprite );
 
 			source_position.x += background_texture.getSize().x; //increases the source to the next x-axis starting position
 		}
-		cout << "size: " << view.getView()->getSize().x << ", " << view.getView()->getSize().y << endl;
 
 		source_position.x = reset_pos.x; //reset
-		source_position.y += background_texture.getSize().y / 2.0; //increases the source to the next y-axis starting position
+		source_position.y += background_texture.getSize().y; //increases the source to the next y-axis starting position
 	}
 }
 

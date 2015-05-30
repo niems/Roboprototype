@@ -32,25 +32,7 @@ void Camera::boundaryControl(const sf::Vector2f &pos) //makes sure the camera st
 	view_size.y /= 2.0;
 	bool modified = false;
 
-	this->view.setCenter( pos );
-	
-	/*
-	if(pos.x > view_size.x && pos.x < (this->level_size.x - view_size.x) ) //if the view on the x axis should be adjusted
-	{
-		current_center.x = pos.x; //modifies the current center to be at the position
-		modified = true;
-	}
-
-	if(pos.y > view_size.y && pos.y < (this->level_size.y - view_size.y) ) //if the view on the y axis should be adjusted
-	{
-		current_center.y = pos.y; //modifies the current center to be at the position
-		modified = true;
-	}
-	
-	if(modified) //only updates view if it has been modified
-		this->view.setCenter(current_center);
-	*/
-	
+	this->view.setCenter( pos );	
 }
 
 void Camera::cursorBoundaryControl(const sf::Vector2i &pos)

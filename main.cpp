@@ -125,15 +125,25 @@ int main()
 	//end particles////////////////////////////////////	
 
 	//background
-	sf::Texture background_tile_texture;
-	sf::Sprite background_tile_sprite;
+	sf::Texture background_tile_texture1;
+	sf::Sprite background_tile_sprite1;
 
-	if(!background_tile_texture.loadFromFile("images//grid.png") )
+	sf::Texture background_tile_texture2;
+	sf::Sprite background_tile_sprite2;
+
+	sf::Texture background_tile_texture3;
+	sf::Sprite background_tile_sprite3;
+
+	sf::Texture background_tile_texture4;
+	sf::Sprite background_tile_sprite4;
+
+	if(!background_tile_texture1.loadFromFile("images//tile7.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
 
-	background_tile_sprite.setTexture( background_tile_texture );
+	background_tile_sprite1.setTexture( background_tile_texture1 );
+	background_tile_sprite1.setColor( sf::Color(255, 255, 255, 255) );
 	
 
 	//player setup
@@ -159,7 +169,7 @@ int main()
 
 	sf::Vector2f center_pos(window.getSize().x / 2.0, window.getSize().y / 2.0);
 	sf::Vector2f view_size(window.getSize().x, window.getSize().y);
-	sf::Vector2f level_size(1500, 3000);//(3200, 900);
+	sf::Vector2f level_size;
 
 	//player.getBody()->SetTransform( b2Vec2(10.0 * PIXELS_TO_METERS, -level_size.y * PIXELS_TO_METERS), 0.0 );
 	//sf::Vector2f view_size(level_size.x, level_size.y);
@@ -241,8 +251,8 @@ int main()
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 
-			window.clear(sf::Color(0, 255, 255) );
-			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite, background_tile_texture);
+			window.clear();//sf::Color(0, 255, 255) );
+			Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 
 			Draw::drawParticles(window, particle_shape, particle_system);
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen

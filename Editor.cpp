@@ -341,8 +341,7 @@ void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2Wo
 		
 		//saves the current map
 		else if( sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) && sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-		{
-			
+		{			
 			string file;
 			cout << "Save level as: ";
 			cin >> file;
