@@ -819,7 +819,7 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 
 	while( !load_file.eof() ) //while the eof isn't reached
 	{
-		load_file >> pos.x >> end_line >> pos.y >> end_line >> angle >> end_line >> body_type >> end_line >> index;
+		load_file >> pos.x >> end_line >> pos.y >> end_line >> this->angle >> end_line >> body_type >> end_line >> index;
 
 		if(index != -1)
 		{
@@ -842,7 +842,7 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 		else //the player
 		{
 			this->spawn_point = pos; //starting point of the character for the current level
-			player.getBody()->SetTransform( b2Vec2( pos.x * PIXELS_TO_METERS, -pos.y * PIXELS_TO_METERS), angle * DEGTORAD );
+			player.getBody()->SetTransform( b2Vec2( pos.x * PIXELS_TO_METERS, -pos.y * PIXELS_TO_METERS), this->angle * DEGTORAD );
 			player.updateSpritePos();
 		}
 	}
