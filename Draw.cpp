@@ -24,7 +24,8 @@ void Draw::drawBackgroundGrid(sf::RenderWindow &window, Camera &view, sf::Sprite
 	 
 	sf::Vector2f source_position(reset_pos.x, reset_pos.y); //the current starting position to add a new sprite
 
-	cout << "size: " << source_position.x << ", " << source_position.y << endl;
+	//cout << "size: " << source_position.x << ", " << source_position.y << endl;
+	cout << "size: " << view.getView()->getSize().x << ", " << view.getView()->getSize().y << endl;
 
 	while(source_position.y < view.getView()->getSize().y) //while there is at least one more row
 	{
@@ -35,10 +36,10 @@ void Draw::drawBackgroundGrid(sf::RenderWindow &window, Camera &view, sf::Sprite
 
 			source_position.x += background_texture.getSize().x; //increases the source to the next x-axis starting position
 		}
-		cout << "size: " << source_position.x << ", " << source_position.y << endl;
+		cout << "size: " << view.getView()->getSize().x << ", " << view.getView()->getSize().y << endl;
 
 		source_position.x = reset_pos.x; //reset
-		source_position.y += background_texture.getSize().y; //increases the source to the next y-axis starting position
+		source_position.y += background_texture.getSize().y / 2.0; //increases the source to the next y-axis starting position
 	}
 }
 
