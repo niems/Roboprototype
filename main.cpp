@@ -128,7 +128,7 @@ int main()
 	sf::Texture background_tile_texture;
 	sf::Sprite background_tile_sprite;
 
-	if(!background_tile_texture.loadFromFile("images//grid.png") )
+	if(!background_tile_texture.loadFromFile("images//nebula.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -241,8 +241,8 @@ int main()
 			}			
 			 
 			window.clear(sf::Color(0, 255, 255) );
+			Draw::drawBackgroundGrid(window, main_view, background_tile_sprite, background_tile_texture);
 
-			//window.draw( *editor.getCurrentBackground() );
 			Draw::drawParticles(window, particle_shape, particle_system);
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
 			Draw::draw( window, editor.getStaticObjects() ); //draws all the static objects to the screen
