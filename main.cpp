@@ -124,6 +124,17 @@ int main()
 	particle_def->position.Set( window.getSize().x / 2.0, window.getSize().y / 2.0 );
 	//end particles////////////////////////////////////	
 
+	//background
+	sf::Texture background_tile_texture;
+	sf::Sprite background_tile_sprite;
+
+	if(!background_tile_texture.loadFromFile("images//grid.png") )
+	{
+		printf("Failed to load texture on line %d \n", __LINE__);
+	}
+
+	background_tile_sprite.setTexture( background_tile_texture );
+
 	//player setup
 	b2FixtureDef fixture;
 	sf::Vector2f player_speed = sf::Vector2f(500.0, 600.0);
