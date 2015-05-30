@@ -14,7 +14,7 @@ Editor::Editor()
 	this->object_type = BODY_TYPE::STATIC; //default starting type
 	this->current_index = 0; //default starting index
 	this->current_background_index = 0; //default starting background
-	
+	this->angle = 0.0;
 
 	//load static sprites
 	sf::Texture small_platform_texture;
@@ -351,12 +351,14 @@ void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2Wo
 			mouse_clock.restart();
 		}
 
-		//to view the whole map at once. 
+		//write something to generate the boundaries to remove this function
+		//to view the whole map at once. Used for setting up the boundaries. 
 		else if(sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) && sf::Keyboard::isKeyPressed( sf::Keyboard::C ) )
 		{
 			//set map view size to the level size
 			view.getView()->setSize( view.getLevelSize() );
 			view.getView()->setCenter( sf::Vector2f( view.getLevelSize().x / 2.0, view.getLevelSize().y / 2.0 ) );
+			mouse_clock.restart();
 		}
 
 		else if(sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) && sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
@@ -364,6 +366,19 @@ void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2Wo
 			//reset the map view to the window size and the center is set to the player position
 			view.getView()->setSize( sf::Vector2f(window.getSize().x, window.getSize().y) );
 			view.getView()->setCenter( sf::Vector2f(window.getSize().x / 2.0, window.getSize().y / 2.0) );
+			mouse_clock.restart();
+		}
+
+		//used to rotate sprite clockwise
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) )
+		{
+			angle += 1.0;
+		}
+
+		//used to rotate sprite counterclockwise
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) )
+		{
+			angle -= 1.0;
 		}
 		
 	}
@@ -376,6 +391,7 @@ void Editor::keyboardCycleCommands(Timer &editor_clock) //used to cycle through 
 		if(sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) ) //cycle backwards in sprite vector
 		{
 			int index = this->current_index - 1;
+			this->angle = 0.0; //reset
 
 			if(this->object_type == BODY_TYPE::STATIC)
 			{
@@ -399,6 +415,7 @@ void Editor::keyboardCycleCommands(Timer &editor_clock) //used to cycle through 
 		else if(sf::Keyboard::isKeyPressed( sf::Keyboard::E ) ) //cycle forwards in sprite vector
 		{
 			int index = this->current_index + 1;
+			this->angle = 0.0; //reset
 
 			if(this->object_type == BODY_TYPE::STATIC)
 			{
@@ -429,6 +446,7 @@ void Editor::gameModeToggle(sf::Text &mode_text, Timer &clock, string &live, str
 		{
 			clock.restart();
 			this->current_index = 0; //reset index 
+			this->angle = 0.0; //reset angle
 			game_state = (game_state == GAME_STATE::LIVE) ? GAME_STATE::EDITOR : GAME_STATE::LIVE; //assigns the opposite mode
 			mode_text.setString( (game_state == GAME_STATE::LIVE) ? live : edit ); //assigns corresponding string
 		}
@@ -494,6 +512,11 @@ int Editor::getBackgroundIndex()
 sf::Vector2f& Editor::getSpawnPoint()
 {
 	return( this->spawn_point );
+}
+
+float Editor::getAngle()
+{
+	return( this->angle );
 }
 
 sf::Sprite* Editor::getCurrentBackground()
@@ -667,7 +690,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
 
-	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), 0.0 );
+	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
+	temp_object->getSprite()->setRotation(this->angle);
 	temp_object->updateSpritePos();
 	this->static_object.push_back(temp_object);
 	
@@ -696,7 +720,8 @@ void Editor::createDynamicBody(sf::RenderWindow &window, b2World *world, sf::Vec
 		temp_object = new Object(window, world, fixture, this->dynamic_texture[this->current_index], this->current_index, BODY_TYPE::DYNAMIC, POLY_SHAPE);
 	}
 
-	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), 0.0 );
+	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
+	temp_object->getSprite()->setRotation(this->angle);
 	temp_object->updateSpritePos();
 	this->dynamic_object.push_back(temp_object);
 }
@@ -738,7 +763,8 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		temp_object->getBody()->SetAngularVelocity(-360.0 * DEGTORAD );
 	}
 
-	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), 0.0 );
+	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
+	temp_object->getSprite()->setRotation(this->angle);
 	temp_object->updateSpritePos();
 	this->kinematic_object.push_back(temp_object);
 }

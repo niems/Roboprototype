@@ -34,6 +34,7 @@ private:
 	int object_type; //determines which type of object to show(static/dynamic/kinematic)
 	int current_index; //this is the index of the current object
 	int current_background_index; //the background being used with the current level
+	float angle; //angle of the current sprite being displayed. Each object switch resets this to 0.0
 
 	vector<sf::Sprite> background_sprites;
 	vector<sf::Texture> background_textures;
@@ -94,7 +95,8 @@ public:
 	int getObjectType(); //returns the current object type
 	int getCurrentIndex(); //returns the index of the current object
 	int getBackgroundIndex(); //returns the index of the current background
-	
+	float getAngle(); //returns the current angle of the object
+
 	sf::Vector2f& getSpawnPoint(); //returns the spawn point for the current level
 	sf::Sprite* getCurrentBackground(); //returns the background for the current level
 	vector<sf::Texture>& getBackgroundTextures(); //returns the background textures

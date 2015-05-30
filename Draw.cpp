@@ -24,6 +24,7 @@ void Draw::drawEditor(sf::RenderWindow &window, Editor &editor, sf::Vector2f &mo
 			sf::Sprite& temp = editor.getStaticSprites()[editor.getCurrentIndex()];
 			temp.setTexture( editor.getStaticTextures()[editor.getCurrentIndex()] );
 			temp.setPosition(mouse_pos.x, mouse_pos.y);
+			temp.setRotation(editor.getAngle());
 			temp.setColor( sf::Color(255, 255, 255, 170) );
 			window.draw(editor.getStaticSprites()[editor.getCurrentIndex()]);
 		}
@@ -37,6 +38,7 @@ void Draw::drawEditor(sf::RenderWindow &window, Editor &editor, sf::Vector2f &mo
 			sf::Sprite& temp = editor.getDynamicSprites()[editor.getCurrentIndex()];
 			temp.setTexture( editor.getDynamicTextures()[editor.getCurrentIndex()] );
 			temp.setPosition(mouse_pos.x, mouse_pos.y);
+			temp.setRotation(editor.getAngle());
 			temp.setColor( sf::Color(255, 255, 255, 170) );
 			window.draw(temp);			
 		}
@@ -49,6 +51,7 @@ void Draw::drawEditor(sf::RenderWindow &window, Editor &editor, sf::Vector2f &mo
 			sf::Sprite& temp = editor.getKinematicSprites()[editor.getCurrentIndex()];
 			temp.setTexture( editor.getKinematicTextures()[editor.getCurrentIndex()] );
 			temp.setPosition(mouse_pos.x, mouse_pos.y);
+			temp.setRotation(editor.getAngle());
 			temp.setColor( sf::Color(255, 255, 255, 170) );
 			window.draw(temp);
 		}
