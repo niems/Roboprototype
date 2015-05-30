@@ -137,7 +137,7 @@ int main()
 	sf::Texture background_tile_texture4;
 	sf::Sprite background_tile_sprite4;
 
-	if(!background_tile_texture1.loadFromFile("images//tile7.png") )
+	if(!background_tile_texture1.loadFromFile("images//n_tile1.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -251,7 +251,7 @@ int main()
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 
-			window.clear();//sf::Color(0, 255, 255) );
+			window.clear( sf::Color(0, 255, 255) );//sf::Color(0, 255, 255) );
 			Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 
 			Draw::drawParticles(window, particle_shape, particle_system);
