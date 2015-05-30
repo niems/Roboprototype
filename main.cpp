@@ -26,12 +26,15 @@ enum {POLY_SHAPE, CIRCLE_SHAPE}; //determines what type of box2d shape to create
 void updateMousePos(sf::Vector2i &pos, sf::Vector2f &world_pos, sf::RenderWindow &window);
 
 //checks for player commands
+//put in physics class or player class
 void playerCommandUpdate(Timer &movement_clock, Timer &jump_clock, sf::Vector2f &speed, Object &player, sf::Vector2f &mouse_pos);
 
 //moves the character back to the spawn point if they go out of bounds
+//put this in the physics class
 void levelBoundaries(Editor &editor, Camera &view, Object &player);
 
 //updates the particle toggle
+//put in particle class
 void particleToggle(Object &player, Timer &mouse_clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system);
 
 
