@@ -182,11 +182,8 @@ int main()
 				in_focus = true;
 
 			else if(e.type == sf::Event::MouseWheelMoved)
-			{
-				if(game_state == Editor::GAME_STATE::EDITOR)
-				{
-					main_view.zoomControl(window, e);
-				}
+			{				
+				main_view.zoomControl(window, e);
 			}
         }
 

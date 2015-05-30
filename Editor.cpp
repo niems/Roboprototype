@@ -372,13 +372,13 @@ void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2Wo
 		//used to rotate sprite clockwise
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) )
 		{
-			angle += 1.0;
+			angle += 2.0;
 		}
 
 		//used to rotate sprite counterclockwise
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) )
 		{
-			angle -= 1.0;
+			angle -= 2.0;
 		}
 		
 	}
