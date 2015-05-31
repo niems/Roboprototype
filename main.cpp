@@ -254,11 +254,12 @@ int main()
 			window.clear(sf::Color(30, 30, 30) );//sf::Color(0, 255, 255) );
 			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 
-			Draw::drawParticles(window, particle_shape, particle_system);
+			Draw::drawParticles(window, particle_shape, particle_system);			
+			
+			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
 			Draw::draw( window, editor.getStaticObjects() ); //draws all the static objects to the screen
-			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
-			
+
 			Draw::draw( window, player ); //draws the player to the screen
 			Draw::drawText(window, game_mode_text, game_mode_text_pos);	//draws live/editor text to the screen		
 			

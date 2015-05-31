@@ -71,6 +71,5 @@ void Camera::zoomControl(sf::RenderWindow &window, sf::Event &e)
 	{
 		//if( this->view.getSize().x * 1.05 < (window.getSize().x * 1.1) )
 			this->view.zoom(1.05f);
-	}
-	
+	}	
 }

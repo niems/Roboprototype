@@ -1,26 +1,58 @@
-﻿Build started 5/31/2015 6:58:17 AM.
+﻿Build started 5/31/2015 7:46:15 AM.
      1>Project "C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\RoboPrototype\RoboPrototype.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(20): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(53): warning C4305: 'initializing' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(82): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(82): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(83): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(89): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(89): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(91): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(113): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(124): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(162): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(170): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(171): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(184): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(293): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(303): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(314): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(375): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Editor.cpp
+         Editor.cpp
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(9): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(63): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(74): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(84): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(94): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(104): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(114): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(124): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(134): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(145): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(155): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(165): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(175): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(194): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(210): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(234): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(245): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(256): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(359): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(366): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(367): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(429): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(434): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(439): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(468): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(480): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(492): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(594): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(604): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(613): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(622): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(631): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(640): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(649): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(658): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(667): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(676): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(685): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(695): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(745): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(748): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(755): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(758): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(759): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(767): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(770): warning C4305: 'argument' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(790): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(796): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(802): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(819): warning C4101: 'angle' : unreferenced local variable
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.exe" /INCREMENTAL /NOLOGO /LIBPATH:./lib /LIBPATH:"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\lib" .\Debug\liquidfun.lib "sfml-audio-s-d.lib" "sfml-graphics-s-d.lib" "sfml-main-d.lib" "sfml-network-s-d.lib" "sfml-system-s-d.lib" "sfml-window-s-d.lib" winmm.lib ws2_32.lib flac.lib ogg.lib vorbis.lib vorbisenc.lib vorbisfile.lib openal32.lib opengl32.lib gdi32.lib freetype.lib jpeg.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.lib" /MACHINE:X86 Debug\Camera.obj
          Debug\Draw.obj
@@ -34,4 +66,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.75
+Time Elapsed 00:00:02.88
