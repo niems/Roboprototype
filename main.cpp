@@ -251,8 +251,8 @@ int main()
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 
-			window.clear();//sf::Color(0, 255, 255) );
-			Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
+			window.clear(sf::Color(30, 30, 30) );//sf::Color(0, 255, 255) );
+			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 
 			Draw::drawParticles(window, particle_shape, particle_system);
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
