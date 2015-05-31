@@ -81,13 +81,13 @@ int main()
 	game_mode_text.setCharacterSize(50);
 	game_mode_text.scale( window.getSize().x / 1600.0, window.getSize().y / 900); //scales based on the window size it was created on
 	game_mode_text.setPosition(game_mode_text_pos.x, game_mode_text_pos.y);
-	game_mode_text.setColor( sf::Color(0, 0, 0) );
+	game_mode_text.setColor( sf::Color(255, 255, 255) );
 
 	editor_object_type.setFont(font);
 	editor_object_type.setString( editor_type[editor.getObjectType()] );
 	editor_object_type.setCharacterSize(50);
 	editor_object_type.scale(window.getSize().x / 1600.0, window.getSize().y / 900); //scales based on the window size it was created on
-	editor_object_type.setColor( sf::Color(0, 0, 0) );
+	editor_object_type.setColor( sf::Color(255, 255, 255) );
 	sf::Vector2i editor_object_pos( game_mode_text_pos.x, game_mode_text_pos.y + editor_object_type.getGlobalBounds().height * 1.5 );
 	editor_object_type.setPosition( window.mapPixelToCoords(editor_object_pos) );
 
@@ -99,9 +99,9 @@ int main()
 	//particles///////////
 	bool particle_toggle = true; //if true, particles are constantly created
 	sf::CircleShape particle_shape;
-	particle_shape.setFillColor( sf::Color(255, 255, 255, 180) );
+	particle_shape.setFillColor( sf::Color(0, 255, 255, 180) );
 	particle_shape.setOutlineThickness(3);
-	particle_shape.setOutlineColor( sf::Color(255, 0, 0, 150) );
+	particle_shape.setOutlineColor( sf::Color(128, 255, 255, 150) );
 	particle_shape.setRadius(3);
 	particle_shape.setOrigin( particle_shape.getRadius(), particle_shape.getRadius() );
 
@@ -137,7 +137,7 @@ int main()
 	sf::Texture background_tile_texture4;
 	sf::Sprite background_tile_sprite4;
 
-	if(!background_tile_texture1.loadFromFile("images//n_tile1.png") )
+	if(!background_tile_texture1.loadFromFile("images//barrier.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -251,7 +251,7 @@ int main()
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 
-			window.clear( sf::Color(0, 255, 255) );//sf::Color(0, 255, 255) );
+			window.clear();//sf::Color(0, 255, 255) );
 			Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 
 			Draw::drawParticles(window, particle_shape, particle_system);

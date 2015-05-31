@@ -64,7 +64,7 @@ Editor::Editor()
 	this->static_sprite.push_back(small_platform_sprite);
 
 
-	if(!med_platform_texture1.loadFromFile("images//plat8.png") )
+	if(!med_platform_texture1.loadFromFile("images//nplat5.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -74,7 +74,7 @@ Editor::Editor()
 	med_platform_sprite1.setOrigin( med_platform_texture1.getSize().x / 2.0, med_platform_texture1.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite1 );
 
-	if(!med_platform_texture2.loadFromFile("images//plat9.png") )
+	if(!med_platform_texture2.loadFromFile("images//nplat6.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -84,7 +84,7 @@ Editor::Editor()
 	med_platform_sprite2.setOrigin( med_platform_texture2.getSize().x / 2.0, med_platform_texture2.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite2 );
 
-	if(!med_platform_texture3.loadFromFile("images//nplat3.png") )
+	if(!med_platform_texture3.loadFromFile("images//nplat1.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -94,7 +94,7 @@ Editor::Editor()
 	med_platform_sprite3.setOrigin( med_platform_texture3.getSize().x / 2.0, med_platform_texture3.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite3 );
 
-	if(!med_platform_texture4.loadFromFile("images//plat14.png") )
+	if(!med_platform_texture4.loadFromFile("images//moving_platform2.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -124,7 +124,7 @@ Editor::Editor()
 	med_platform_sprite6.setOrigin( med_platform_texture6.getSize().x / 2.0, med_platform_texture6.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite6 );
 
-	if(!med_platform_texture7.loadFromFile("images//plat17.png") )
+	if(!med_platform_texture7.loadFromFile("images//nplat8.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -134,7 +134,7 @@ Editor::Editor()
 	med_platform_sprite7.setOrigin( med_platform_texture7.getSize().x / 2.0, med_platform_texture7.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite7 );
 
-	if(!large_platform_texture.loadFromFile("images//base_platform.png") )
+	if(!large_platform_texture.loadFromFile("images//nplat7.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -234,7 +234,7 @@ Editor::Editor()
 	moving_sprite.setOrigin( moving_texture.getSize().x / 2.0, moving_texture.getSize().y / 2.0 );
 	this->kinematic_sprite.push_back( moving_sprite );
 
-	if(!spike_texture.loadFromFile("images//spike2.png") )
+	if(!spike_texture.loadFromFile("images//spike3.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}

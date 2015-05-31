@@ -27,10 +27,11 @@ void Draw::drawBackgroundGrid(sf::RenderWindow &window, Camera &view, sf::Sprite
 	 
 	sf::Vector2f source_position(reset_pos.x, reset_pos.y); //the current starting position to add a new sprite
 
-	while(source_position.y < max_position.y) //while there is at least one more row
+	for(int i = 0; source_position.y < max_position.y; i++) //while there is at least one more row
 	{
-		while(source_position.x < max_position.x) //while there is at least one more column
+		for(int j = 0; source_position.x < max_position.x; j++) //while there is at least one more column
 		{
+
 			background_sprite.setPosition(source_position);
 			window.draw( background_sprite );
 
