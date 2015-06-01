@@ -79,6 +79,7 @@
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>

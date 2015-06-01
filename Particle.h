@@ -11,7 +11,9 @@ using namespace std;
 const float PIXELS_TO_METERS = 0.03333; //number of meters in one pixel
 const float METERS_TO_PIXELS = 30.0; //number of pixels in one meter
 
-//maybe each instance of the class is different based on 
+//maybe each instance of this is a new category.
+//so there would be an instance for the player hair, and
+//another for blood spatter.
 
 class Particle
 {
@@ -21,8 +23,7 @@ private:
 
 public: 
 	Particle(b2World *world, sf::RenderWindow &window, sf::Color &fill_color, sf::Color &outline_color, float &gravity_scale, int &radius, int &outline_thickness, int &max_particles, int &lifetime);
-
-	void playerHair(Object &player, Timer &mouse_clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system);
+	void playerHair(Object &player, Timer &clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system);
 };
 
 #endif
