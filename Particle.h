@@ -4,6 +4,8 @@
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include <vector>
+#include "Object.h"
+#include "Timer.h"
 using namespace std;
 
 const float PIXELS_TO_METERS = 0.03333; //number of meters in one pixel
@@ -17,6 +19,7 @@ private:
 
 public: 
 	Particle(b2World *world, sf::RenderWindow &window, sf::Color &fill_color, sf::Color &outline_color, float &gravity_scale, int &radius, int &outline_thickness, int &max_particles, int &lifetime);
+	void playerHair(Object &player, Timer &clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system);
 
 };
 
