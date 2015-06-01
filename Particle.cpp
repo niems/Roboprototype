@@ -28,8 +28,8 @@ Particle::Particle(b2World *world, sf::RenderWindow &window, sf::Color &fill_col
 	particle_def->flags = b2_elasticParticle;
 	particle_def->position.Set( window.getSize().x / 2.0, window.getSize().y / 2.0 );
 
-	this->p_system.push_back(particle_system);
-	this->p_def.push_back(particle_def);
+	this->p_system = particle_system;
+	this->p_def = particle_def;
 }
 
 void Particle::playerHair(Object &player, Timer &clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system)
