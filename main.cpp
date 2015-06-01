@@ -97,6 +97,15 @@ int main()
 	sf::Vector2f mouse_pos_world; //world coordinates for the current mouse position
 
 	//particles///////////
+	//fill color *
+	//radius *
+	//outline thickness *
+	//outline color *
+	//max number of particles
+	//lifetime
+	//gravity scale *
+	//window *
+	//void Particle(sf::RenderWindow &window, sf::Color &fill_color, sf::Color &outline_color, float &gravity_scale, int &radius, int &outline_thickness, int &max_particles, int &lifetime);
 	bool particle_toggle = true; //if true, particles are constantly created
 	sf::CircleShape particle_shape;
 	particle_shape.setFillColor( sf::Color(0, 255, 255, 180) );
@@ -119,9 +128,9 @@ int main()
 	particle_system->SetGravityScale(50.0);	
 	
 	particle_def->lifetime = 0.25; //number of seconds particle will stay alive
-	particle_def->color.Set(0, 255, 255, 255);
+	//particle_def->color.Set(0, 255, 255, 255);
 	particle_def->flags = b2_elasticParticle;
-	particle_def->position.Set( window.getSize().x / 2.0, window.getSize().y / 2.0 );
+	//particle_def->position.Set( window.getSize().x / 2.0, window.getSize().y / 2.0 );
 	//end particles////////////////////////////////////	
 
 	//background
@@ -381,7 +390,7 @@ void particleToggle(Object &player, Timer &mouse_clock, bool &toggle, b2Particle
 			pos.y -= 15.0;
 			
 
-			p_def->lifetime = 0.25;
+			//p_def->lifetime = 0.25;
 			p_def->position.Set( pos.x, pos.y );
 			p_system->CreateParticle(*p_def);
 		}		
