@@ -11,6 +11,10 @@ using namespace std;
 const float PIXELS_TO_METERS = 0.03333; //number of meters in one pixel
 const float METERS_TO_PIXELS = 30.0; //number of pixels in one meter
 
+//maybe each instance of this is a new category.
+//so there would be an instance for the player hair, and
+//another for blood spatter.
+
 class Particle
 {
 private:
