@@ -185,7 +185,7 @@ int main()
 	//sf::Vector2f level_size(editor.getBackgroundTextures()[editor.getBackgroundIndex()].getSize().x, editor.getBackgroundTextures()[editor.getBackgroundIndex()].getSize().y);
 	Camera main_view(center_pos, view_size, level_size);
 
-	string file = "default.txt";
+	string file = "test_level.txt";
 	editor.loadFile(window, world, main_view, player, file);
 
 	cout << "static bodies: " << editor.getStaticObjects().size() << endl;
