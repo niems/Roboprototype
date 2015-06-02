@@ -53,7 +53,7 @@ Editor::Editor()
 	sf::Texture bounce_platform_texture;
 	sf::Sprite bounce_platform_sprite;
 
-	if(!small_platform_texture.loadFromFile("images//plat13.png") )
+	if(!small_platform_texture.loadFromFile("images//orb.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -347,6 +347,11 @@ void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2Wo
 			cin >> file;
 			this->saveFile(view, player, file);
 			cout << "map saved :D" << endl;
+
+			cout << "static body: " << this->getStaticObjects().size() << endl;
+			cout << "dynamic body: " << this->getDynamicObjects().size() << endl;
+			cout << "kinematic body: " << this->getKinematicObjects().size() << endl << endl;
+
 			mouse_clock.restart();
 		}
 
@@ -465,7 +470,7 @@ void Editor::deleteObject(b2World *world, sf::Vector2f &mouse_pos)
 	sf::FloatRect bounds;
 
 	//deletes any static objects intersecting the cursor
-	for(int i = 0; i < this->static_object.size(); i++)
+	for(int i = 0; i < this->static_object.size(); i)
 	{
 		bounds = this->static_object[i]->getSprite()->getGlobalBounds();
 		
@@ -474,10 +479,15 @@ void Editor::deleteObject(b2World *world, sf::Vector2f &mouse_pos)
 			world->DestroyBody( this->static_object[i]->getBody() ); //deletes box2d body
 			this->static_object.erase( this->static_object.begin() + i ); //deletes entire object in vector
 		}
+
+		else
+		{
+			i++;
+		}
 	}
 
 	//deletes any dynamic objects intersecting the cursor
-	for(int i = 0; i < this->dynamic_object.size(); i++)
+	for(int i = 0; i < this->dynamic_object.size(); i)
 	{
 		bounds = this->dynamic_object[i]->getSprite()->getGlobalBounds();
 
@@ -486,10 +496,15 @@ void Editor::deleteObject(b2World *world, sf::Vector2f &mouse_pos)
 			world->DestroyBody( this->dynamic_object[i]->getBody() ); //deletes box2d body
 			this->dynamic_object.erase( this->dynamic_object.begin() + i ); //deletes entire object in vector
 		}
+
+		else
+		{
+			i++;
+		}
 	}
 
 	//deletes any kinematic objects intersecting the cursor
-	for(int i = 0; i < this->kinematic_object.size(); i++)
+	for(int i = 0; i < this->kinematic_object.size(); i)
 	{
 		bounds = this->kinematic_object[i]->getSprite()->getGlobalBounds();
 
@@ -497,6 +512,11 @@ void Editor::deleteObject(b2World *world, sf::Vector2f &mouse_pos)
 		{
 			world->DestroyBody( this->kinematic_object[i]->getBody() ); //deletes box2d body
 			this->kinematic_object.erase( this->kinematic_object.begin() + i ); //deletes the entire object in vector
+		}
+
+		else
+		{
+			i++;
 		}
 	}
 }
@@ -588,13 +608,13 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 	b2FixtureDef fixture;
 	
 	//creates the static object at the mouse cursor
-	if(this->current_index == STATIC::SMALL_PLATFORM) 
+	if(this->current_index == STATIC::ORB) 
 	{
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
 
-		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, CIRCLE_SHAPE);
 		//set angle here
 	}
 
@@ -778,8 +798,10 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 
 void Editor::saveFile(Camera &view, Object &player, string &file_name)
 {
-	fstream save_file(file_name, ios::out); //opens the save file for output
+	ofstream save_file(file_name, ios::trunc); //opens the save file for output
 	Object *o;
+
+	//the last loop that runs is the one that's added to.
 
 	//saves the current camera settings
 	save_file << view.getLevelSize().x << "," << view.getLevelSize().y << endl;
@@ -814,7 +836,9 @@ void Editor::saveFile(Camera &view, Object &player, string &file_name)
 
 void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Object &player, string &file_name)
 {
-	fstream load_file(file_name, ios::in);
+	//the last loop that runs is the one that's added to.
+
+	ifstream load_file(file_name);
 
 	string line;
 	sf::Vector2f pos; //position of object
@@ -873,7 +897,7 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 			}
 			
 
-			
+			/*
 			switch(body_type) //creates the body based on the type loaded in
 				{
 				case BODY_TYPE::STATIC:
@@ -886,6 +910,7 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 					this->createKinematicBody(window, world, pos);
 					break;
 				}
+			*/
 		
 			
 		}

@@ -188,6 +188,10 @@ int main()
 	string file = "default.txt";
 	editor.loadFile(window, world, main_view, player, file);
 
+	cout << "static bodies: " << editor.getStaticObjects().size() << endl;
+	cout << "dynamic bodies: " << editor.getDynamicObjects().size() << endl;
+	cout << "kinematic bodies: " << editor.getKinematicObjects().size() << endl;
+
 	//creates kinematic platform boundaries
 	mouse_pos_world.x = -50.0;
 	mouse_pos_world.y = window.getSize().y / 1.35;
@@ -204,7 +208,13 @@ int main()
                 window.close();
 
 			else if(e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape)
+			{
+				cout << "static body: " << editor.getStaticObjects().size() << endl;
+				cout << "dynamic body: " << editor.getDynamicObjects().size() << endl;
+				cout << "kinematic body: " << editor.getKinematicObjects().size() << endl << endl;
 				window.close();
+				return 0;
+			}
 
 			else if(e.type == sf::Event::LostFocus)
 				in_focus = false;
@@ -260,7 +270,7 @@ int main()
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 
-			window.clear(sf::Color(30, 30, 30) );//sf::Color(0, 255, 255) );
+			window.clear(sf::Color(20, 20, 20) );//sf::Color(0, 255, 255) );
 			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 
 			Draw::drawParticles(window, particle_shape, particle_system);			
