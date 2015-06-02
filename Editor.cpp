@@ -799,37 +799,91 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 void Editor::saveFile(Camera &view, Object &player, string &file_name)
 {
 	ofstream save_file(file_name, ios::trunc); //opens the save file for output
+	vector<string> output;
+	string temp_output = ""; //used to store the current string
+	bool modified = false; //determines if any of the objects have been outputted to the file
 	Object *o;
 
+	//SOLUTION
+	//SAVE EACH STRING TO A STRING VECTOR
+	//THEN ONLY OUTPUT BETWEEN 0 - (i-1)
+
 	//the last loop that runs is the one that's added to.
+	//REMOVE THE ADDITIONAL LINE IN THE DEFAULT.TXT FILE AND IT WORKS
+	//see if it's possible to delete the last line
 
 	//saves the current camera settings
 	save_file << view.getLevelSize().x << "," << view.getLevelSize().y << endl;
+	
 
 	//player current index is set to -1 to indicate it's the player
 	save_file << Editor::BODY_TYPE::DYNAMIC << "," << -1 << "," << player.getSprite()->getPosition().x << "," << player.getSprite()->getPosition().y << "," << player.getSprite()->getRotation() << endl;
 
 	for(int i = 0; i < this->getStaticObjects().size(); i++) //saves all static objects to file
 	{
-		o = this->getStaticObjects()[i];
-		//save_file << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << "," << Editor::BODY_TYPE::STATIC << "," << o->getCurrentIndex() << endl;
-		save_file << Editor::BODY_TYPE::STATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
+		o = this->static_object[i];
+
+		if(i < this->static_object.size() - 1)
+		{
+			save_file << Editor::BODY_TYPE::STATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
+		}
+
+		else
+		{
+			modified = true;
+			save_file << Editor::BODY_TYPE::STATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation();
+		}
+		//temp_output = Editor::BODY_TYPE::STATIC + "," + o->getCurrentIndex() + "," + o->getSprite()->getPosition().x + "," + o->getSprite()->getPosition().y + "," + o->getSprite()->getRotation() + '\n';
+		//save_file << Editor::BODY_TYPE::STATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
 	}
 
 	for(int i = 0; i < this->getDynamicObjects().size(); i++) //saves all static objects to file
 	{
-		o = this->getDynamicObjects()[i];
-		//save_file << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << "," <<  Editor::BODY_TYPE::DYNAMIC << "," << o->getCurrentIndex() << endl;
-		save_file << Editor::BODY_TYPE::DYNAMIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
+		o = this->dynamic_object[i];
+
+		if(i == 0 && modified == true)
+			save_file << endl;
+		
+		if(i < this->dynamic_object.size() - 1)
+		{
+			if(modified = true)
+				save_file << endl;
+
+			save_file << Editor::BODY_TYPE::DYNAMIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
+		}
+
+		else 
+		{
+			modified = true;
+			save_file << Editor::BODY_TYPE::DYNAMIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation();
+		}
+		//save_file << Editor::BODY_TYPE::DYNAMIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
 	}
 
 	for(int i = 0; i < this->getKinematicObjects().size(); i++) //saves all static objects to file
 	{
-		o = this->getKinematicObjects()[i];
-		//save_file << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << "," << Editor::BODY_TYPE::KINEMATIC << "," << o->getCurrentIndex() << endl;
-		save_file << Editor::BODY_TYPE::KINEMATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
+		o = this->kinematic_object[i];
+
+		if(i == 0 && modified == true)
+			save_file << endl;
+		
+		if(i < this->kinematic_object.size() - 1 )
+		{
+			save_file << Editor::BODY_TYPE::KINEMATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
+		}
+
+		else
+		{
+			modified = true;
+			save_file << Editor::BODY_TYPE::KINEMATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation();
+		}
+		//save_file << Editor::BODY_TYPE::KINEMATIC << "," << o->getCurrentIndex() << "," << o->getSprite()->getPosition().x << "," << o->getSprite()->getPosition().y << "," << o->getSprite()->getRotation() << endl;
 	}
 
+	//save here
+	
+
+	save_file.clear();
 	save_file.close();
 
 }
@@ -890,29 +944,13 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 
 			else if(body_type == BODY_TYPE::KINEMATIC)
 			{
+				//output all the data to find out if anything looks incorrect.
+				//cout << body_type << "," << index << "," << pos.x << "," << pos.y << "," << this->angle << endl;
 				//load_file >> pos.x >> end_line >> pos.y >> end_line >> this->angle;
 				this->current_index = index; //used to determine which object to create
 
 				this->createKinematicBody(window, world, pos);
-			}
-			
-
-			/*
-			switch(body_type) //creates the body based on the type loaded in
-				{
-				case BODY_TYPE::STATIC:
-					this->createStaticBody(window, world, pos);
-					break;
-				case BODY_TYPE::DYNAMIC:
-					this->createDynamicBody(window, world, pos);
-					break;
-				case BODY_TYPE::KINEMATIC:
-					this->createKinematicBody(window, world, pos);
-					break;
-				}
-			*/
-		
-			
+			}	
 		}
 
 		else //the player
@@ -924,5 +962,6 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 		
 	}
 
+	load_file.clear();
 	load_file.close();
 }

@@ -146,7 +146,7 @@ int main()
 	sf::Texture background_tile_texture4;
 	sf::Sprite background_tile_sprite4;
 
-	if(!background_tile_texture1.loadFromFile("images//barrier.png") )
+	if(!background_tile_texture1.loadFromFile("images//cube_grid.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
