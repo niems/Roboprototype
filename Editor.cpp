@@ -950,7 +950,7 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 				this->current_index = index; //used to determine which object to create
 
 				this->createKinematicBody(window, world, pos);
-			}	
+			} 
 		}
 
 		else //the player
