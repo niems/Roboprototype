@@ -266,7 +266,7 @@ int main()
 			{
 				main_view.cursorBoundaryControl(mouse_pos); //camera follows mouse in edit mode
 				//determines how to place objects to the screen in editor mode
-				editor.keyboardActionCommands(window, main_view, world, player, mouse_clock, editor_object_type, mouse_pos_world, editor_type); 
+				editor.keyboardActionCommands(window, main_view, world, player, mouse_clock, editor_object_type, mouse_pos_world, editor_type, game_state); 
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 

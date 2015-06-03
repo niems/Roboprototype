@@ -67,7 +67,7 @@ public:
 	void setCurrentIndex(int c_index); //sets the current index
 
 	//determines how to place objects to the screen in editor mode
-	void keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type);
+	void keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state);
 	void keyboardCycleCommands(Timer &editor_clock); //used to cycle through objects in editor mode
 
 	//allows you toggle between live and editor mode
@@ -76,6 +76,8 @@ public:
 	//cycles through all objects to see if the cursor is intersecting any.
 	//objects that are being intersected are deleted.
 	void deleteObject(b2World *world, sf::Vector2f &mouse_pos);
+
+	void deleteAllObjects(b2World *world); //deletes all objects in the world.
 
 	//creates the static body at the mouse cursor
 	void createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vector2f &mouse_pos);
@@ -86,11 +88,14 @@ public:
 	//creates the kinematic body at the mouse cursor
 	void createKinematicBody(sf::RenderWindow &window, b2World *world, sf::Vector2f &mouse_pos);
 
+	//checks if the file exists(open for input so file isn't created)
+	bool fileExists(string &filename);
+
 	//saves the current map to the file
 	void saveFile(Camera &view, Object &player, string &file_name);
 
-	//loads the current map from the file
-	void loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Object &player, string &file_name);
+	//loads the current map from the file. Returns false if the file can't be loaded
+	bool loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Object &player, string &file_name);
 
 	int getObjectType(); //returns the current object type
 	int getCurrentIndex(); //returns the index of the current object

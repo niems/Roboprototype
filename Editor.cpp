@@ -104,7 +104,7 @@ Editor::Editor()
 	med_platform_sprite4.setOrigin( med_platform_texture4.getSize().x / 2.0, med_platform_texture4.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite4 );
 
-	if(!med_platform_texture5.loadFromFile("images//plat15.png") )
+	if(!med_platform_texture5.loadFromFile("images//frame.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -226,7 +226,7 @@ Editor::Editor()
 	sf::Texture portal_texture;
 	sf::Sprite portal_sprite;
 
-	if(!moving_texture.loadFromFile("images//moving_platform_invert.png") )
+	if(!moving_texture.loadFromFile("images//moving_platform.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -298,7 +298,7 @@ void Editor::setCurrentIndex(int c_index) //sets the current index
 }
 
 //determines how to place objects to the screen in editor mode
-void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type)
+void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state)
 {
 	if(mouse_clock.getElapsedTime() >= 0.5)
 	{
@@ -365,6 +365,31 @@ void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2Wo
 			cout << "static body: " << this->getStaticObjects().size() << endl;
 			cout << "dynamic body: " << this->getDynamicObjects().size() << endl;
 			cout << "kinematic body: " << this->getKinematicObjects().size() << endl << endl;
+
+			mouse_clock.restart();
+		}
+
+		else if( sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) && sf::Keyboard::isKeyPressed( sf::Keyboard::L ) )
+		{
+			string filename; //"level3.txt";
+			
+			cout << "Load level as: ";
+			cin >> filename;
+			
+
+			if(this->fileExists(filename) == true) //if the file exists
+			{
+				this->deleteAllObjects(world); //erases the current map
+				this->loadFile(window, world, view, player, filename); //only changes the map if the file loads
+				game_state = GAME_STATE::LIVE; //starts the level
+				window.setActive();
+			}
+
+			else
+			{
+				cout << "Unable to load file." << endl;
+			}
+
 
 			mouse_clock.restart();
 		}
@@ -532,6 +557,27 @@ void Editor::deleteObject(b2World *world, sf::Vector2f &mouse_pos)
 		{
 			i++;
 		}
+	}
+}
+
+void Editor::deleteAllObjects(b2World *world)
+{
+	while(0 < this->static_object.size() ) //deletes all static objects
+	{
+		world->DestroyBody( this->static_object[0]->getBody() );
+		this->static_object.erase( this->static_object.begin() );
+	}
+
+	while(0 < this->dynamic_object.size() ) //deletes all dynamic objects
+	{
+		world->DestroyBody( this->dynamic_object[0]->getBody() );
+		this->dynamic_object.erase( this->dynamic_object.begin() );
+	}
+
+	while(0 < this->kinematic_object.size() ) //deletes all kinematic objects
+	{
+		world->DestroyBody( this->kinematic_object[0]->getBody() );
+		this->kinematic_object.erase( this->kinematic_object.begin() );
 	}
 }
 
@@ -801,7 +847,7 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.restitution = 0.05;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE);
-		temp_object->getBody()->SetAngularVelocity(-360.0 * DEGTORAD );
+		temp_object->getBody()->SetAngularVelocity(-250.0 * DEGTORAD );
 	}
 
 	else if(this->current_index == KINEMATIC::PORTAL)
@@ -811,14 +857,28 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.restitution = 0.5;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE );
-		temp_object->getBody()->SetAngularVelocity(-360.0 * DEGTORAD );
-		temp_object->getSprite()->setColor( sf::Color(255, 255, 255, 50) );
+		temp_object->getBody()->SetAngularVelocity(360.0 * DEGTORAD );
+		temp_object->getSprite()->setColor( sf::Color(0, 200, 200, 30) );
 	}
 
 	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
 	temp_object->getSprite()->setRotation(this->angle);
 	temp_object->updateSpritePos();
 	this->kinematic_object.push_back(temp_object);
+}
+
+bool Editor::fileExists(string &filename)
+{
+	ifstream file_check(filename, ios::in);
+	
+	if(file_check.good())
+	{
+		file_check.close();
+		return true;
+	}
+
+	file_check.close();
+	return false;
 }
 
 void Editor::saveFile(Camera &view, Object &player, string &file_name)
@@ -913,7 +973,7 @@ void Editor::saveFile(Camera &view, Object &player, string &file_name)
 
 }
 
-void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Object &player, string &file_name)
+bool Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Object &player, string &file_name)
 {
 	//the last loop that runs is the one that's added to.
 
@@ -927,6 +987,7 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 	int index; //index of object
 	char end_line;
 
+	
 	load_file >> level_size.x >> end_line >> level_size.y;
 	view.setLevelSize(level_size);
 
@@ -989,4 +1050,8 @@ void Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 
 	load_file.clear();
 	load_file.close();
+	return true; //the file opened correctly
+	
+	
+	return false; //the file didn't open	
 }
