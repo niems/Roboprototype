@@ -114,7 +114,7 @@ Editor::Editor()
 	med_platform_sprite5.setOrigin( med_platform_texture5.getSize().x / 2.0, med_platform_texture5.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite5 );
 
-	if(!med_platform_texture6.loadFromFile("images//plat20.png") )
+	if(!med_platform_texture6.loadFromFile("images//portal_door.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -165,7 +165,7 @@ Editor::Editor()
 	vertical_boundary_sprite.setOrigin( vertical_boundary_texture.getSize().x / 2.0, vertical_boundary_texture.getSize().y / 2.0 );
 	this->static_sprite.push_back( vertical_boundary_sprite );
 
-	if(!bounce_platform_texture.loadFromFile("images//bounce_platform.png") )
+	if(!bounce_platform_texture.loadFromFile("images//bounce_platform_invert.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -223,7 +223,10 @@ Editor::Editor()
 	sf::Texture sphere_texture;
 	sf::Sprite sphere_sprite;
 
-	if(!moving_texture.loadFromFile("images//moving_platform.png") )
+	sf::Texture portal_texture;
+	sf::Sprite portal_sprite;
+
+	if(!moving_texture.loadFromFile("images//moving_platform_invert.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -234,7 +237,7 @@ Editor::Editor()
 	moving_sprite.setOrigin( moving_texture.getSize().x / 2.0, moving_texture.getSize().y / 2.0 );
 	this->kinematic_sprite.push_back( moving_sprite );
 
-	if(!spike_texture.loadFromFile("images//spike3.png") )
+	if(!spike_texture.loadFromFile("images//obstacle1.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -245,7 +248,7 @@ Editor::Editor()
 	spike_sprite.setOrigin( spike_texture.getSize().x / 2.0, spike_texture.getSize().y / 2.0 );
 	this->kinematic_sprite.push_back( spike_sprite );
 
-	if(!sphere_texture.loadFromFile("images//tech_sphere.png") )
+	if(!sphere_texture.loadFromFile("images//cube.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -255,6 +258,17 @@ Editor::Editor()
 	sphere_sprite.setTexture( this->kinematic_texture.back() );
 	sphere_sprite.setOrigin( sphere_texture.getSize().x / 2.0, sphere_texture.getSize().y / 2.0 );
 	this->kinematic_sprite.push_back( sphere_sprite );
+
+	if(!portal_texture.loadFromFile("images//blackhole3.png") )
+	{
+		printf("Failed to load texture on line %d \n", __LINE__);
+	}
+
+	this->kinematic_texture.push_back( portal_texture );
+
+	portal_sprite.setTexture( this->kinematic_texture.back() );
+	portal_sprite.setOrigin( portal_texture.getSize().x / 2.0, portal_texture.getSize().y / 2.0 );
+	this->kinematic_sprite.push_back( portal_sprite );
 	
 }
 
@@ -712,7 +726,7 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 	{
 		fixture.density = 1;
 		fixture.restitution = 0.75;
-		fixture.friction = 0.1;
+		fixture.friction = 0.75;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -788,6 +802,17 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE);
 		temp_object->getBody()->SetAngularVelocity(-360.0 * DEGTORAD );
+	}
+
+	else if(this->current_index == KINEMATIC::PORTAL)
+	{
+		fixture.friction = 1.0;
+		fixture.density = 1.0;
+		fixture.restitution = 0.5;
+
+		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE );
+		temp_object->getBody()->SetAngularVelocity(-360.0 * DEGTORAD );
+		temp_object->getSprite()->setColor( sf::Color(255, 255, 255, 50) );
 	}
 
 	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );

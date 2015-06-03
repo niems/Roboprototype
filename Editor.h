@@ -58,7 +58,7 @@ public:
 	enum BODY_TYPE{STATIC, DYNAMIC, KINEMATIC}; //determines what type of box2d body to create	
 	enum STATIC{ORB, MED_PLATFORM1, MED_PLATFORM2, MED_PLATFORM3, MED_PLATFORM4, MED_PLATFORM5, MED_PLATFORM6, MED_PLATFORM7, LARGE_PLATFORM, H_BOUNDARY, V_BOUNDARY, BOUNCE_PLATFORM}; 
 	enum DYNAMIC{CRATE, CRATE2}; 
-	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE};
+	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL};
 
 	void addStaticObject(Object *object);      //adds a static object to the vector
 	void addDynamicObject(Object *object);    //adds a dynamic object to the vector
