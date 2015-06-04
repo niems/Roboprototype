@@ -95,6 +95,7 @@ void Draw::drawText(sf::RenderWindow &window, sf::Text &text, sf::Vector2i &text
 	window.draw(text);
 }
 
+/*
 void Draw::drawParticles(sf::RenderWindow &window, sf::CircleShape &particle_shape, b2ParticleSystem *particle_system)
 {
 	for(int i = 0; i < particle_system->GetParticleCount(); i++) //loops through all the particles
@@ -105,6 +106,23 @@ void Draw::drawParticles(sf::RenderWindow &window, sf::CircleShape &particle_sha
 		{
 			particle_shape.setPosition( pos.x, pos.y );
 			window.draw( particle_shape );
+		}
+	}
+}
+*/
+
+void Draw::drawParticles(sf::RenderWindow &window, b2World *world, Particle &particle, int type)
+{
+	b2ParticleSystem *particle_system = &world->GetParticleSystemList()[type]; 
+
+	for(int i = 0; i < particle_system->GetParticleCount(); i++) //loops through all the particles
+	{
+		b2Vec2 pos = particle_system->GetPositionBuffer()[i]; //gets the position of the current particle
+
+		if( &pos != NULL ) //if the particle exists
+		{			
+			particle.getShape(type).setPosition( pos.x, pos.y );
+			window.draw( particle.getShape(type) );
 		}
 	}
 }

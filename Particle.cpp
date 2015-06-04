@@ -35,7 +35,7 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	particle_system->SetDestructionByAge(true); //particles are automatically destroyed based on their age
 	particle_system->SetGravityScale(gravity_scale);
 
-	cout << "particle systems: " << world->GetParticleSystemList() << endl;
+	this->shapes.push_back( *shape ); //player hair shape
 
 }
 
@@ -61,4 +61,9 @@ void Particle::playerHair(b2World *world, Object &player)
 		//p_def->position.Set( pos.x, pos.y );
 		//p_system->CreateParticle(*p_def);
 	}			
+}
+
+sf::CircleShape& Particle::getShape(int type)
+{
+	return( this->shapes[type] );
 }

@@ -99,7 +99,7 @@ int main()
 	sf::Vector2f mouse_pos_world; //world coordinates for the current mouse position
 
 	//particles///////////
-	Particle p(world, window);
+	Particle particles(world, window);
 	//fill color *
 	//radius *
 	//outline thickness *
@@ -258,6 +258,7 @@ int main()
 				world->Step(time_step, velocity_iterations, position_iterations);
 			
 				//particleToggle(player, mouse_clock, particle_toggle, particle_def, particle_system);
+				particles.playerHair(world, player);
 				levelBoundaries(editor, main_view, player); //keeps the player in the level
 				Object::updatePosition(player); //updates the player sprite
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects
@@ -274,9 +275,9 @@ int main()
 			}			
 			 
 			window.clear(sf::Color(20, 20, 20) );//sf::Color(0, 255, 255) );
-			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
-
-			Draw::drawParticles(window, particle_shape, particle_system);			
+			Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
+			
+			Draw::drawParticles(window, world, particles, Particle::TYPE::HAIR); //draws the player hair to the screen
 			
 			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
