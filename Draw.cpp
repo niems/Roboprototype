@@ -97,7 +97,7 @@ void Draw::drawText(sf::RenderWindow &window, sf::Text &text, sf::Vector2i &text
 
 void Draw::drawParticles(sf::RenderWindow &window, b2World *world, Particle &particle, int type)
 {
-	b2ParticleSystem *particle_system = &world->GetParticleSystemList()[type]; 
+	b2ParticleSystem *particle_system = particle.getParticleSystems()[type]; //&world->GetParticleSystemList()[type]; 
 
 	for(int i = 0; i < particle_system->GetParticleCount(); i++) //loops through all the particles
 	{

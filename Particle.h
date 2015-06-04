@@ -24,7 +24,7 @@ private:
 	vector<int> types; //current particle type
 
 public: 
-	enum TYPE{BLOOD_SPLATTER};
+	enum TYPE{BLOOD_SPLATTER, HAIR};
 
 	Particle(b2World *world, sf::RenderWindow &window);
 

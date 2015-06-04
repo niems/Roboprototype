@@ -7,69 +7,70 @@ const float METERS_TO_PIXELS = 30.0; //number of pixels in one meter
 
 Particle::Particle(b2World *world, sf::RenderWindow &window)
 {
-	sf::Color fill_color = sf::Color(0, 255, 255, 180);
-	sf::Color outline_color = sf::Color(128, 255, 255, 150);
-	float gravity_scale = 50.0;
-	int radius = 3;
-	int outline_thickness = 3;
-	int max_particles = 500;
-	int lifetime = 0.25;
-
-	/*
-	//create player hair particle system
-	sf::CircleShape *shape = new sf::CircleShape();
-	shape->setFillColor( fill_color );
-	shape->setOutlineThickness( outline_thickness );
-	shape->setOutlineColor( outline_color );
-	shape->setRadius( radius );
-	shape->setOrigin( shape->getRadius(), shape->getRadius() );
-
-	b2ParticleSystem *particle_system;
-	b2ParticleSystemDef particle_system_def;
-	
-	particle_system_def.density = 1;
-	particle_system_def.radius = (shape->getRadius() + (shape->getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
-	particle_system_def.maxCount = max_particles; //maximum number of particles on the screen
-
-	particle_system = world->CreateParticleSystem(&particle_system_def); //creates the particle system to hold all the particles
-	particle_system->SetRadius( shape->getRadius() );
-	particle_system->SetDestructionByAge(true); //particles are automatically destroyed based on their age
-	particle_system->SetGravityScale(gravity_scale);
-
-	this->shapes.push_back( *shape ); //player hair shape
-	*/
-
-
 	//create blood splatter particle system
 	sf::CircleShape *blood_shape = new sf::CircleShape();
 	b2ParticleSystem *blood_splatter_system;
 	b2ParticleSystemDef blood_splatter_def;
 
-	fill_color = sf::Color(230, 0, 0, 150);
-	outline_color = sf::Color(255, 0, 0, 150);
-	gravity_scale = 50.0;
-	radius = 3;
-	outline_thickness = 3;
-	max_particles = 500;
-	lifetime = 1.5;
+	this->shapes.push_back( *blood_shape ); //blood spatter shape
+	this->particle_systems.push_back( blood_splatter_system );
 
-	blood_shape->setFillColor( fill_color );
-	blood_shape->setOutlineThickness( outline_thickness );
-	blood_shape->setOutlineColor( outline_color );
-	blood_shape->setRadius( radius );
-	blood_shape->setOrigin( blood_shape->getRadius(), blood_shape->getRadius() );
+	sf::Color fill_color = sf::Color(230, 0, 0, 150);
+	sf::Color outline_color = sf::Color(255, 0, 0, 150);
+	float gravity_scale = 50.0;
+	int radius = 3;
+	int outline_thickness = 3;
+	int max_particles = 500;
+	float lifetime = 1.5;
+
+	this->shapes.back().setFillColor( fill_color );
+	this->shapes.back().setOutlineThickness( outline_thickness );
+	this->shapes.back().setOutlineColor( outline_color );
+	this->shapes.back().setRadius( radius );
+	this->shapes.back().setOrigin( blood_shape->getRadius(), blood_shape->getRadius() );
 
 	blood_splatter_def.density = 1;
 	blood_splatter_def.radius = (blood_shape->getRadius() + (blood_shape->getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
 	blood_splatter_def.maxCount = max_particles; //maximum number of particles on the screen
 
-	blood_splatter_system = world->CreateParticleSystem(&blood_splatter_def); //creates the particle system to hold all the particles
-	blood_splatter_system->SetRadius( blood_shape->getRadius() );
-	blood_splatter_system->SetDestructionByAge(true); //particles are automatically destroyed based on their age
-	blood_splatter_system->SetGravityScale(gravity_scale);
+	this->particle_systems.back() = world->CreateParticleSystem(&blood_splatter_def); //creates the particle system to hold all the particles
+	this->particle_systems.back()->SetRadius( this->shapes.back().getRadius() );
+	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
+	this->particle_systems.back()->SetGravityScale(gravity_scale);
 
-	this->shapes.push_back( *blood_shape ); //blood spatter shape
-	this->particle_systems.push_back( blood_splatter_system );
+	
+	
+
+	//create player hair particle system
+
+	fill_color = sf::Color(0, 255, 255, 180);
+	outline_color = sf::Color(128, 255, 255, 150);
+	gravity_scale = 50.0;
+	radius = 3;
+	outline_thickness = 3;
+	max_particles = 500;
+	lifetime = 0.25;	
+	
+	sf::CircleShape *shape = new sf::CircleShape();
+	this->shapes.push_back( *shape ); //player hair shape
+	this->shapes.back().setFillColor( fill_color );
+	this->shapes.back().setOutlineThickness( outline_thickness );
+	this->shapes.back().setOutlineColor( outline_color );
+	this->shapes.back().setRadius( radius );
+	this->shapes.back().setOrigin( shape->getRadius(), shape->getRadius() );
+
+	b2ParticleSystem *particle_system;
+	b2ParticleSystemDef particle_system_def;
+	this->particle_systems.push_back( particle_system );
+	
+	particle_system_def.density = 1;
+	particle_system_def.radius = (shape->getRadius() + (shape->getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
+	particle_system_def.maxCount = max_particles; //maximum number of particles on the screen
+
+	this->particle_systems.back() = world->CreateParticleSystem(&particle_system_def); //creates the particle system to hold all the particles
+	this->particle_systems.back()->SetRadius( this->shapes.back().getRadius() );
+	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
+	this->particle_systems.back()->SetGravityScale(gravity_scale);
 
 
 }
@@ -78,6 +79,7 @@ void Particle::playerHair(b2World *world, Object &player)
 {
 	if(player.getBody()->GetLinearVelocity().x == 0 && player.getBody()->GetLinearVelocity().y == 0)
 	{
+		this->particle_systems[TYPE::HAIR]->SetGravityScale(50.0);
 		sf::Vector2f pos;
 		b2ParticleDef p_def;
 
@@ -93,6 +95,7 @@ void Particle::playerHair(b2World *world, Object &player)
 		p_def.flags = b2_elasticParticle;
 
 		//world->GetParticleSystemList()[TYPE::HAIR].CreateParticle(p_def);
+		this->particle_systems[TYPE::HAIR]->CreateParticle(p_def);
 	}			
 }
 
@@ -105,7 +108,8 @@ void Particle::bloodSplatter(b2World *world, const sf::Vector2f &pos) //creates 
 	p_def.lifetime = 1.5;
 	p_def.flags = b2_elasticParticle;
 
-	world->GetParticleSystemList()[TYPE::BLOOD_SPLATTER].SetGravityScale(-50.0);
+	//world->GetParticleSystemList()[TYPE::BLOOD_SPLATTER].SetGravityScale(-50.0);
+	this->particle_systems[TYPE::BLOOD_SPLATTER]->SetGravityScale(-50.0);
 
 	for(int i = 0; i < 50; i++)
 	{
@@ -118,8 +122,8 @@ void Particle::bloodSplatter(b2World *world, const sf::Vector2f &pos) //creates 
 		offset.y += pos.y;
 
 		p_def.position.Set( offset.x, offset.y );
-		world->GetParticleSystemList()[TYPE::BLOOD_SPLATTER].CreateParticle(p_def);
-		//this->particle_systems[TYPE::BLOOD_SPLATTER]->CreateParticle(p_def);
+		//world->GetParticleSystemList()[TYPE::BLOOD_SPLATTER].CreateParticle(p_def);
+		this->particle_systems[TYPE::BLOOD_SPLATTER]->CreateParticle(p_def);
 	}
 		
 }
