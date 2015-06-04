@@ -30,9 +30,6 @@ static void drawEditor(sf::RenderWindow &window, Editor &editor, sf::Vector2f &m
 //draws the game mode text to the screen
 static void drawText(sf::RenderWindow &window, sf::Text &text, sf::Vector2i &text_pos);
 
-//draws the particles to the screen
-//static void drawParticles(sf::RenderWindow &window, sf::CircleShape &particle_shape, b2ParticleSystem *particle_system);
-
 //draws the particles to the screen. The type determines which particle system is drawn to the screen
 static void drawParticles(sf::RenderWindow &window, b2World *world, Particle &particle, int type); 
 

@@ -257,8 +257,14 @@ int main()
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
 			
-				//particleToggle(player, mouse_clock, particle_toggle, particle_def, particle_system);
-				particles.playerHair(world, player);
+				particles.playerHair(world, player); 
+
+				if(sf::Keyboard::isKeyPressed( sf::Keyboard::B ) && mouse_clock.getElapsedTime() >= 0.2 )
+				{
+					particles.bloodSplatter(world, player.getSprite()->getPosition() );
+					mouse_clock.restart();
+				}
+
 				levelBoundaries(editor, main_view, player); //keeps the player in the level
 				Object::updatePosition(player); //updates the player sprite
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects
@@ -275,9 +281,10 @@ int main()
 			}			
 			 
 			window.clear(sf::Color(20, 20, 20) );//sf::Color(0, 255, 255) );
-			Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
+			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 			
-			Draw::drawParticles(window, world, particles, Particle::TYPE::HAIR); //draws the player hair to the screen
+			//Draw::drawParticles(window, world, particles, Particle::TYPE::HAIR); //draws the player hair to the screen
+			Draw::drawParticles(window, world, particles, Particle::TYPE::BLOOD_SPLATTER); //draws all blood splatters to the screen
 			
 			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
