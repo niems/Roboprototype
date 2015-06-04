@@ -9,6 +9,7 @@
 #include "Draw.h"
 #include "Camera.h"
 #include "Physics.h"
+#include "Particle.h"
 using namespace std;
 
 #define getMax(a, b) ((a) > (b) ? a : b); //returns the maximum
@@ -45,6 +46,7 @@ int main()
 	window.setFramerateLimit(60);
 	bool in_focus = true; //if false, the window won't update
 
+	
 	//world setup
 	Timer fps_clock; //used to determine the fps
 	b2Vec2 gravity(0.0, -20.0f); //current gravity for the world
@@ -97,6 +99,7 @@ int main()
 	sf::Vector2f mouse_pos_world; //world coordinates for the current mouse position
 
 	//particles///////////
+	Particle p(world, window);
 	//fill color *
 	//radius *
 	//outline thickness *
@@ -254,7 +257,7 @@ int main()
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
 			
-				particleToggle(player, mouse_clock, particle_toggle, particle_def, particle_system);
+				//particleToggle(player, mouse_clock, particle_toggle, particle_def, particle_system);
 				levelBoundaries(editor, main_view, player); //keeps the player in the level
 				Object::updatePosition(player); //updates the player sprite
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects
@@ -399,7 +402,7 @@ void particleToggle(Object &player, Timer &mouse_clock, bool &toggle, b2Particle
 			pos.y = player.getSprite()->getPosition().y;
 			pos.y -= 15.0;
 			
-
+			
 			//p_def->lifetime = 0.25;
 			p_def->position.Set( pos.x, pos.y );
 			p_system->CreateParticle(*p_def);

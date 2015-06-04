@@ -1,65 +1,64 @@
 #include "Particle.h"
 
-Particle::Particle(b2World *world, sf::RenderWindow &window, sf::Color &fill_color, sf::Color &outline_color, float &gravity_scale, int &radius, int &outline_thickness, int &max_particles, int &lifetime)
+const float PIXELS_TO_METERS = 0.03333; //number of meters in one pixel
+const float METERS_TO_PIXELS = 30.0; //number of pixels in one meter
+
+//create particle systems in constructor
+
+Particle::Particle(b2World *world, sf::RenderWindow &window)
 {
-	//bool particle_toggle = true; //if true, particles are constantly created
-	sf::CircleShape particle_shape;
-	particle_shape.setFillColor( fill_color );
-	particle_shape.setOutlineThickness(outline_thickness);
-	particle_shape.setOutlineColor( outline_color );
-	particle_shape.setRadius(radius);
-	particle_shape.setOrigin( particle_shape.getRadius(), particle_shape.getRadius() );
+	sf::Color fill_color = sf::Color(0, 255, 255, 180);
+	sf::Color outline_color = sf::Color(128, 255, 255, 150);
+	float gravity_scale = 50.0;
+	int radius = 3;
+	int outline_thickness = 3;
+	int max_particles = 500;
+	int lifetime = 0.25;
 
-	b2ParticleSystem *particle_system; //the world the particles inhabit
+	//create player hair particle system
+	sf::CircleShape *shape = new sf::CircleShape();
+	shape->setFillColor( fill_color );
+	shape->setOutlineThickness( outline_thickness );
+	shape->setOutlineColor( outline_color );
+	shape->setRadius( radius );
+	shape->setOrigin( shape->getRadius(), shape->getRadius() );
+
+	b2ParticleSystem *particle_system;
 	b2ParticleSystemDef particle_system_def;
-	b2ParticleDef *particle_def = new b2ParticleDef; //definition of an individual particle
-
+	
 	particle_system_def.density = 1;
-	particle_system_def.radius = (particle_shape.getRadius() + (particle_shape.getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
-	particle_system_def.maxCount = 500; //maximum number of particles on the screen
+	particle_system_def.radius = (shape->getRadius() + (shape->getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
+	particle_system_def.maxCount = max_particles; //maximum number of particles on the screen
 
 	particle_system = world->CreateParticleSystem(&particle_system_def); //creates the particle system to hold all the particles
-	particle_system->SetRadius( particle_shape.getRadius() );
+	particle_system->SetRadius( shape->getRadius() );
 	particle_system->SetDestructionByAge(true); //particles are automatically destroyed based on their age
-	particle_system->SetGravityScale(50.0);	
-	
-	particle_def->lifetime = 0.25; //number of seconds particle will stay alive
-	particle_def->color.Set(0, 255, 255, 255);
-	particle_def->flags = b2_elasticParticle;
-	particle_def->position.Set( window.getSize().x / 2.0, window.getSize().y / 2.0 );
+	particle_system->SetGravityScale(gravity_scale);
 
-	this->p_system = particle_system;
-	this->p_def = particle_def;
+	cout << "particle systems: " << world->GetParticleSystemList() << endl;
+
 }
 
-void Particle::playerHair(Object &player, Timer &clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system)
+void Particle::playerHair(b2World *world, Object &player)
 {
-	if(clock.getElapsedTime() >= 0.5)
-	{
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P ) )
-		{
-			toggle = (toggle == false) ? true : false;
-			clock.restart();
-		}
-	}
-
-	if(toggle == true) 
+	if(player.getBody()->GetLinearVelocity().x == 0 && player.getBody()->GetLinearVelocity().y == 0)
 	{
 		sf::Vector2f pos;
+		b2ParticleDef p_def;
 
-		if(player.getBody()->GetLinearVelocity().x == 0 && player.getBody()->GetLinearVelocity().y == 0)
-		{
-			pos.x = rand() % 5;
-			pos.x = (rand() % 2 == 0) ? (pos.x * -1) : pos.x; 
-			pos.x += player.getSprite()->getPosition().x;
+		pos.x = rand() % 5;
+		pos.x = (rand() % 2 == 0) ? (pos.x * -1) : pos.x; 
+		pos.x += player.getSprite()->getPosition().x;
 
-			pos.y = player.getSprite()->getPosition().y;
-			pos.y -= 15.0;
-			
+		pos.y = player.getSprite()->getPosition().y;
+		pos.y -= 15.0;
 
-			//p_def->lifetime = 0.25;
-			p_def->position.Set( pos.x, pos.y );
-			p_system->CreateParticle(*p_def);
-		}		
-	}
+		p_def.position.Set( pos.x, pos.y );
+		p_def.lifetime = 0.25;
+		p_def.flags = b2_elasticParticle;
+
+		world->GetParticleSystemList()[TYPE::HAIR].CreateParticle(p_def);
+		//p_def->position.Set( pos.x, pos.y );
+		//p_system->CreateParticle(*p_def);
+	}			
 }
