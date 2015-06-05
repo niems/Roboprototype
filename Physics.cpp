@@ -43,3 +43,18 @@ bool Physics::boundsIntersectsBounds(sf::FloatRect &bounds1, sf::FloatRect &boun
 
 	return false; //the bounds are not intersecting each other
 }
+
+/*
+void Physics::levelBoundaries(Editor &editor, Camera &view, Object &player)
+{
+	//if the player goes out of bounds, they return to the spawn point
+	if(player.getSprite()->getPosition().x < 0 || player.getSprite()->getPosition().x > view.getLevelSize().x)
+	{
+		player.getBody()->SetTransform( b2Vec2(editor.getSpawnPoint().x * PIXELS_TO_METERS, -editor.getSpawnPoint().y * PIXELS_TO_METERS), player.getBody()->GetAngle() );
+	}
+
+	else if(player.getSprite()->getPosition().y < 0 || player.getSprite()->getPosition().y > view.getLevelSize().y)
+	{
+		player.getBody()->SetTransform( b2Vec2(editor.getSpawnPoint().x * PIXELS_TO_METERS, -editor.getSpawnPoint().y * PIXELS_TO_METERS), player.getBody()->GetAngle() );
+	}
+} */

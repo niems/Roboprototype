@@ -3,6 +3,8 @@
 
 #include <SFML\Graphics.hpp>
 #include "Object.h"
+#include "Editor.h"
+#include "Camera.h"
 
 class Physics
 {
@@ -13,6 +15,8 @@ public:
 	static bool boundsContainsPoint(sf::FloatRect &bounds, sf::Vector2f &point); //if the bounds of the object contains the point, returns true
 	
 	static bool boundsIntersectsBounds(sf::FloatRect &bounds1, sf::FloatRect &bounds2); //if the bounds of the objects contains the other bounds, returns true
+
+	//static void levelBoundaries(Editor &editor, Camera &view, Object &player); //keeps the player within the level
 };
 
 #endif

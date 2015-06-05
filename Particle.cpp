@@ -15,13 +15,13 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	this->shapes.push_back( *blood_shape ); //blood spatter shape
 	this->particle_systems.push_back( blood_splatter_system );
 
-	sf::Color fill_color = sf::Color(230, 0, 0, 150);
-	sf::Color outline_color = sf::Color(255, 0, 0, 150);
-	float gravity_scale = 50.0;
-	int radius = 3;
-	int outline_thickness = 3;
+	sf::Color fill_color = sf::Color(0, 255, 255, 180);
+	sf::Color outline_color = sf::Color(128, 255, 255, 150);
+	float gravity_scale = -35.0;
+	int radius = 2;
+	int outline_thickness = 2;
 	int max_particles = 500;
-	float lifetime = 1.5;
+	float lifetime = 2.0;
 
 	this->shapes.back().setFillColor( fill_color );
 	this->shapes.back().setOutlineThickness( outline_thickness );
@@ -42,7 +42,6 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	
 
 	//create player hair particle system
-
 	fill_color = sf::Color(0, 255, 255, 180);
 	outline_color = sf::Color(128, 255, 255, 150);
 	gravity_scale = 50.0;
@@ -72,6 +71,35 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
 	this->particle_systems.back()->SetGravityScale(gravity_scale);
 
+	//create explosion particle system
+	b2ParticleSystem *explosion_system;
+	b2ParticleSystemDef explosion_system_def;
+	sf::CircleShape *explosion_shape = new sf::CircleShape();
+	fill_color = sf::Color(0, 255, 255, 180);
+	outline_color = sf::Color(128, 255, 255, 150);
+	gravity_scale = -40.0;
+	radius = 3;
+	outline_thickness = 3;
+	max_particles = 500;
+	lifetime = 2.0;	
+
+	this->particle_systems.push_back( explosion_system );
+	this->shapes.push_back( *explosion_shape ); //player hair shape
+
+	this->shapes.back().setFillColor( fill_color );
+	this->shapes.back().setOutlineThickness( outline_thickness );
+	this->shapes.back().setOutlineColor( outline_color );
+	this->shapes.back().setRadius( radius );
+	this->shapes.back().setOrigin( explosion_shape->getRadius(), explosion_shape->getRadius() );
+
+	explosion_system_def.density = 1;
+	explosion_system_def.radius = (shape->getRadius() + (shape->getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
+	explosion_system_def.maxCount = max_particles; //maximum number of particles on the screen
+
+	this->particle_systems.back() = world->CreateParticleSystem(&explosion_system_def); //creates the particle system to hold all the particles
+	this->particle_systems.back()->SetRadius( this->shapes.back().getRadius() );
+	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
+	this->particle_systems.back()->SetGravityScale(gravity_scale);
 
 }
 
@@ -94,7 +122,6 @@ void Particle::playerHair(b2World *world, Object &player)
 		p_def.lifetime = 0.25;
 		p_def.flags = b2_elasticParticle;
 
-		//world->GetParticleSystemList()[TYPE::HAIR].CreateParticle(p_def);
 		this->particle_systems[TYPE::HAIR]->CreateParticle(p_def);
 	}			
 }
@@ -108,9 +135,6 @@ void Particle::bloodSplatter(b2World *world, const sf::Vector2f &pos) //creates 
 	p_def.lifetime = 1.5;
 	p_def.flags = b2_elasticParticle;
 
-	//world->GetParticleSystemList()[TYPE::BLOOD_SPLATTER].SetGravityScale(-50.0);
-	this->particle_systems[TYPE::BLOOD_SPLATTER]->SetGravityScale(-50.0);
-
 	for(int i = 0; i < 50; i++)
 	{
 		offset.x = rand() % 30;
@@ -122,10 +146,44 @@ void Particle::bloodSplatter(b2World *world, const sf::Vector2f &pos) //creates 
 		offset.y += pos.y;
 
 		p_def.position.Set( offset.x, offset.y );
-		//world->GetParticleSystemList()[TYPE::BLOOD_SPLATTER].CreateParticle(p_def);
+		p_def.velocity.x = rand() % 450;
+		p_def.velocity.x = (rand() % 2 == 0) ? p_def.velocity.x : -p_def.velocity.x;
+		p_def.velocity.y = -150.0;
+		
+
 		this->particle_systems[TYPE::BLOOD_SPLATTER]->CreateParticle(p_def);
 	}
 		
+}
+
+void Particle::explosion(b2World *world, const sf::Vector2f &pos)
+{
+	sf::Vector2f offset;
+	b2ParticleDef p_def;
+
+	p_def.lifetime = 2.0;
+	p_def.flags = b2_elasticParticle;
+
+	for(int i = 0; i < 100; i++)
+	{
+		offset.x = rand() % 30;
+		offset.x = (rand() % 2 == 0) ? (offset.x * -1) : offset.x;
+		offset.x += pos.x;
+
+		offset.y = rand() % 10;
+		offset.y = (rand() % 2 == 0) ? (offset.y * -1) : offset.y;
+		offset.y += pos.y;
+
+		p_def.position.Set( offset.x, offset.y );
+		p_def.velocity.x = (rand() % 450) + 100;
+		p_def.velocity.x = (rand() % 2 == 0) ? p_def.velocity.x : -p_def.velocity.x;
+
+		p_def.velocity.y = (rand() % 500) + 100;
+		p_def.velocity.y = (rand() % 2 == 0) ? p_def.velocity.y : -p_def.velocity.y;
+		
+
+		this->particle_systems[TYPE::EXPLOSION]->CreateParticle(p_def);
+	}
 }
 
 sf::CircleShape& Particle::getShape(int type)

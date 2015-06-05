@@ -30,15 +30,6 @@ void updateMousePos(sf::Vector2i &pos, sf::Vector2f &world_pos, sf::RenderWindow
 //put in physics class or player class
 void playerCommandUpdate(Timer &movement_clock, Timer &jump_clock, sf::Vector2f &speed, Object &player, sf::Vector2f &mouse_pos);
 
-//moves the character back to the spawn point if they go out of bounds
-//put this in the physics class
-void levelBoundaries(Editor &editor, Camera &view, Object &player);
-
-//updates the particle toggle
-//put in particle class
-void particleToggle(Object &player, Timer &mouse_clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system);
-
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Roboprototype");
@@ -100,41 +91,6 @@ int main()
 
 	//particles///////////
 	Particle particles(world, window);
-	//fill color *
-	//radius *
-	//outline thickness *
-	//outline color *
-	//max number of particles
-	//lifetime
-	//gravity scale *
-	//window *
-	//void Particle(sf::RenderWindow &window, sf::Color &fill_color, sf::Color &outline_color, float &gravity_scale, int &radius, int &outline_thickness, int &max_particles, int &lifetime);
-	bool particle_toggle = true; //if true, particles are constantly created
-	sf::CircleShape particle_shape;
-	particle_shape.setFillColor( sf::Color(0, 255, 255, 180) );
-	particle_shape.setOutlineThickness(3);
-	particle_shape.setOutlineColor( sf::Color(128, 255, 255, 150) );
-	particle_shape.setRadius(3);
-	particle_shape.setOrigin( particle_shape.getRadius(), particle_shape.getRadius() );
-
-	b2ParticleSystem *particle_system; //the world the particles inhabit
-	b2ParticleSystemDef particle_system_def;
-	b2ParticleDef *particle_def = new b2ParticleDef; //definition of an individual particle
-
-	particle_system_def.density = 1;
-	particle_system_def.radius = (particle_shape.getRadius() + (particle_shape.getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
-	particle_system_def.maxCount = 500; //maximum number of particles on the screen
-
-	particle_system = world->CreateParticleSystem(&particle_system_def); //creates the particle system to hold all the particles
-	particle_system->SetRadius( particle_shape.getRadius() );
-	particle_system->SetDestructionByAge(true); //particles are automatically destroyed based on their age
-	particle_system->SetGravityScale(50.0);	
-	
-	particle_def->lifetime = 0.25; //number of seconds particle will stay alive
-	//particle_def->color.Set(0, 255, 255, 255);
-	particle_def->flags = b2_elasticParticle;
-	//particle_def->position.Set( window.getSize().x / 2.0, window.getSize().y / 2.0 );
-	//end particles////////////////////////////////////	
 
 	//background
 	sf::Texture background_tile_texture1;
@@ -183,9 +139,6 @@ int main()
 	sf::Vector2f view_size(window.getSize().x, window.getSize().y);
 	sf::Vector2f level_size;
 
-	//player.getBody()->SetTransform( b2Vec2(10.0 * PIXELS_TO_METERS, -level_size.y * PIXELS_TO_METERS), 0.0 );
-	//sf::Vector2f view_size(level_size.x, level_size.y);
-	//sf::Vector2f level_size(editor.getBackgroundTextures()[editor.getBackgroundIndex()].getSize().x, editor.getBackgroundTextures()[editor.getBackgroundIndex()].getSize().y);
 	Camera main_view(center_pos, view_size, level_size);
 
 	string file = "default.txt";
@@ -200,6 +153,7 @@ int main()
 	mouse_pos_world.y = window.getSize().y / 1.35;
 	sf::Vector2f left_boundary(0.0, mouse_pos_world.y);
 	sf::Vector2f right_boundary(main_view.getLevelSize().x, mouse_pos_world.y);
+	
 
     while (window.isOpen())
     {
@@ -212,9 +166,6 @@ int main()
 
 			else if(e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape)
 			{
-				cout << "static body: " << editor.getStaticObjects().size() << endl;
-				cout << "dynamic body: " << editor.getDynamicObjects().size() << endl;
-				cout << "kinematic body: " << editor.getKinematicObjects().size() << endl << endl;
 				window.close();
 				return 0;
 			}
@@ -262,10 +213,11 @@ int main()
 				if(sf::Keyboard::isKeyPressed( sf::Keyboard::B ) && mouse_clock.getElapsedTime() >= 0.2 )
 				{
 					particles.bloodSplatter(world, player.getSprite()->getPosition() );
+					//particles.explosion(world, player.getSprite()->getPosition() );
 					mouse_clock.restart();
 				}
 
-				levelBoundaries(editor, main_view, player); //keeps the player in the level
+				//Physics::levelBoundaries(editor, main_view, player); //keeps the player in the level
 				Object::updatePosition(player); //updates the player sprite
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects
 				Object::updatePosition(editor.getKinematicObjects()); //updates the sprite position of the kinematic objects
@@ -285,6 +237,7 @@ int main()
 			
 			Draw::drawParticles(window, world, particles, Particle::TYPE::HAIR); //draws the player hair to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::BLOOD_SPLATTER); //draws all blood splatters to the screen
+			Draw::drawParticles(window, world, particles, Particle::TYPE::EXPLOSION); //draws all explosions to the screen
 			
 			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
@@ -369,51 +322,4 @@ void playerCommandUpdate(Timer &movement_clock, Timer &jump_clock, sf::Vector2f 
 				jump_clock.restart();
 			}
 		}
-}
-
-void levelBoundaries(Editor &editor, Camera &view, Object &player)
-{
-	//if the player goes out of bounds, they return to the spawn point
-	if(player.getSprite()->getPosition().x < 0 || player.getSprite()->getPosition().x > view.getLevelSize().x)
-	{
-		player.getBody()->SetTransform( b2Vec2(editor.getSpawnPoint().x * PIXELS_TO_METERS, -editor.getSpawnPoint().y * PIXELS_TO_METERS), player.getBody()->GetAngle() );
-	}
-
-	else if(player.getSprite()->getPosition().y < 0 || player.getSprite()->getPosition().y > view.getLevelSize().y)
-	{
-		player.getBody()->SetTransform( b2Vec2(editor.getSpawnPoint().x * PIXELS_TO_METERS, -editor.getSpawnPoint().y * PIXELS_TO_METERS), player.getBody()->GetAngle() );
-	}
-}
-
-//updates the particle toggle
-void particleToggle(Object &player, Timer &mouse_clock, bool &toggle, b2ParticleDef *p_def, b2ParticleSystem *p_system)
-{
-	if(mouse_clock.getElapsedTime() >= 0.5)
-	{
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P ) )
-		{
-			toggle = (toggle == false) ? true : false;
-			mouse_clock.restart();
-		}
-	}
-
-	if(toggle == true) 
-	{
-		sf::Vector2f pos;
-
-		if(player.getBody()->GetLinearVelocity().x == 0 && player.getBody()->GetLinearVelocity().y == 0)
-		{
-			pos.x = rand() % 5;
-			pos.x = (rand() % 2 == 0) ? (pos.x * -1) : pos.x; 
-			pos.x += player.getSprite()->getPosition().x;
-
-			pos.y = player.getSprite()->getPosition().y;
-			pos.y -= 15.0;
-			
-			
-			//p_def->lifetime = 0.25;
-			p_def->position.Set( pos.x, pos.y );
-			p_system->CreateParticle(*p_def);
-		}		
-	}
 }

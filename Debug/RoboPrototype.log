@@ -1,4 +1,4 @@
-﻿Build started 6/4/2015 5:16:52 PM.
+﻿Build started 6/4/2015 7:26:07 PM.
      1>Project "C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\RoboPrototype\RoboPrototype.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Particle.cpp
@@ -7,12 +7,20 @@
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(27): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(29): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(33): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(57): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(59): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(67): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(86): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(116): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(120): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(56): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(58): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(66): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(90): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(92): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(96): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(114): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(140): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(144): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(149): warning C4244: '=' : conversion from 'int' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(169): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(173): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(178): warning C4244: '=' : conversion from 'int' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(181): warning C4244: '=' : conversion from 'int' to 'float32', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.exe" /INCREMENTAL /NOLOGO /LIBPATH:./lib /LIBPATH:"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\lib" .\Debug\liquidfun.lib "sfml-audio-s-d.lib" "sfml-graphics-s-d.lib" "sfml-main-d.lib" "sfml-network-s-d.lib" "sfml-system-s-d.lib" "sfml-window-s-d.lib" winmm.lib ws2_32.lib flac.lib ogg.lib vorbis.lib openal32.lib vorbisenc.lib vorbisfile.lib opengl32.lib gdi32.lib freetype.lib jpeg.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.lib" /MACHINE:X86 Debug\Camera.obj
          Debug\Draw.obj
@@ -27,4 +35,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.90
+Time Elapsed 00:00:01.89

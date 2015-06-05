@@ -673,6 +673,7 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, CIRCLE_SHAPE);
 		//set angle here
@@ -993,28 +994,18 @@ bool Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 
 	while( !load_file.eof() ) //while the eof isn't reached
 	{
-		//load_file >> pos.x >> end_line >> pos.y >> end_line >> this->angle >> end_line >> body_type >> end_line >> index;
 		load_file >> body_type >> end_line >> index >> end_line >> pos.x >> end_line >> pos.y >> end_line >> this->angle;
 
 		if(index != -1)
-		{
-			//this->current_index = index; //used to determine which object to create
-			//load_file >> pos.x >> end_line >> pos.y >> end_line >> this->angle;
-
-			//load_file >> body_type >> end_line >> index >> end_line;
-			
+		{			
 			if(body_type == BODY_TYPE::STATIC)
 			{
-				//read in new information here
-				//load_file >> pos.x >> end_line >> pos.y >> end_line >> this->angle;
 				this->current_index = index; //used to determine which object to create
-
 				this->createStaticBody(window, world, pos);
 			}
 
 			else if(body_type == BODY_TYPE::DYNAMIC)
 			{
-				//load_file >> pos.x >> end_line >> pos.y >> end_line >> this->angle;
 				this->current_index = index; //used to determine which object to create
 
 				if(index != -1)
@@ -1030,11 +1021,7 @@ bool Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 
 			else if(body_type == BODY_TYPE::KINEMATIC)
 			{
-				//output all the data to find out if anything looks incorrect.
-				//cout << body_type << "," << index << "," << pos.x << "," << pos.y << "," << this->angle << endl;
-				//load_file >> pos.x >> end_line >> pos.y >> end_line >> this->angle;
 				this->current_index = index; //used to determine which object to create
-
 				this->createKinematicBody(window, world, pos);
 			} 
 		}

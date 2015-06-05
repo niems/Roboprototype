@@ -24,14 +24,14 @@ private:
 	vector<int> types; //current particle type
 
 public: 
-	enum TYPE{BLOOD_SPLATTER, HAIR};
+	enum TYPE{BLOOD_SPLATTER, HAIR, EXPLOSION};
 
 	Particle(b2World *world, sf::RenderWindow &window);
 
 	void playerHair(b2World *world, Object &player);
 	void bloodSplatter(b2World *world, const sf::Vector2f &pos); //used for the blood splatter instance
 
-	void updateParticles(); //updates all particles based on their type
+	void explosion(b2World *world, const sf::Vector2f &pos); //creates an explosion at the position
 
 	sf::CircleShape& getShape(int type); //returns the shape for the corresponding particle type.
 	vector<b2ParticleSystem *>& getParticleSystems();
