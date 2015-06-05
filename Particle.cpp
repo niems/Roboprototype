@@ -8,15 +8,17 @@ const float METERS_TO_PIXELS = 30.0; //number of pixels in one meter
 Particle::Particle(b2World *world, sf::RenderWindow &window)
 {
 	//create blood splatter particle system
+	Timer blood_splatter_clock;
 	sf::CircleShape *blood_shape = new sf::CircleShape();
 	b2ParticleSystem *blood_splatter_system;
 	b2ParticleSystemDef blood_splatter_def;
 
 	this->shapes.push_back( *blood_shape ); //blood spatter shape
 	this->particle_systems.push_back( blood_splatter_system );
+	this->system_clocks.push_back(blood_splatter_clock);
 
-	sf::Color fill_color = sf::Color(0, 255, 255, 180);
-	sf::Color outline_color = sf::Color(128, 255, 255, 150);
+	sf::Color fill_color = sf::Color(255, 0, 0, 255);
+	sf::Color outline_color = sf::Color(255, 32, 32, 255);
 	float gravity_scale = -35.0;
 	int radius = 2;
 	int outline_thickness = 2;
@@ -42,6 +44,7 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	
 
 	//create player hair particle system
+	Timer player_hair_clock;
 	fill_color = sf::Color(0, 255, 255, 180);
 	outline_color = sf::Color(128, 255, 255, 150);
 	gravity_scale = 50.0;
@@ -50,6 +53,8 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	max_particles = 500;
 	lifetime = 0.25;	
 	
+	this->system_clocks.push_back( player_hair_clock );
+
 	sf::CircleShape *shape = new sf::CircleShape();
 	this->shapes.push_back( *shape ); //player hair shape
 	this->shapes.back().setFillColor( fill_color );
@@ -72,11 +77,12 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	this->particle_systems.back()->SetGravityScale(gravity_scale);
 
 	//create explosion particle system
+	Timer explosion_clock;
 	b2ParticleSystem *explosion_system;
 	b2ParticleSystemDef explosion_system_def;
 	sf::CircleShape *explosion_shape = new sf::CircleShape();
 	fill_color = sf::Color(0, 255, 255, 180);
-	outline_color = sf::Color(128, 255, 255, 150);
+	outline_color = sf::Color(100, 255, 255, 180);
 	gravity_scale = -40.0;
 	radius = 3;
 	outline_thickness = 3;
@@ -85,6 +91,7 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 
 	this->particle_systems.push_back( explosion_system );
 	this->shapes.push_back( *explosion_shape ); //player hair shape
+	this->system_clocks.push_back( explosion_clock );
 
 	this->shapes.back().setFillColor( fill_color );
 	this->shapes.back().setOutlineThickness( outline_thickness );
@@ -135,7 +142,7 @@ void Particle::bloodSplatter(b2World *world, const sf::Vector2f &pos) //creates 
 	p_def.lifetime = 1.5;
 	p_def.flags = b2_elasticParticle;
 
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < 40; i++)
 	{
 		offset.x = rand() % 30;
 		offset.x = (rand() % 2 == 0) ? (offset.x * -1) : offset.x;

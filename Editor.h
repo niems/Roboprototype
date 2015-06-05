@@ -54,6 +54,17 @@ private:
 
 public:
 	Editor();
+	enum ENTITY_CATEGORY {
+		BOUNDARY = 0x0001, //collision with a boundary(walls around the level) kills the player
+		PLATFORM = 0X0002, //this is what the player generally stands on
+		BOUNCE = 0x0004, //this launches the player into the air
+		DYNAMIC_OBJECT = 0x0008, //this is just a generic dynamic object, like a box
+		WEAPON = 0x0010, //this damages the player
+		FRIENDLY = 0x0012, //this is the player or a friendly
+		ITEM = 0x0014, //items in the game
+		TELEPORT = 0x0016, //used to transport the player and objects to another place in the world
+	};
+
 	enum GAME_STATE {LIVE, EDITOR}; //two game states
 	enum BODY_TYPE{STATIC, DYNAMIC, KINEMATIC}; //determines what type of box2d body to create	
 	enum STATIC{ORB, MED_PLATFORM1, MED_PLATFORM2, MED_PLATFORM3, MED_PLATFORM4, MED_PLATFORM5, MED_PLATFORM6, MED_PLATFORM7, LARGE_PLATFORM, H_BOUNDARY, V_BOUNDARY, BOUNCE_PLATFORM}; 

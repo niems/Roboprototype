@@ -666,6 +666,9 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 {
 	Object *temp_object = NULL;
 	b2FixtureDef fixture;
+
+	fixture.filter.categoryBits = PLATFORM; //default
+	fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 	
 	//creates the static object at the mouse cursor
 	if(this->current_index == STATIC::ORB) 
@@ -673,7 +676,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
-		
+		fixture.filter.categoryBits = WEAPON;
+		fixture.filter.maskBits = FRIENDLY;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, CIRCLE_SHAPE);
 		//set angle here
@@ -684,6 +688,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -693,6 +699,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -702,6 +710,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -711,6 +721,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -720,6 +732,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -729,6 +743,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -738,6 +754,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -747,6 +765,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -756,6 +776,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.0;
+		fixture.filter.categoryBits = BOUNDARY;
+		fixture.filter.maskBits = DYNAMIC_OBJECT | WEAPON | FRIENDLY;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -765,6 +787,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.05;
 		fixture.friction = 0.0;
+		fixture.filter.categoryBits = BOUNDARY;
+		fixture.filter.maskBits = DYNAMIC_OBJECT | WEAPON | FRIENDLY;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -774,6 +798,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.density = 1;
 		fixture.restitution = 0.75;
 		fixture.friction = 0.75;
+		fixture.filter.categoryBits = BOUNCE; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -795,6 +821,8 @@ void Editor::createDynamicBody(sf::RenderWindow &window, b2World *world, sf::Vec
 		fixture.density = 1;
 		fixture.friction = 0.5;
 		fixture.restitution = 0.25;
+		fixture.filter.categoryBits = DYNAMIC_OBJECT; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT | BOUNDARY | BOUNCE | PLATFORM;
 
 		temp_object = new Object(window, world, fixture, this->dynamic_texture[this->current_index], this->current_index, BODY_TYPE::DYNAMIC, POLY_SHAPE);
 	}
@@ -804,6 +832,8 @@ void Editor::createDynamicBody(sf::RenderWindow &window, b2World *world, sf::Vec
 		fixture.density = 1;
 		fixture.friction = 0.5;
 		fixture.restitution = 0.25;
+		fixture.filter.categoryBits = DYNAMIC_OBJECT; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT | BOUNDARY | BOUNCE | PLATFORM;
 		
 		temp_object = new Object(window, world, fixture, this->dynamic_texture[this->current_index], this->current_index, BODY_TYPE::DYNAMIC, POLY_SHAPE);
 	}
@@ -824,6 +854,7 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.friction = 1.0;
 		fixture.density = 1;
 		fixture.restitution = 0.05;
+		fixture.filter.categoryBits = PLATFORM; 
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, POLY_SHAPE);
 		temp_object->getBody()->SetLinearVelocity( b2Vec2(200.0 * PIXELS_TO_METERS, 0.0) );
@@ -834,6 +865,8 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.friction = 1.0;
 		fixture.density = 1;
 		fixture.restitution = 0.05;
+		fixture.filter.categoryBits = WEAPON; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT | BOUNDARY | BOUNCE | PLATFORM;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, POLY_SHAPE);
 		temp_object->getBody()->SetLinearVelocity( b2Vec2(500.0 * PIXELS_TO_METERS, 0.0) );
@@ -846,6 +879,8 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.friction = 1.0;
 		fixture.density = 1;
 		fixture.restitution = 0.05;
+		fixture.filter.categoryBits = ITEM; 
+		fixture.filter.maskBits = FRIENDLY;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE);
 		temp_object->getBody()->SetAngularVelocity(-250.0 * DEGTORAD );
@@ -856,6 +891,8 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.friction = 1.0;
 		fixture.density = 1.0;
 		fixture.restitution = 0.5;
+		fixture.filter.categoryBits = TELEPORT;
+		fixture.filter.maskBits = FRIENDLY | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE );
 		temp_object->getBody()->SetAngularVelocity(360.0 * DEGTORAD );

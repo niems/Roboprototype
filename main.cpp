@@ -30,6 +30,8 @@ void updateMousePos(sf::Vector2i &pos, sf::Vector2f &world_pos, sf::RenderWindow
 //put in physics class or player class
 void playerCommandUpdate(Timer &movement_clock, Timer &jump_clock, sf::Vector2f &speed, Object &player, sf::Vector2f &mouse_pos);
 
+void playerContactUpdate(b2World *world, Particle &particles, Timer &clock, sf::Vector2f &mouse_pos, Object &player);
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Roboprototype");
@@ -130,6 +132,8 @@ int main()
 	fixture.restitution = 0.1;
 	fixture.friction = 1.0;
 	fixture.density = 2.0;
+	fixture.filter.categoryBits = Editor::ENTITY_CATEGORY::FRIENDLY;
+	fixture.filter.maskBits = Editor::ENTITY_CATEGORY::BOUNCE | Editor::ENTITY_CATEGORY::BOUNDARY | Editor::ENTITY_CATEGORY::DYNAMIC_OBJECT | Editor::ENTITY_CATEGORY::PLATFORM | Editor::ENTITY_CATEGORY::WEAPON;
 	Object player(window, world, fixture, player_texture, -1, Editor::BODY_TYPE::DYNAMIC, POLY_SHAPE);
 	player.getBody()->SetFixedRotation(true);
 	
@@ -205,12 +209,14 @@ int main()
 				//checks for player commands
 				playerCommandUpdate(player_clock, player_jump_clock, player_speed, player, mouse_pos_world);
 
+				playerContactUpdate(world, particles, mouse_clock, mouse_pos_world, player);
+
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
 			
 				particles.playerHair(world, player); 
 
-				if(sf::Keyboard::isKeyPressed( sf::Keyboard::B ) && mouse_clock.getElapsedTime() >= 0.2 )
+				if(sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) && mouse_clock.getElapsedTime() >= 0.2 )
 				{
 					particles.bloodSplatter(world, player.getSprite()->getPosition() );
 					//particles.explosion(world, player.getSprite()->getPosition() );
@@ -328,4 +334,47 @@ void playerCommandUpdate(Timer &movement_clock, Timer &jump_clock, sf::Vector2f 
 				jump_clock.restart();
 			}
 		}
+}
+
+void playerContactUpdate(b2World *world, Particle &particles, Timer &clock, sf::Vector2f &mouse_pos, Object &player)
+{
+	for(b2ContactEdge *edge = player.getBody()->GetContactList(); edge; edge = edge->next)
+	{
+		if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY ||
+		   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY )
+		{
+			if(clock.getElapsedTime() >= 0.25)
+			{
+				particles.explosion(world, player.getSprite()->getPosition() );
+				clock.restart();
+			}
+		}
+
+		else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON ||
+			    edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON )
+			{
+				if(clock.getElapsedTime() >= 0.25)
+				{
+					particles.bloodSplatter(world, player.getSprite()->getPosition() ); 
+					clock.restart();
+				}
+			}
+
+		else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
+			    edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
+		{
+			/*
+			//edge->contact->GetFixtureA()->GetBody()->GetAngle(
+			float impulse = player.getBody()->GetMass() * 10;
+			b2Vec2 pos = b2Vec2(edge->contact->GetFixtureB()->GetBody()->GetPosition().x, edge->contact->GetFixtureB()->GetBody()->GetPosition().y + (50 * PIXELS_TO_METERS) );
+
+			player.getBody()->SetTransform( pos, 0.0);
+			player.getBody()->ApplyLinearImpulse( b2Vec2(0.0, impulse), player.getBody()->GetWorldCenter(), true); 
+			clock.restart();
+			*/
+			
+		}
+
+		
+	}
 }
