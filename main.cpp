@@ -217,6 +217,12 @@ int main()
 					mouse_clock.restart();
 				}
 
+				else if(sf::Keyboard::isKeyPressed( sf::Keyboard::E ) && mouse_clock.getElapsedTime() >= 0.2 )
+				{
+					particles.explosion(world, mouse_pos_world);
+					mouse_clock.restart();
+				}
+
 				//Physics::levelBoundaries(editor, main_view, player); //keeps the player in the level
 				Object::updatePosition(player); //updates the player sprite
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects

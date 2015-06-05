@@ -104,7 +104,7 @@ void Draw::drawParticles(sf::RenderWindow &window, b2World *world, Particle &par
 		b2Vec2 pos = particle_system->GetPositionBuffer()[i]; //gets the position of the current particle
 
 		if( &pos != NULL ) //if the particle exists
-		{			
+		{
 			particle.getShape(type).setPosition( pos.x, pos.y );
 			window.draw( particle.getShape(type) );
 		}
