@@ -190,6 +190,8 @@ int main()
 		{
 			editor_clock.update();
 
+			particles.updateClocks();
+
 			//checks for game mode change
 			game_mode_clock.update();
 			editor.gameModeToggle(game_mode_text, game_mode_clock, game_mode_live, game_mode_editor, game_state);
@@ -343,20 +345,20 @@ void playerContactUpdate(b2World *world, Particle &particles, Timer &clock, sf::
 		if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY ||
 		   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY )
 		{
-			if(clock.getElapsedTime() >= 0.25)
+			if(particles.getSystemClocks()[Particle::TYPE::EXPLOSION].getElapsedTime() >= 0.5)
 			{
 				particles.explosion(world, player.getSprite()->getPosition() );
-				clock.restart();
+				particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
 			}
 		}
 
 		else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON ||
 			    edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON )
 			{
-				if(clock.getElapsedTime() >= 0.25)
+				if(particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].getElapsedTime() >= 0.5)
 				{
 					particles.bloodSplatter(world, player.getSprite()->getPosition() ); 
-					clock.restart();
+					particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].restart();
 				}
 			}
 

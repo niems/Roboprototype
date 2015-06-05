@@ -110,6 +110,14 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 
 }
 
+void Particle::updateClocks()
+{
+	for(int i = 0; i < this->system_clocks.size(); i++)
+	{
+		this->system_clocks[i].update();
+	}
+}
+
 void Particle::playerHair(b2World *world, Object &player)
 {
 	if(player.getBody()->GetLinearVelocity().x == 0 && player.getBody()->GetLinearVelocity().y == 0)
@@ -201,4 +209,9 @@ sf::CircleShape& Particle::getShape(int type)
 vector<b2ParticleSystem *>& Particle::getParticleSystems()
 {
 	return( this->particle_systems );
+}
+
+vector<Timer>& Particle::getSystemClocks()
+{
+	return( this->system_clocks );
 }

@@ -28,13 +28,15 @@ public:
 
 	Particle(b2World *world, sf::RenderWindow &window);
 
+	void updateClocks(); //updates all clocks at once
+
 	void playerHair(b2World *world, Object &player);
 	void bloodSplatter(b2World *world, const sf::Vector2f &pos); //used for the blood splatter instance
-
 	void explosion(b2World *world, const sf::Vector2f &pos); //creates an explosion at the position
 
 	sf::CircleShape& getShape(int type); //returns the shape for the corresponding particle type.
 	vector<b2ParticleSystem *>& getParticleSystems();
+	vector<Timer>& getSystemClocks();
 };
 
 #endif
