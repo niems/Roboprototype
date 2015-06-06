@@ -2,8 +2,8 @@
 #define PHYSICS_H
 
 #include <SFML\Graphics.hpp>
-#include "Object.h"
 #include "Editor.h"
+#include "Object.h"
 #include "Camera.h"
 
 class Physics

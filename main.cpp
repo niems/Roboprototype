@@ -27,12 +27,6 @@ enum {POLY_SHAPE, CIRCLE_SHAPE}; //determines what type of box2d shape to create
 //updates the mouse position
 void updateMousePos(sf::Vector2i &pos, sf::Vector2f &world_pos, sf::RenderWindow &window);
 
-//checks for player commands
-//put in physics class or player class
-void playerCommandUpdate(Timer &movement_clock, Timer &jump_clock, sf::Vector2f &speed, Object &player, sf::Vector2f &mouse_pos);
-
-void playerContactUpdate(b2World *world, Particle &particles, Timer &clock, sf::Vector2f &mouse_pos, Object &player);
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Roboprototype");
@@ -99,15 +93,6 @@ int main()
 	sf::Texture background_tile_texture1;
 	sf::Sprite background_tile_sprite1;
 
-	sf::Texture background_tile_texture2;
-	sf::Sprite background_tile_sprite2;
-
-	sf::Texture background_tile_texture3;
-	sf::Sprite background_tile_sprite3;
-
-	sf::Texture background_tile_texture4;
-	sf::Sprite background_tile_sprite4;
-
 	if(!background_tile_texture1.loadFromFile("images//cube_grid.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
@@ -128,10 +113,6 @@ int main()
 
 	string file = "default.txt";
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), file);
-
-	cout << "static bodies: " << editor.getStaticObjects().size() << endl;
-	cout << "dynamic bodies: " << editor.getDynamicObjects().size() << endl;
-	cout << "kinematic bodies: " << editor.getKinematicObjects().size() << endl;
 
 	//creates kinematic platform boundaries
 	mouse_pos_world.x = -50.0;
@@ -170,7 +151,6 @@ int main()
 		if(in_focus == true)
 		{
 			editor_clock.update();
-
 			particles.updateClocks();
 
 			//checks for game mode change
@@ -247,102 +227,3 @@ void updateMousePos(sf::Vector2i &pos, sf::Vector2f &world_pos, sf::RenderWindow
 	world_pos = window.mapPixelToCoords(pos); //gets the world coordinates for the mouse position
 }
 
-void playerCommandUpdate(Timer &movement_clock, Timer &jump_clock, sf::Vector2f &speed, Object &player, sf::Vector2f &mouse_pos)
-{
-	if( movement_clock.getElapsedTime() >= 0.05 )
-		{
-			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) ) //moving right
-			{
-				b2Vec2 vel = player.getBody()->GetLinearVelocity();
-				float desired_vel = getMin( vel.x + (speed.x / 50.0), speed.x * PIXELS_TO_METERS ); 
-				float vel_change = desired_vel - vel.x; //max velocity - current velocity
-				float impulse = player.getBody()->GetMass() * vel_change;
-				player.getBody()->ApplyLinearImpulse( b2Vec2(impulse, 0), player.getBody()->GetWorldCenter(), true );
-				movement_clock.restart();
-			}
-
-			else if( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) ) //moving left
-			{
-				b2Vec2 vel = player.getBody()->GetLinearVelocity();
-				float desired_vel = getMax( vel.x - (speed.x / 50.0), -speed.x * PIXELS_TO_METERS );
-				float vel_change = desired_vel - vel.x; //max velocity - current velocity
-				float impulse = player.getBody()->GetMass() * vel_change;
-				player.getBody()->ApplyLinearImpulse( b2Vec2(impulse, 0), player.getBody()->GetWorldCenter(), true );
-				movement_clock.restart();
-			}
-
-			else if( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) ) //stop moving on the x axis
-			{
-				b2Vec2 vel;
-				vel.x = 0.0;
-				vel.y = player.getBody()->GetLinearVelocity().y * 2.0;
-				vel.y = (vel.y > 0) ? (vel.y * -1) : vel.y;
-
-				player.getBody()->SetLinearVelocity(vel);
-				movement_clock.restart();
-			}
-		}
-
-		if( jump_clock.getElapsedTime() >= 1.0 )
-		{
-			if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
-			{
-				player.getBody()->SetLinearVelocity(b2Vec2(player.getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
-				b2Vec2 impulse(0.0, player.getBody()->GetMass() * 13);
-				player.getBody()->ApplyLinearImpulse(impulse, player.getBody()->GetWorldCenter(), true);
-				
-				jump_clock.restart();
-			}
-
-			//resets the player to the mouse cursor position
-			else if( sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) && sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
-			{
-				player.getBody()->SetTransform( b2Vec2(mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS), player.getBody()->GetAngle() );
-				
-				jump_clock.restart();
-			}
-		}
-}
-
-void playerContactUpdate(b2World *world, Particle &particles, Timer &clock, sf::Vector2f &mouse_pos, Object &player)
-{
-	for(b2ContactEdge *edge = player.getBody()->GetContactList(); edge; edge = edge->next)
-	{
-		if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY ||
-		   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY )
-		{
-			if(particles.getSystemClocks()[Particle::TYPE::EXPLOSION].getElapsedTime() >= 0.5)
-			{
-				particles.explosion(world, player.getSprite()->getPosition() );
-				particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
-			}
-		}
-
-		else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON ||
-			    edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON )
-			{
-				if(particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].getElapsedTime() >= 0.5)
-				{
-					particles.bloodSplatter(world, player.getSprite()->getPosition() ); 
-					particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].restart();
-				}
-			}
-
-		else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
-			    edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
-		{
-			/*
-			//edge->contact->GetFixtureA()->GetBody()->GetAngle(
-			float impulse = player.getBody()->GetMass() * 10;
-			b2Vec2 pos = b2Vec2(edge->contact->GetFixtureB()->GetBody()->GetPosition().x, edge->contact->GetFixtureB()->GetBody()->GetPosition().y + (50 * PIXELS_TO_METERS) );
-
-			player.getBody()->SetTransform( pos, 0.0);
-			player.getBody()->ApplyLinearImpulse( b2Vec2(0.0, impulse), player.getBody()->GetWorldCenter(), true); 
-			clock.restart();
-			*/
-			
-		}
-
-		
-	}
-}
