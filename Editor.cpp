@@ -857,8 +857,8 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.filter.categoryBits = PLATFORM; 
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, POLY_SHAPE);
-		//temp_object->getBody()->SetLinearVelocity( b2Vec2(200.0 * PIXELS_TO_METERS, 0.0) );
-		temp_object->getBody()->SetAngularVelocity( 90.0 * DEGTORAD );
+		temp_object->getBody()->SetLinearVelocity( b2Vec2(200.0 * PIXELS_TO_METERS, 0.0) );
+		//temp_object->getBody()->SetAngularVelocity( 90.0 * DEGTORAD );
 	}
 
 	else if(this->current_index == KINEMATIC::SPIKES)

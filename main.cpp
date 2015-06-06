@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "Physics.h"
 #include "Particle.h"
+#include "Actor.h"
 using namespace std;
 
 #define getMax(a, b) ((a) > (b) ? a : b); //returns the maximum
@@ -117,27 +118,7 @@ int main()
 	
 
 	//player setup
-	b2FixtureDef fixture;
-	sf::Vector2f player_speed = sf::Vector2f(500.0, 600.0);
-	Timer player_clock;
-	Timer player_jump_clock;
-	sf::Texture player_texture;
-
-	if(!player_texture.loadFromFile("images//player.png") )
-	{
-		printf("Error %d : Failed to load player texture.\n", __LINE__);
-		return -1;
-	}
-
-	fixture.restitution = 0.1;
-	fixture.friction = 1.0;
-	fixture.density = 2.0;
-	fixture.filter.categoryBits = Editor::ENTITY_CATEGORY::FRIENDLY;
-	fixture.filter.maskBits = Editor::ENTITY_CATEGORY::BOUNCE | Editor::ENTITY_CATEGORY::BOUNDARY | Editor::ENTITY_CATEGORY::DYNAMIC_OBJECT | Editor::ENTITY_CATEGORY::PLATFORM | Editor::ENTITY_CATEGORY::WEAPON;
-	Object player(window, world, fixture, player_texture, -1, Editor::BODY_TYPE::DYNAMIC, POLY_SHAPE);
-	player.getBody()->SetFixedRotation(true);
-	
-	
+	Actor actor(window, world, -1, Editor::BODY_TYPE::DYNAMIC, POLY_SHAPE);	
 
 	sf::Vector2f center_pos(window.getSize().x / 2.0, window.getSize().y / 2.0);
 	sf::Vector2f view_size(window.getSize().x, window.getSize().y);
@@ -146,7 +127,7 @@ int main()
 	Camera main_view(center_pos, view_size, level_size);
 
 	string file = "default.txt";
-	editor.loadFile(window, world, main_view, player, file);
+	editor.loadFile(window, world, main_view, *(actor.getEntity()), file);
 
 	cout << "static bodies: " << editor.getStaticObjects().size() << endl;
 	cout << "dynamic bodies: " << editor.getDynamicObjects().size() << endl;
@@ -202,37 +183,22 @@ int main()
 
 			if(game_state == Editor::GAME_STATE::LIVE) //if you're in live mode
 			{
-				main_view.boundaryControl(player.getSprite()->getPosition()); //camera follows player in live mode
+				main_view.boundaryControl(actor.getEntity()->getSprite()->getPosition()); //camera follows player in live mode
 
 				//update clocks
-				player_clock.update();
-				player_jump_clock.update();				
+				actor.updateClocks();			
 
 				//checks for player commands
-				playerCommandUpdate(player_clock, player_jump_clock, player_speed, player, mouse_pos_world);
-
-				playerContactUpdate(world, particles, mouse_clock, mouse_pos_world, player);
+				actor.commandUpdate(mouse_pos_world);
+				actor.contactUpdate(world, particles);
 
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
 			
-				particles.playerHair(world, player); 
-
-				if(sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) && mouse_clock.getElapsedTime() >= 0.2 )
-				{
-					particles.bloodSplatter(world, player.getSprite()->getPosition() );
-					//particles.explosion(world, player.getSprite()->getPosition() );
-					mouse_clock.restart();
-				}
-
-				else if(sf::Keyboard::isKeyPressed( sf::Keyboard::E ) && mouse_clock.getElapsedTime() >= 0.2 )
-				{
-					particles.explosion(world, mouse_pos_world);
-					mouse_clock.restart();
-				}
+				particles.playerHair(world, *(actor.getEntity())); 
 
 				//Physics::levelBoundaries(editor, main_view, player); //keeps the player in the level
-				Object::updatePosition(player); //updates the player sprite
+				Object::updatePosition(*(actor.getEntity())); //updates the player sprite
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects
 				Object::updatePosition(editor.getKinematicObjects()); //updates the sprite position of the kinematic objects
 				Physics::kinematicBoundaries(left_boundary, right_boundary, editor.getKinematicObjects());
@@ -242,7 +208,7 @@ int main()
 			{
 				main_view.cursorBoundaryControl(mouse_pos); //camera follows mouse in edit mode
 				//determines how to place objects to the screen in editor mode
-				editor.keyboardActionCommands(window, main_view, world, player, mouse_clock, editor_object_type, mouse_pos_world, editor_type, game_state); 
+				editor.keyboardActionCommands(window, main_view, world, *(actor.getEntity()), mouse_clock, editor_object_type, mouse_pos_world, editor_type, game_state); 
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 
@@ -257,7 +223,7 @@ int main()
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
 			Draw::draw( window, editor.getStaticObjects() ); //draws all the static objects to the screen
 
-			Draw::draw( window, player ); //draws the player to the screen
+			Draw::draw( window, *(actor.getEntity()) ); //draws the player to the screen
 			Draw::drawText(window, game_mode_text, game_mode_text_pos);	//draws live/editor text to the screen		
 			
 			if(game_state == Editor::GAME_STATE::EDITOR) //draws editor only stuff
