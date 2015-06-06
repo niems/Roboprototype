@@ -33,6 +33,11 @@ Actor::Actor(sf::RenderWindow &window, b2World *world, int current_index, int bo
 	this->entity->getBody()->SetFixedRotation(true);
 }
 
+sf::Texture* Actor::getTexture()
+{
+	return( this->texture );
+}
+
 Object* Actor::getEntity()
 {
 	return( this->entity );

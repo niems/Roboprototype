@@ -23,6 +23,7 @@ private:
 public:
 	Actor(sf::RenderWindow &window, b2World *world, int current_index, int body_type, int shape_type);
 
+	sf::Texture* getTexture(); //returns the entity texture
 	Object* getEntity(); //returns the entity
 	bool isAlive(); //returns if the entity is alive
 
