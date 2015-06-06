@@ -24,6 +24,7 @@ Health::Health(Actor *entity, int current_hp, int max_hp)
 	
 }
 
+
 void Health::updateBar(sf::Vector2f &pos)
 {
 	pos.x -= this->offset.x;
@@ -33,6 +34,7 @@ void Health::updateBar(sf::Vector2f &pos)
 
 void Health::damage(int damage_amount)
 {
+	float scale;
 	this->current_health -= damage_amount;
 
 	if( this->current_health < 0 )
@@ -40,7 +42,18 @@ void Health::damage(int damage_amount)
 		this->current_health = 0;
 	}
 
-	this->bar->setScale(this->current_health / static_cast<float>(this->max_health), 1.0);
+	scale = this->current_health / static_cast<float>(this->max_health);
+
+	if(scale >= 0.7)
+		this->bar->setFillColor( sf::Color(0, 255, 0) );
+
+	else if(scale >= 0.5)
+		this->bar->setFillColor( sf::Color(0, 0, 255) );
+
+	else
+		this->bar->setFillColor( sf::Color(255, 0, 0) );
+
+	this->bar->setScale(scale, 1.0);
 }
 
 sf::RectangleShape* Health::getBar()

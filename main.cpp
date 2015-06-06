@@ -106,7 +106,7 @@ int main()
 	//player setup
 	int max_hp = 100;
 	Actor actor(window, world, -1, Editor::BODY_TYPE::DYNAMIC, POLY_SHAPE);	
-	Health actor_health(&actor, max_hp, max_hp); //starts player off with full hp
+	Health actor_health(&actor, max_hp, max_hp);
 
 	sf::Vector2f center_pos(window.getSize().x / 2.0, window.getSize().y / 2.0);
 	sf::Vector2f view_size(window.getSize().x, window.getSize().y);
@@ -182,7 +182,7 @@ int main()
 
 				if(sf::Keyboard::isKeyPressed( sf::Keyboard::V ) && mouse_clock.getElapsedTime() >= 0.5 )
 				{
-					actor_health.damage(25);
+					actor_health.damage(10);
 					mouse_clock.restart();
 				}
 

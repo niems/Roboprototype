@@ -12,6 +12,7 @@ class Actor
 {
 private:
 	Object *entity; //holds the box2d body and sprite
+	//Health *health; //holds the entity health bar
 	sf::Texture *texture; //holds entity texture
 	sf::Vector2f velocity; //actor velocity
 	bool alive;
