@@ -42,7 +42,25 @@ void Health::damage(int damage_amount)
 		this->current_health = 0;
 	}
 
-	scale = this->current_health / static_cast<float>(this->max_health);
+	scale = this->colorBar();
+	this->bar->setScale(scale, 1.0);
+}
+
+void Health::heal(int heal_amount)
+{
+	float scale;
+	this->current_health += heal_amount;
+
+	if(this->current_health > this->max_health)
+		this->current_health = this->max_health;
+
+	scale = this->colorBar();
+	this->bar->setScale(scale, 1.0);
+}
+
+float Health::colorBar()
+{
+	float scale = this->current_health / static_cast<float>(this->max_health);
 
 	if(scale >= 0.7)
 		this->bar->setFillColor( sf::Color(0, 255, 0) );
@@ -53,7 +71,7 @@ void Health::damage(int damage_amount)
 	else
 		this->bar->setFillColor( sf::Color(255, 0, 0) );
 
-	this->bar->setScale(scale, 1.0);
+	return scale;
 }
 
 sf::RectangleShape* Health::getBar()

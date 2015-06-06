@@ -1,14 +1,7 @@
-﻿Build started 6/6/2015 6:36:38 PM.
+﻿Build started 6/6/2015 6:55:26 PM.
      1>Project "C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\RoboPrototype\RoboPrototype.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D SFML_STATIC /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Health.cpp main.cpp
-         Health.cpp
-     1>Health.cpp(7): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Health.cpp(8): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>Health.cpp(10): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>Health.cpp(11): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>Health.cpp(17): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Health.cpp(31): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D SFML_STATIC /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
      1>main.cpp(23): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>main.cpp(44): warning C4305: 'initializing' : truncation from 'double' to 'float32'
@@ -39,4 +32,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.85
+Time Elapsed 00:00:02.99

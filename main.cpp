@@ -180,9 +180,15 @@ int main()
 			
 				particles.playerHair(world, *(actor.getEntity())); 
 
-				if(sf::Keyboard::isKeyPressed( sf::Keyboard::V ) && mouse_clock.getElapsedTime() >= 0.5 )
+				if(sf::Keyboard::isKeyPressed( sf::Keyboard::V ) && mouse_clock.getElapsedTime() >= 0.25 )
 				{
 					actor_health.damage(10);
+					mouse_clock.restart();
+				}
+
+				else if(sf::Keyboard::isKeyPressed( sf::Keyboard::F ) && mouse_clock.getElapsedTime() >= 0.25)
+				{
+					actor_health.heal(10);
 					mouse_clock.restart();
 				}
 
