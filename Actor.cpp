@@ -31,6 +31,8 @@ Actor::Actor(sf::RenderWindow &window, b2World *world, int current_index, int bo
 
 	this->entity = new Object(window, world, fixture, *(this->texture), -1, Editor::BODY_TYPE::DYNAMIC, POLY_SHAPE);
 	this->entity->getBody()->SetFixedRotation(true);
+	this->health_bar = new Health(sf::Vector2f(this->texture->getSize().x, this->texture->getSize().y), sf::Vector2f(this->entity->getSprite()->getPosition().x, this->entity->getSprite()->getPosition().y), 100, 100);
+
 }
 
 sf::Texture* Actor::getTexture()
@@ -41,6 +43,11 @@ sf::Texture* Actor::getTexture()
 Object* Actor::getEntity()
 {
 	return( this->entity );
+}
+
+Health* Actor::getHealthBar()
+{
+	return( this->health_bar );
 }
 
 bool Actor::isAlive()
@@ -121,6 +128,7 @@ void Actor::contactUpdate(b2World *world, Particle &particles)
 			if(particles.getSystemClocks()[Particle::TYPE::EXPLOSION].getElapsedTime() >= 0.5)
 			{
 				particles.explosion(world, this->entity->getSprite()->getPosition() );
+				this->health_bar->damage(this->getHealthBar()->getMaxHealth()); //kills player
 				particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
 			}
 		}
@@ -131,6 +139,7 @@ void Actor::contactUpdate(b2World *world, Particle &particles)
 				if(particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].getElapsedTime() >= 0.5)
 				{
 					particles.bloodSplatter(world, this->entity->getSprite()->getPosition() ); 
+					this->health_bar->damage(20);
 					particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].restart();
 				}
 			}

@@ -7,12 +7,14 @@
 #include "Object.h"
 #include "Editor.h"
 #include "Particle.h"
+#include "Health.h"
 
 class Actor
 {
 private:
+	Health *health_bar;
 	Object *entity; //holds the box2d body and sprite
-	//Health *health; //holds the entity health bar
+	
 	sf::Texture *texture; //holds entity texture
 	sf::Vector2f velocity; //actor velocity
 	bool alive;
@@ -26,6 +28,7 @@ public:
 
 	sf::Texture* getTexture(); //returns the entity texture
 	Object* getEntity(); //returns the entity
+	Health* getHealthBar(); 
 	bool isAlive(); //returns if the entity is alive
 
 	void updateClocks(); //updates all clocks

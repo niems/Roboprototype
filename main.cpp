@@ -106,8 +106,6 @@ int main()
 	//player setup
 	int max_hp = 100;
 	Actor actor(window, world, -1, Editor::BODY_TYPE::DYNAMIC, POLY_SHAPE);	
-	Health actor_health( sf::Vector2f(actor.getTexture()->getSize().x, actor.getTexture()->getSize().y), sf::Vector2f(actor.getEntity()->getSprite()->getPosition().x, actor.getEntity()->getSprite()->getPosition().y), max_hp, max_hp);
-	//Health actor_health(&actor, max_hp, max_hp);
 
 	sf::Vector2f center_pos(window.getSize().x / 2.0, window.getSize().y / 2.0);
 	sf::Vector2f view_size(window.getSize().x, window.getSize().y);
@@ -183,19 +181,19 @@ int main()
 
 				if(sf::Keyboard::isKeyPressed( sf::Keyboard::V ) && mouse_clock.getElapsedTime() >= 0.25 )
 				{
-					actor_health.damage(10);
+					actor.getHealthBar()->damage(10);
 					mouse_clock.restart();
 				}
 
 				else if(sf::Keyboard::isKeyPressed( sf::Keyboard::F ) && mouse_clock.getElapsedTime() >= 0.25)
 				{
-					actor_health.heal(10);
+					actor.getHealthBar()->heal(10);
 					mouse_clock.restart();
 				}
 
 				//Physics::levelBoundaries(editor, main_view, player); //keeps the player in the level
 				Object::updatePosition(*(actor.getEntity())); //updates the player sprite
-				actor_health.updateBar( sf::Vector2f(actor.getEntity()->getSprite()->getPosition().x, actor.getEntity()->getSprite()->getPosition().y) );
+				actor.getHealthBar()->updateBar( sf::Vector2f(actor.getEntity()->getSprite()->getPosition().x, actor.getEntity()->getSprite()->getPosition().y) );
 
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects
 				Object::updatePosition(editor.getKinematicObjects()); //updates the sprite position of the kinematic objects
@@ -222,7 +220,7 @@ int main()
 			Draw::draw( window, editor.getStaticObjects() ); //draws all the static objects to the screen
 
 			Draw::draw( window, *(actor.getEntity()) ); //draws the player to the screen
-			window.draw( *actor_health.getBar() );
+			window.draw( *actor.getHealthBar()->getBar() );
 			Draw::drawText(window, game_mode_text, game_mode_text_pos);	//draws live/editor text to the screen		
 			
 			if(game_state == Editor::GAME_STATE::EDITOR) //draws editor only stuff

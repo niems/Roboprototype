@@ -1,28 +1,10 @@
 #include "Health.h"
-//void health(sf::Vector2f &texture_size, sf::Vector2f &pos, int current_hp, int max_hp);
 
-Health::Health(Actor *entity, int current_hp, int max_hp)
+Health::Health()
 {
-	sf::Vector2f pos; //position of the bar
-	sf::Vector2f size; //size of the bar
-	size.x = entity->getTexture()->getSize().x;
-	size.y = entity->getTexture()->getSize().y / 10.0;
-
-	this->offset.x = size.x / 2.0;
-	this->offset.y = (entity->getTexture()->getSize().y / 2.0) - (size.y / 2.0);
-	pos.x = entity->getEntity()->getSprite()->getPosition().x;
-	pos.y = entity->getEntity()->getSprite()->getPosition().y - this->offset.y;
-
-	this->bar = new sf::RectangleShape();
-	this->bar->setSize(size);
-	this->bar->setOrigin( 0.0, size.y / 2.0 );
-	this->bar->setFillColor( sf::Color(0, 255, 0) );
-	this->bar->setOutlineThickness(3);
-	this->bar->setOutlineColor( sf::Color(0, 0, 0) );
-
-	this->current_health = current_hp;
-	this->max_health = max_hp;
-	
+	this->bar = NULL;
+	this->current_health = 0;
+	this->max_health = 0;
 }
 
 Health::Health(sf::Vector2f &texture_size, sf::Vector2f &pos, int current_hp, int max_hp)
@@ -96,6 +78,11 @@ float Health::colorBar()
 		this->bar->setFillColor( sf::Color(255, 0, 0) );
 
 	return scale;
+}
+
+int Health::getMaxHealth()
+{
+	return( this->max_health );
 }
 
 sf::RectangleShape* Health::getBar()
