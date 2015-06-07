@@ -106,7 +106,8 @@ int main()
 	//player setup
 	int max_hp = 100;
 	Actor actor(window, world, -1, Editor::BODY_TYPE::DYNAMIC, POLY_SHAPE);	
-	Health actor_health(&actor, max_hp, max_hp);
+	Health actor_health( sf::Vector2f(actor.getTexture()->getSize().x, actor.getTexture()->getSize().y), sf::Vector2f(actor.getEntity()->getSprite()->getPosition().x, actor.getEntity()->getSprite()->getPosition().y), max_hp, max_hp);
+	//Health actor_health(&actor, max_hp, max_hp);
 
 	sf::Vector2f center_pos(window.getSize().x / 2.0, window.getSize().y / 2.0);
 	sf::Vector2f view_size(window.getSize().x, window.getSize().y);

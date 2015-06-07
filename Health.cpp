@@ -1,4 +1,5 @@
 #include "Health.h"
+//void health(sf::Vector2f &texture_size, sf::Vector2f &pos, int current_hp, int max_hp);
 
 Health::Health(Actor *entity, int current_hp, int max_hp)
 {
@@ -22,6 +23,29 @@ Health::Health(Actor *entity, int current_hp, int max_hp)
 	this->current_health = current_hp;
 	this->max_health = max_hp;
 	
+}
+
+Health::Health(sf::Vector2f &texture_size, sf::Vector2f &pos, int current_hp, int max_hp)
+{
+	sf::Vector2f bar_pos;
+	sf::Vector2f bar_size;
+	bar_size.x = texture_size.x;
+	bar_size.y = texture_size.y / 10.0;
+
+	this->offset.x = bar_size.x / 2.0;
+	this->offset.y = (texture_size.y / 2.0) - (bar_size.y / 2.0);
+	
+	bar_pos = pos;
+
+	this->bar = new sf::RectangleShape();
+	this->bar->setSize(bar_size);
+	this->bar->setOrigin( 0.0, bar_size.y / 2.0 );
+	this->bar->setFillColor( sf::Color(0, 255, 0) );
+	this->bar->setOutlineThickness(3);
+	this->bar->setOutlineColor( sf::Color(0, 0, 0) );
+
+	this->current_health = current_hp;
+	this->max_health = max_hp;
 }
 
 
