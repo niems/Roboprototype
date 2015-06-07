@@ -30,7 +30,12 @@ void updateMousePos(sf::Vector2i &pos, sf::Vector2f &world_pos, sf::RenderWindow
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "Roboprototype");
+	static const std::vector<sf::VideoMode>& valid_video_mode = sf::VideoMode::getFullscreenModes();
+
+
+	//sf::RenderWindow App( sf::VideoMode( valid_video_mode[0].width, valid_video_mode[0].height, valid_video_mode[0].bitsPerPixel ), "Platformer", sf::Style::Fullscreen);
+
+    sf::RenderWindow window(sf::VideoMode(valid_video_mode[0].width, valid_video_mode[0].height, valid_video_mode[0].bitsPerPixel), "Roboprototype");
 	sf::Event e;
 	window.setFramerateLimit(60);
 	bool in_focus = true; //if false, the window won't update

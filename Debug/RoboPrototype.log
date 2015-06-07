@@ -1,26 +1,48 @@
-﻿Build started 6/5/2015 5:22:35 AM.
+﻿Build started 6/6/2015 9:45:19 PM.
      1>Project "C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\RoboPrototype\RoboPrototype.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Draw.cpp Editor.cpp Physics.cpp main.cpp
-         main.cpp
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(21): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(46): warning C4305: 'initializing' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(75): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(75): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(76): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(82): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(82): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(84): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(130): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(138): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(139): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(153): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(283): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(293): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(304): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Actor.cpp Draw.cpp Editor.cpp Health.cpp main.cpp Particle.cpp Physics.cpp
          Physics.cpp
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\physics.cpp(3): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\physics.cpp(11): warning C4018: '<' : signed/unsigned mismatch
+         Particle.cpp
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(3): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(29): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(31): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(35): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(61): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(63): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(71): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(97): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(99): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(103): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(115): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(129): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(155): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(159): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(164): warning C4244: '=' : conversion from 'int' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(184): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(188): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(193): warning C4244: '=' : conversion from 'int' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\particle.cpp(196): warning C4244: '=' : conversion from 'int' to 'float32', possible loss of data
+         main.cpp
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(23): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(44): warning C4305: 'initializing' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(73): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(73): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(74): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(80): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(80): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(82): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(110): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(111): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\main.cpp(121): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Health.cpp
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\health.cpp(15): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\health.cpp(17): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\health.cpp(18): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\health.cpp(24): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\health.cpp(37): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
          Editor.cpp
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(9): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(63): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
@@ -50,32 +72,41 @@
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(512): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(529): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(546): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(674): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(685): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(694): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(703): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(712): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(721): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(730): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(739): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(748): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(757): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(677): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(689): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(700): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(711): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(722): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(733): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(744): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(755): warning C4305: '=' : truncation from 'double' to 'float32'
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(766): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(826): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(829): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(836): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(839): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(840): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(848): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(851): warning C4305: 'argument' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(861): warning C4305: 'argument' : truncation from 'double' to 'float32'
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(908): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(912): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(926): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(933): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(949): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(956): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(986): warning C4101: 'angle' : unreferenced local variable
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(777): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(788): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(856): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(860): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(868): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(873): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(874): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(882): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(887): warning C4305: 'argument' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(899): warning C4305: 'argument' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(951): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(955): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(969): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(976): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(992): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(999): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\editor.cpp(1029): warning C4101: 'angle' : unreferenced local variable
+         Actor.cpp
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\actor.cpp(11): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\actor.cpp(21): warning C4305: '=' : truncation from 'double' to 'float32'
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\actor.cpp(34): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\actor.cpp(79): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\actor.cpp(89): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\actor.cpp(100): warning C4244: '=' : conversion from 'double' to 'float32', possible loss of data
+         Generating Code...
+         Compiling...
          Draw.cpp
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\draw.cpp(12): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\draw.cpp(21): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
@@ -84,17 +115,73 @@
      1>c:\users\niems\documents\visual studio 2012\projects\roboprototype\roboprototype\draw.cpp(26): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
          Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.exe" /INCREMENTAL /NOLOGO /LIBPATH:./lib /LIBPATH:"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\lib" .\Debug\liquidfun.lib "sfml-audio-s-d.lib" "sfml-graphics-s-d.lib" "sfml-main-d.lib" "sfml-network-s-d.lib" "sfml-system-s-d.lib" "sfml-window-s-d.lib" winmm.lib ws2_32.lib flac.lib ogg.lib vorbis.lib openal32.lib vorbisenc.lib vorbisfile.lib opengl32.lib gdi32.lib freetype.lib jpeg.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.lib" /MACHINE:X86 Debug\Camera.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.exe" /INCREMENTAL /NOLOGO /LIBPATH:./lib /LIBPATH:"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\lib" .\Debug\liquidfun.lib "sfml-audio-s-d.lib" "sfml-graphics-s-d.lib" "sfml-main-d.lib" "sfml-network-s-d.lib" "sfml-system-s-d.lib" "sfml-window-s-d.lib" winmm.lib ws2_32.lib flac.lib ogg.lib vorbis.lib openal32.lib vorbisenc.lib vorbisfile.lib opengl32.lib gdi32.lib freetype.lib jpeg.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.lib" /MACHINE:X86 Debug\Actor.obj
+         Debug\Camera.obj
          Debug\Draw.obj
          Debug\Editor.obj
+         Debug\Health.obj
          Debug\main.obj
          Debug\Object.obj
          Debug\Particle.obj
          Debug\Physics.obj
          Debug\Timer.obj
+     1>sfml-graphics-s-d.lib(BlendMode.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(BlendMode.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Color.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Color.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Font.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Font.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(GLCheck.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(GLCheck.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(GLExtensions.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(GLExtensions.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Image.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Image.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(ImageLoader.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(ImageLoader.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(RenderStates.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(RenderStates.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(RenderTarget.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(RenderTarget.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(RenderWindow.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(RenderWindow.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Shader.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Shader.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Texture.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Texture.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(TextureSaver.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(TextureSaver.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Transform.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Transform.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Transformable.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Transformable.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(View.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(View.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Vertex.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Vertex.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(GLLoader.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(GLLoader.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Shape.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Shape.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(CircleShape.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(CircleShape.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(RectangleShape.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(RectangleShape.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Sprite.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Sprite.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(Text.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(Text.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-graphics-s-d.lib(VertexArray.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-graphics-s-d.lib(VertexArray.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(Clock.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(Clock.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(Err.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(Err.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(Lock.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(Lock.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(Mutex.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(Mutex.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(Sleep.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(Sleep.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(String.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(String.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(ThreadLocal.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(ThreadLocal.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(Time.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(Time.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(ClockImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(ClockImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(MutexImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(MutexImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(SleepImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(SleepImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-system-s-d.lib(ThreadLocalImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-system-s-d.lib(ThreadLocalImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(Context.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(Context.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(GlContext.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(GlContext.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(GlResource.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(GlResource.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(Joystick.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(Joystick.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(JoystickManager.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(JoystickManager.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(Keyboard.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(Keyboard.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(Mouse.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(Mouse.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(SensorManager.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(SensorManager.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(VideoMode.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(VideoMode.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(Window.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(Window.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(WindowImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(WindowImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(WglContext.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(WglContext.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(WglExtensions.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(WglExtensions.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(InputImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(InputImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(JoystickImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(JoystickImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(SensorImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(SensorImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(VideoModeImpl.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(VideoModeImpl.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
+     1>sfml-window-s-d.lib(WindowImplWin32.cpp.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'sfml-window-s-d.lib(WindowImplWin32.cpp.obj)' or at 'C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\vc110.pdb'; linking object as if no debug info
          RoboPrototype.vcxproj -> C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Debug\RoboPrototype.exe
      1>Done Building Project "C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\RoboPrototype\RoboPrototype.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:05.13
+Time Elapsed 00:00:13.95
