@@ -182,6 +182,8 @@ int main()
 				if(sf::Keyboard::isKeyPressed( sf::Keyboard::V ) && mouse_clock.getElapsedTime() >= 0.25 )
 				{
 					actor.getHealthBar()->damage(10);
+					
+
 					mouse_clock.restart();
 				}
 
@@ -211,7 +213,9 @@ int main()
 			window.clear(sf::Color(20, 20, 20) );//sf::Color(0, 255, 255) );
 			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 			
-			Draw::drawParticles(window, world, particles, Particle::TYPE::HAIR); //draws the player hair to the screen
+			if(actor.isAlive())
+				Draw::drawParticles(window, world, particles, Particle::TYPE::HAIR); //draws the player hair to the screen
+
 			Draw::drawParticles(window, world, particles, Particle::TYPE::BLOOD_SPLATTER); //draws all blood splatters to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::EXPLOSION); //draws all explosions to the screen
 			
@@ -219,8 +223,19 @@ int main()
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
 			Draw::draw( window, editor.getStaticObjects() ); //draws all the static objects to the screen
 
-			Draw::draw( window, *(actor.getEntity()) ); //draws the player to the screen
-			window.draw( *actor.getHealthBar()->getBar() );
+			if(actor.isAlive() == true)
+			{
+				Draw::draw( window, *(actor.getEntity()) ); //draws the player to the screen
+				window.draw( *actor.getHealthBar()->getBar() );
+			}
+
+			else
+			{
+				//actor.respawn(editor); //respaws the character at the spawn point after a period of time
+				actor.respawn( window, world, editor, main_view, *(actor.getEntity()), editor.getFileName() );
+			}
+				
+
 			Draw::drawText(window, game_mode_text, game_mode_text_pos);	//draws live/editor text to the screen		
 			
 			if(game_state == Editor::GAME_STATE::EDITOR) //draws editor only stuff

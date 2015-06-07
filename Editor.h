@@ -31,6 +31,7 @@ class Editor
 {
 private:
 	sf::Vector2f spawn_point; //starts player here when the level starts or if they die
+	string file_name; //name of last successful file used
 	int object_type; //determines which type of object to show(static/dynamic/kinematic)
 	int current_index; //this is the index of the current object
 	int current_background_index; //the background being used with the current level
@@ -101,6 +102,8 @@ public:
 
 	//checks if the file exists(open for input so file isn't created)
 	bool fileExists(string &filename);
+
+	string& getFileName();
 
 	//saves the current map to the file
 	void saveFile(Camera &view, Object &player, string &file_name);

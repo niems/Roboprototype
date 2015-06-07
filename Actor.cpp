@@ -50,6 +50,11 @@ Health* Actor::getHealthBar()
 	return( this->health_bar );
 }
 
+Timer* Actor::getDeathClock()
+{
+	return( &(this->death_clock) );
+}
+
 bool Actor::isAlive()
 {
 	return( this->alive );
@@ -59,11 +64,14 @@ void Actor::updateClocks()
 {
 	this->clock.update();
 	this->jump_clock.update();
+	this->death_clock.update();
 }
 
 void Actor::commandUpdate(sf::Vector2f &mouse_pos)
 {
-	if( this->clock.getElapsedTime() >= 0.05 )
+	if(this->alive == true) //only updates if the player is alive
+	{
+		if( this->clock.getElapsedTime() >= 0.05 )
 		{
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) ) //moving right
 			{
@@ -116,49 +124,96 @@ void Actor::commandUpdate(sf::Vector2f &mouse_pos)
 				this->jump_clock.restart();
 			}
 		}
+	}
 }
 
 void Actor::contactUpdate(b2World *world, Particle &particles)
 {
-	for(b2ContactEdge *edge = this->entity->getBody()->GetContactList(); edge; edge = edge->next)
+	if(this->alive == true) //only updates if the player is alive
 	{
-		if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY ||
-		   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY )
+		for(b2ContactEdge *edge = this->entity->getBody()->GetContactList(); edge; edge = edge->next)
 		{
-			if(particles.getSystemClocks()[Particle::TYPE::EXPLOSION].getElapsedTime() >= 0.5)
+			if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY ||
+			   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY )
 			{
-				particles.explosion(world, this->entity->getSprite()->getPosition() );
-				this->health_bar->damage(this->getHealthBar()->getMaxHealth()); //kills player
-				particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
-			}
-		}
-
-		else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON ||
-			    edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON )
-			{
-				if(particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].getElapsedTime() >= 0.5)
+				if(particles.getSystemClocks()[Particle::TYPE::EXPLOSION].getElapsedTime() >= 0.5)
 				{
-					particles.bloodSplatter(world, this->entity->getSprite()->getPosition() ); 
-					this->health_bar->damage(20);
-					particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].restart();
+					particles.explosion(world, this->entity->getSprite()->getPosition() );
+					this->health_bar->damage(this->getHealthBar()->getMaxHealth()); //kills player
+					
+					this->death(); //sets everything up so that the player is dead
+
+					particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
 				}
 			}
 
-		else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
-			    edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
-		{
-			/*
-			//edge->contact->GetFixtureA()->GetBody()->GetAngle(
-			float impulse = player.getBody()->GetMass() * 10;
-			b2Vec2 pos = b2Vec2(edge->contact->GetFixtureB()->GetBody()->GetPosition().x, edge->contact->GetFixtureB()->GetBody()->GetPosition().y + (50 * PIXELS_TO_METERS) );
+			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON ||
+					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON )
+				{
+					if(particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].getElapsedTime() >= 0.5)
+					{
+						particles.bloodSplatter(world, this->entity->getSprite()->getPosition() ); 
+						this->health_bar->damage(20);
 
-			player.getBody()->SetTransform( pos, 0.0);
-			player.getBody()->ApplyLinearImpulse( b2Vec2(0.0, impulse), player.getBody()->GetWorldCenter(), true); 
-			clock.restart();
-			*/
+						if(this->health_bar->getCurrentHealth() == 0)
+						{
+							this->death(); //sets everything so the player is dead
+						}
+					
+						particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].restart();
+					}
+				}
+
+			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
+					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
+			{
+				/*
+				//edge->contact->GetFixtureA()->GetBody()->GetAngle(
+				float impulse = player.getBody()->GetMass() * 10;
+				b2Vec2 pos = b2Vec2(edge->contact->GetFixtureB()->GetBody()->GetPosition().x, edge->contact->GetFixtureB()->GetBody()->GetPosition().y + (50 * PIXELS_TO_METERS) );
+
+				player.getBody()->SetTransform( pos, 0.0);
+				player.getBody()->ApplyLinearImpulse( b2Vec2(0.0, impulse), player.getBody()->GetWorldCenter(), true); 
+				clock.restart();
+				*/
 			
-		}
+			}
 
 		
+		}
 	}
+	
+}
+
+void Actor::setAlive(bool status)
+{
+	this->alive = status;
+}
+
+void Actor::death()
+{
+	this->alive = false;
+	this->entity->getBody()->SetType(b2_staticBody); //sets to a static body so it won't move
+	this->death_clock.restart();
+}
+
+void Actor::respawn(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Object &player, string &file_name)
+{
+	if(this->death_clock.getElapsedTime() >= 1.5)
+	{
+		editor.deleteAllObjects(world);
+		editor.loadFile(window, world, view, player, file_name);
+
+		sf::Vector2f spawn;
+		spawn.x = editor.getSpawnPoint().x;
+		spawn.y = editor.getSpawnPoint().y;
+		
+		this->alive = true;
+		this->entity->getBody()->SetType(b2_dynamicBody);
+		this->getHealthBar()->heal(this->getHealthBar()->getMaxHealth());
+
+		this->entity->getBody()->SetTransform( b2Vec2(spawn.x * PIXELS_TO_METERS, -spawn.y * PIXELS_TO_METERS), this->entity->getBody()->GetAngle() );
+
+	}
+	
 }

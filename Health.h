@@ -23,6 +23,7 @@ public:
 	float colorBar(); //used when the bar changes sizes. Colors the bar based on the percentage of the player's health
 
 	int getMaxHealth();
+	int getCurrentHealth();
 
 	sf::RectangleShape* getBar();
 };

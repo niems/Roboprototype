@@ -43,7 +43,7 @@ void Health::damage(int damage_amount)
 	float scale;
 	this->current_health -= damage_amount;
 
-	if( this->current_health < 0 )
+	if( this->current_health <= 0 )
 	{
 		this->current_health = 0;
 	}
@@ -83,6 +83,11 @@ float Health::colorBar()
 int Health::getMaxHealth()
 {
 	return( this->max_health );
+}
+
+int Health::getCurrentHealth()
+{
+	return( this->current_health );
 }
 
 sf::RectangleShape* Health::getBar()

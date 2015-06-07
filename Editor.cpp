@@ -920,6 +920,11 @@ bool Editor::fileExists(string &filename)
 	return false;
 }
 
+string& Editor::getFileName()
+{
+	return( this->file_name );
+}
+
 void Editor::saveFile(Camera &view, Object &player, string &file_name)
 {
 	ofstream save_file(file_name, ios::trunc); //opens the save file for output
@@ -1026,7 +1031,8 @@ bool Editor::loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Ob
 	int index; //index of object
 	char end_line;
 
-	
+	this->file_name = file_name; //successfully loaded file name
+
 	load_file >> level_size.x >> end_line >> level_size.y;
 	view.setLevelSize(level_size);
 
