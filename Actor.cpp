@@ -157,6 +157,7 @@ void Actor::contactUpdate(b2World *world, Particle &particles)
 
 						if(this->health_bar->getCurrentHealth() == 0)
 						{
+							particles.explosion(world, this->entity->getSprite()->getPosition() );
 							this->death(); //sets everything so the player is dead
 						}
 					
@@ -164,19 +165,10 @@ void Actor::contactUpdate(b2World *world, Particle &particles)
 					}
 				}
 
-			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
-					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
+			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::HEALTH ||
+					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::HEALTH )
 			{
-				/*
-				//edge->contact->GetFixtureA()->GetBody()->GetAngle(
-				float impulse = player.getBody()->GetMass() * 10;
-				b2Vec2 pos = b2Vec2(edge->contact->GetFixtureB()->GetBody()->GetPosition().x, edge->contact->GetFixtureB()->GetBody()->GetPosition().y + (50 * PIXELS_TO_METERS) );
-
-				player.getBody()->SetTransform( pos, 0.0);
-				player.getBody()->ApplyLinearImpulse( b2Vec2(0.0, impulse), player.getBody()->GetWorldCenter(), true); 
-				clock.restart();
-				*/
-			
+				this->getHealthBar()->heal(20);
 			}
 
 		

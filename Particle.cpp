@@ -82,10 +82,10 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	b2ParticleSystemDef explosion_system_def;
 	sf::CircleShape *explosion_shape = new sf::CircleShape();
 	fill_color = sf::Color(0, 255, 255, 180);
-	outline_color = sf::Color(100, 255, 255, 180);
+	outline_color = sf::Color(24, 242, 178, 180);
 	gravity_scale = -40.0;
 	radius = 3;
-	outline_thickness = 3;
+	outline_thickness = 2;
 	max_particles = 500;
 	lifetime = 2.0;	
 
@@ -179,7 +179,7 @@ void Particle::explosion(b2World *world, const sf::Vector2f &pos)
 	p_def.lifetime = 2.0;
 	p_def.flags = b2_elasticParticle;
 
-	for(int i = 0; i < 100; i++)
+	for(int i = 0; i < 150; i++)
 	{
 		offset.x = rand() % 30;
 		offset.x = (rand() % 2 == 0) ? (offset.x * -1) : offset.x;

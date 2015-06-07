@@ -72,7 +72,7 @@ float Health::colorBar()
 		this->bar->setFillColor( sf::Color(0, 255, 0) );
 
 	else if(scale >= 0.5)
-		this->bar->setFillColor( sf::Color(0, 0, 255) );
+		this->bar->setFillColor( sf::Color(255, 255, 0) );
 
 	else
 		this->bar->setFillColor( sf::Color(255, 0, 0) );

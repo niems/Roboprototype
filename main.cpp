@@ -32,10 +32,8 @@ int main()
 {
 	static const std::vector<sf::VideoMode>& valid_video_mode = sf::VideoMode::getFullscreenModes();
 
-
-	//sf::RenderWindow App( sf::VideoMode( valid_video_mode[0].width, valid_video_mode[0].height, valid_video_mode[0].bitsPerPixel ), "Platformer", sf::Style::Fullscreen);
-
-    sf::RenderWindow window(sf::VideoMode(valid_video_mode[0].width, valid_video_mode[0].height, valid_video_mode[0].bitsPerPixel), "Roboprototype");
+    //sf::RenderWindow window(sf::VideoMode(valid_video_mode[0].width, valid_video_mode[0].height, valid_video_mode[0].bitsPerPixel), "Roboprototype", sf::Style::None);
+	sf::RenderWindow window(sf::VideoMode(1600,900), "Roboprototype");
 	sf::Event e;
 	window.setFramerateLimit(60);
 	bool in_focus = true; //if false, the window won't update
@@ -181,6 +179,7 @@ int main()
 
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
+				
 			
 				particles.playerHair(world, *(actor.getEntity())); 
 

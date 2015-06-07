@@ -64,13 +64,14 @@ public:
 		FRIENDLY = 0x0012, //this is the player or a friendly
 		ITEM = 0x0014, //items in the game
 		TELEPORT = 0x0016, //used to transport the player and objects to another place in the world
+		HEALTH = 0x0018, //heals the player if picked up
 	};
 
 	enum GAME_STATE {LIVE, EDITOR}; //two game states
 	enum BODY_TYPE{STATIC, DYNAMIC, KINEMATIC}; //determines what type of box2d body to create	
 	enum STATIC{ORB, MED_PLATFORM1, MED_PLATFORM2, MED_PLATFORM3, MED_PLATFORM4, MED_PLATFORM5, MED_PLATFORM6, MED_PLATFORM7, LARGE_PLATFORM, H_BOUNDARY, V_BOUNDARY, BOUNCE_PLATFORM}; 
 	enum DYNAMIC{CRATE, CRATE2}; 
-	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL};
+	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL, HEALTH_ITEM};
 
 	void addStaticObject(Object *object);      //adds a static object to the vector
 	void addDynamicObject(Object *object);    //adds a dynamic object to the vector
