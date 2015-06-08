@@ -179,12 +179,22 @@ void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edit
 				this->level_complete = true; //the player has reached the portal
 			} 
 
-			/*
-			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::HEALTH ||
-					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::HEALTH )
+			
+			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
+					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
 			{
-				this->getHealthBar()->heal(20);
-			}	*/	
+				//particle bounce explosion
+
+				//editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM];
+				//this->getTexture()->getSize().x;
+
+				
+				sf::Vector2f p_texture( this->texture->getSize() ); //player texture
+				sf::Vector2f b_texture( editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM].getSize() ); //bounce texture
+
+				//this->entity->getBody()->SetTransform(
+
+			}	
 		}
 
 		//if the player is intersecting the portal, load next level

@@ -72,7 +72,7 @@ public:
 	enum BODY_TYPE{STATIC, DYNAMIC, KINEMATIC}; //determines what type of box2d body to create	
 	enum STATIC{ORB, MED_PLATFORM1, MED_PLATFORM2, MED_PLATFORM3, MED_PLATFORM4, MED_PLATFORM5, MED_PLATFORM6, MED_PLATFORM7, LARGE_PLATFORM, H_BOUNDARY, V_BOUNDARY, BOUNCE_PLATFORM, LEVEL_BOUNDARY}; 
 	enum DYNAMIC{CRATE, CRATE2}; 
-	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL, HEALTH_ITEM};
+	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL, SAW_ITEM};
 
 	enum FILE{LEVEL1, LEVEL2, LEVEL3}; //used to index the levels in the vector
 	string current_level; //the string of the current level as a text file. ex. "level1.txt"

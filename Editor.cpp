@@ -248,8 +248,8 @@ Editor::Editor()
 	sf::Texture portal_texture;
 	sf::Sprite portal_sprite;
 
-	sf::Texture health_texture;
-	sf::Sprite health_sprite;
+	sf::Texture saw_texture;
+	sf::Sprite saw_sprite;
 
 	if(!moving_texture.loadFromFile("images//moving_platform.png") )
 	{
@@ -295,16 +295,16 @@ Editor::Editor()
 	portal_sprite.setOrigin( portal_texture.getSize().x / 2.0, portal_texture.getSize().y / 2.0 );
 	this->kinematic_sprite.push_back( portal_sprite );
 
-	if(!health_texture.loadFromFile("images//item_health.png") )
+	if(!saw_texture.loadFromFile("images//cube_boundary.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
 
-	this->kinematic_texture.push_back( health_texture );
+	this->kinematic_texture.push_back( saw_texture );
 
-	health_sprite.setTexture( this->kinematic_texture.back() );
-	health_sprite.setOrigin( health_texture.getSize().x / 2.0, health_texture.getSize().y / 2.0 );
-	this->kinematic_sprite.push_back( health_sprite );
+	saw_sprite.setTexture( this->kinematic_texture.back() );
+	saw_sprite.setOrigin( saw_texture.getSize().x / 2.0, saw_texture.getSize().y / 2.0 );
+	this->kinematic_sprite.push_back( saw_sprite );
 	
 }
 
@@ -1026,17 +1026,16 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		temp_object->getSprite()->setColor( sf::Color(0, 200, 200, 30) );
 	}
 
-	else if(this->current_index == KINEMATIC::HEALTH_ITEM)
+	else if(this->current_index == KINEMATIC::SAW_ITEM)
 	{
 		fixture.friction = 1.0;
 		fixture.density = 1.0;
 		fixture.restitution = 0.5;
-		fixture.filter.categoryBits = HEALTH;
-		fixture.filter.maskBits = FRIENDLY | DYNAMIC_OBJECT;
+		fixture.filter.categoryBits = WEAPON; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT | BOUNDARY | BOUNCE | PLATFORM;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, POLY_SHAPE );
-		temp_object->getBody()->SetAngularVelocity(-120.0 * DEGTORAD );
-		temp_object->getSprite()->setColor( sf::Color(255, 255, 255, 200) );
+		temp_object->getBody()->SetAngularVelocity(-550.0 * DEGTORAD );
 	}
 
 	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
