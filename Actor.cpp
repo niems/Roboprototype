@@ -133,8 +133,10 @@ void Actor::commandUpdate(sf::Vector2f &mouse_pos)
 }
 
 //(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view)
-void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles)
+int Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles)
 {
+	int contact = -1; //the player isn't in contact with anything
+
 	if(this->alive == true) //only updates if the player is alive
 	{
 		for(b2ContactEdge *edge = this->entity->getBody()->GetContactList(); edge; edge = edge->next)
@@ -143,9 +145,12 @@ void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edit
 			if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY ||
 			   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY )
 			{
+				contact = Editor::ENTITY_CATEGORY::BOUNDARY;
+
 				if(particles.getSystemClocks()[Particle::TYPE::EXPLOSION].getElapsedTime() >= 0.5)
 				{
 					particles.explosion(world, this->entity->getSprite()->getPosition() );
+					particles.bloodSplatter(world, this->entity->getSprite()->getPosition() ); 
 					this->health_bar->damage(this->health_bar->getMaxHealth()); //kills player
 					
 					this->death(); //sets everything up so that the player is dead
@@ -157,6 +162,8 @@ void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edit
 			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON ||
 					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON )
 				{
+					contact = Editor::ENTITY_CATEGORY::WEAPON;
+
 					if(particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].getElapsedTime() >= 0.5)
 					{
 						particles.bloodSplatter(world, this->entity->getSprite()->getPosition() ); 
@@ -176,6 +183,7 @@ void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edit
 			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::TELEPORT ||
 			   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::TELEPORT )
 			{
+				contact = Editor::ENTITY_CATEGORY::TELEPORT;
 				this->level_complete = true; //the player has reached the portal
 			} 
 
@@ -183,16 +191,49 @@ void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edit
 			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
 					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
 			{
+				contact = Editor::ENTITY_CATEGORY::BOUNCE;
 				//particle bounce explosion
 
 				//editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM];
 				//this->getTexture()->getSize().x;
 
-				
+				Object *temp_object;
 				sf::Vector2f p_texture( this->texture->getSize() ); //player texture
 				sf::Vector2f b_texture( editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM].getSize() ); //bounce texture
 
-				//this->entity->getBody()->SetTransform(
+				if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
+				{
+					temp_object = static_cast<Object *>( edge->contact->GetFixtureA()->GetUserData() );
+					
+					/*
+					//sets the player right above the bounce platform
+					b2Vec2 platform_position = temp_object->getBody()->GetPosition();
+					//temp_object->getBody()->GetPosition(); //platform position
+
+					this->entity->getBody()->SetTransform( b2Vec2(platform_position.x, platform_position.y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), this->entity->getBody()->GetAngle() );
+					this->entity->getBody()->SetLinearVelocity(b2Vec2(this->entity->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
+					b2Vec2 impulse(0.0, this->entity->getBody()->GetMass() * 16);
+					this->entity->getBody()->ApplyLinearImpulse(impulse, this->entity->getBody()->GetWorldCenter(), true);
+					/*
+				}
+
+				else
+				{
+					temp_object = static_cast<Object *>( edge->contact->GetFixtureB()->GetUserData() );
+
+					//because it's inside the timestep
+					//use a boolean to pass back if the user contacted a bounce platform
+
+					/*
+					//sets the player right above the bounce platform
+					b2Vec2 platform_position = temp_object->getBody()->GetPosition();
+
+					this->entity->getBody()->SetTransform( b2Vec2(platform_position.x, platform_position.y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), this->entity->getBody()->GetAngle() );
+					this->entity->getBody()->SetLinearVelocity(b2Vec2(this->entity->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
+					b2Vec2 impulse(0.0, this->entity->getBody()->GetMass() * 16);
+					this->entity->getBody()->ApplyLinearImpulse(impulse, this->entity->getBody()->GetWorldCenter(), true);
+					*/
+				}
 
 			}	
 		}
@@ -200,6 +241,8 @@ void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edit
 		//if the player is intersecting the portal, load next level
 
 	}
+
+	return contact; //returns if the player had contact with any objects
 	
 }
 

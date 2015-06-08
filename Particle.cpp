@@ -17,8 +17,8 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	this->particle_systems.push_back( blood_splatter_system );
 	this->system_clocks.push_back(blood_splatter_clock);
 
-	sf::Color fill_color = sf::Color(255, 255, 255, 255);
-	sf::Color outline_color = sf::Color(255, 255, 255, 255);
+	sf::Color fill_color = sf::Color(147, 22, 33, 255);
+	sf::Color outline_color = sf::Color(224, 48, 66, 255);
 	float gravity_scale = -35.0;
 	int radius = 2;
 	int outline_thickness = 2;

@@ -120,7 +120,7 @@ int main()
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
-	//editor.addLevelBoundaries(window, main_view, world); //use when creating a new level. Save the boundaries and then comment out.
+	editor.addLevelBoundaries(window, main_view, world); //use when creating a new level. Save the boundaries and then comment out.
 
 	//creates kinematic platform boundaries
 	mouse_pos_world.x = -50.0;
@@ -128,6 +128,7 @@ int main()
 	sf::Vector2f left_boundary(0.0, mouse_pos_world.y);
 	sf::Vector2f right_boundary(main_view.getLevelSize().x, mouse_pos_world.y);
 	
+	particles.spawn(world, actor.getEntity()->getSprite()->getPosition());
 
     while (window.isOpen())
     {

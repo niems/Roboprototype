@@ -22,7 +22,7 @@ Editor::Editor()
 
 	this->levels.push_back("level2.txt");
 
-	this->levels.push_back("default.txt");
+	this->levels.push_back("level3.txt");
 	this->max_level = FILE::LEVEL3; //the max level the player can reach
 
 	//load static sprites
@@ -96,7 +96,7 @@ Editor::Editor()
 	med_platform_sprite2.setOrigin( med_platform_texture2.getSize().x / 2.0, med_platform_texture2.getSize().y / 2.0 );
 	this->static_sprite.push_back( med_platform_sprite2 );
 
-	if(!med_platform_texture3.loadFromFile("images//nplat1.png") )
+	if(!med_platform_texture3.loadFromFile("images//small_level_boundary.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
@@ -824,9 +824,9 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 	{
 		fixture.density = 1;
 		fixture.restitution = 0.05;
-		fixture.friction = 0.75;
-		fixture.filter.categoryBits = PLATFORM; 
-		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
+		fixture.friction = 0.0;
+		fixture.filter.categoryBits = BOUNDARY;
+		fixture.filter.maskBits = DYNAMIC_OBJECT | WEAPON | FRIENDLY;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
@@ -933,6 +933,8 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
 	temp_object->getSprite()->setRotation(this->angle);
 	temp_object->updateSpritePos();
+	temp_object->getBody()->SetUserData(temp_object); //sets the user data
+
 	this->static_object.push_back(temp_object);
 	
 }
@@ -967,6 +969,8 @@ void Editor::createDynamicBody(sf::RenderWindow &window, b2World *world, sf::Vec
 	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
 	temp_object->getSprite()->setRotation(this->angle);
 	temp_object->updateSpritePos();
+	temp_object->getBody()->SetUserData(temp_object); //sets the user data
+
 	this->dynamic_object.push_back(temp_object);
 }
 
@@ -1041,7 +1045,10 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
 	temp_object->getSprite()->setRotation(this->angle);
 	temp_object->updateSpritePos();
+	temp_object->getBody()->SetUserData(temp_object); //sets the user data
+
 	this->kinematic_object.push_back(temp_object);
+
 }
 
 bool Editor::fileExists(string &filename)

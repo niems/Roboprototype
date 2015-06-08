@@ -38,7 +38,7 @@ public:
 
 	void updateClocks(); //updates all clocks
 	void commandUpdate(sf::Vector2f &mouse_pos);
-	void contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles);
+	int contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles);
 
 	void setAlive(bool status);
 	void setLevelComplete(bool status); //determines if the level is complete
