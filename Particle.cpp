@@ -108,6 +108,38 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
 	this->particle_systems.back()->SetGravityScale(gravity_scale);
 
+	//creates explosion when the player spawns in a new level
+	Timer spawn_clock;
+	b2ParticleSystem *spawn_system;
+	b2ParticleSystemDef spawn_system_def;
+	sf::CircleShape *spawn_shape = new sf::CircleShape();
+	fill_color = sf::Color(255, 255, 255, 255);
+	outline_color = sf::Color(230, 230, 230, 180);
+	gravity_scale = -40.0;
+	radius = 3;
+	outline_thickness = 2;
+	max_particles = 500;
+	lifetime = 2.0;	
+
+	this->particle_systems.push_back( spawn_system );
+	this->shapes.push_back( *spawn_shape ); //player hair shape
+	this->system_clocks.push_back( spawn_clock );
+
+	this->shapes.back().setFillColor( fill_color );
+	this->shapes.back().setOutlineThickness( outline_thickness );
+	this->shapes.back().setOutlineColor( outline_color );
+	this->shapes.back().setRadius( radius );
+	this->shapes.back().setOrigin( spawn_shape->getRadius(), spawn_shape->getRadius() );
+
+	spawn_system_def.density = 1;
+	spawn_system_def.radius = (shape->getRadius() + (shape->getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
+	spawn_system_def.maxCount = max_particles; //maximum number of particles on the screen
+
+	this->particle_systems.back() = world->CreateParticleSystem(&spawn_system_def); //creates the particle system to hold all the particles
+	this->particle_systems.back()->SetRadius( this->shapes.back().getRadius() );
+	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
+	this->particle_systems.back()->SetGravityScale(gravity_scale);
+
 }
 
 void Particle::updateClocks()
@@ -198,6 +230,36 @@ void Particle::explosion(b2World *world, const sf::Vector2f &pos)
 		
 
 		this->particle_systems[TYPE::EXPLOSION]->CreateParticle(p_def);
+	}
+}
+
+void Particle::spawn(b2World *world, const sf::Vector2f &pos)
+{
+	sf::Vector2f offset;
+	b2ParticleDef p_def;
+
+	p_def.lifetime = 0.3;
+	p_def.flags = b2_elasticParticle;
+
+	for(int i = 0; i < 100; i++)
+	{
+		offset.x = rand() % 30;
+		offset.x = (rand() % 2 == 0) ? (offset.x * -1) : offset.x;
+		offset.x += pos.x;
+
+		offset.y = rand() % 10;
+		offset.y = (rand() % 2 == 0) ? (offset.y * -1) : offset.y;
+		offset.y += pos.y;
+
+		p_def.position.Set( offset.x, offset.y );
+		p_def.velocity.x = (rand() % 200) + 100;
+		p_def.velocity.x = (rand() % 2 == 0) ? p_def.velocity.x : -p_def.velocity.x;
+
+		p_def.velocity.y = (rand() % 200) + 100;
+		p_def.velocity.y = (rand() % 2 == 0) ? p_def.velocity.y : -p_def.velocity.y;
+		
+
+		this->particle_systems[TYPE::SPAWN]->CreateParticle(p_def);
 	}
 }
 

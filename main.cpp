@@ -122,6 +122,9 @@ int main()
 	//levels.push_back("level1.txt");
 
 	//string file = levels[LEVEL1];
+	editor.current_level_index = Editor::FILE::LEVEL1;
+	editor.current_level = editor.levels[editor.current_level_index];
+
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
 
 	//creates kinematic platform boundaries
@@ -178,7 +181,7 @@ int main()
 				if(actor.isLevelComplete() == true) //the the player finished the level
 				{
 					actor.loadNextLevel(window, world, editor, main_view); 
-					particles.explosion(world, actor.getEntity()->getSprite()->getPosition());
+					particles.spawn(world, actor.getEntity()->getSprite()->getPosition());
 					left_boundary = sf::Vector2f(0.0, mouse_pos_world.y);
 					right_boundary = sf::Vector2f(main_view.getLevelSize().x, mouse_pos_world.y);
 				}
@@ -192,26 +195,25 @@ int main()
 
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
-				
 			
 				particles.playerHair(world, *(actor.getEntity())); 
 
-				if(sf::Keyboard::isKeyPressed( sf::Keyboard::V ) && mouse_clock.getElapsedTime() >= 0.25 )
+				/*
+				//PUT THIS IN A FUNCTION
+				if(editor.levelBoundaries(main_view, *(actor.getEntity()) ) == true) //if the player went out of bounds
 				{
-					actor.getHealthBar()->damage(10);
 					
+					particles.explosion(world, actor.getEntity()->getSprite()->getPosition());
+					actor.getHealthBar()->damage( actor.getHealthBar()->getMaxHealth() );
+					actor.death();
 
-					mouse_clock.restart();
+					particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
 				}
+				*/
 
-				else if(sf::Keyboard::isKeyPressed( sf::Keyboard::F ) && mouse_clock.getElapsedTime() >= 0.25)
-				{
-					actor.getHealthBar()->heal(10);
-					mouse_clock.restart();
-				}
-
-				//Physics::levelBoundaries(editor, main_view, player); //keeps the player in the level
 				Object::updatePosition(*(actor.getEntity())); //updates the player sprite
+
+				//updates player health bar to the current position
 				actor.getHealthBar()->updateBar( sf::Vector2f(actor.getEntity()->getSprite()->getPosition().x, actor.getEntity()->getSprite()->getPosition().y) );
 
 				Object::updatePosition(editor.getDynamicObjects()); //updates the sprite position of the dynamic objects
@@ -235,6 +237,7 @@ int main()
 
 			Draw::drawParticles(window, world, particles, Particle::TYPE::BLOOD_SPLATTER); //draws all blood splatters to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::EXPLOSION); //draws all explosions to the screen
+			Draw::drawParticles(window, world, particles, Particle::TYPE::SPAWN); //draws all the spawn explosions to the screen
 			
 			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
@@ -250,6 +253,9 @@ int main()
 			{
 				//actor.respawn(editor); //respaws the character at the spawn point after a period of time
 				actor.respawn( window, world, editor, main_view, *(actor.getEntity()), editor.getFileName() );
+
+				if(actor.isAlive() == true) //creates the spawn explosion right when the character respawns
+					particles.spawn(world, actor.getEntity()->getSprite()->getPosition() );
 			}
 				
 

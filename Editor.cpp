@@ -20,8 +20,10 @@ Editor::Editor()
 	this->current_level = levels[FILE::LEVEL1]; //start level
 	this->current_level_index = FILE::LEVEL1;
 
+	this->levels.push_back("level2.txt");
+
 	this->levels.push_back("default.txt");
-	this->max_level = FILE::LEVEL2;
+	this->max_level = FILE::LEVEL3; //the max level the player can reach
 
 	//load static sprites
 	sf::Texture small_platform_texture;
@@ -59,6 +61,9 @@ Editor::Editor()
 
 	sf::Texture bounce_platform_texture;
 	sf::Sprite bounce_platform_sprite;
+
+	sf::Texture level_boundary_texture;
+	sf::Sprite level_boundary_sprite;
 
 	if(!small_platform_texture.loadFromFile("images//orb.png") )
 	{
@@ -181,6 +186,16 @@ Editor::Editor()
 	bounce_platform_sprite.setTexture( this->static_texture.back() );
 	bounce_platform_sprite.setOrigin( bounce_platform_texture.getSize().x / 2.0, bounce_platform_texture.getSize().y / 2.0 );
 	this->static_sprite.push_back( bounce_platform_sprite );
+
+	if(!level_boundary_texture.loadFromFile("images//level_boundary.png") )
+	{
+		printf("Failed to load texture on line %d \n", __LINE__);
+	}
+
+	this->static_texture.push_back( level_boundary_texture );
+	level_boundary_sprite.setTexture( this->static_texture.back() );
+	level_boundary_sprite.setOrigin( level_boundary_texture.getSize().x / 2.0, level_boundary_texture.getSize().y / 2.0 );
+	this->static_sprite.push_back( level_boundary_sprite );
 	
 
 	//load dynamic sprites
@@ -322,6 +337,54 @@ void Editor::setObjectType(int o_type) //sets the current object type
 void Editor::setCurrentIndex(int c_index) //sets the current index
 {
 	this->current_index = c_index;
+}
+
+void Editor::addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state)
+{
+	Object *temp_object;
+	b2FixtureDef fixture;
+	sf::Vector2f pos;
+	this->current_index = STATIC::LEVEL_BOUNDARY; //sets it up so the boundaries are loaded
+
+	fixture.density = 1.0;
+	fixture.restitution = 0.0;
+	fixture.friction = 0.0; 
+	fixture.filter.categoryBits = BOUNDARY;
+	fixture.filter.maskBits = FRIENDLY | DYNAMIC_OBJECT | WEAPON;
+
+	temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+	
+	//loop through all horizontal boundaries
+	pos.x = 0.0;
+	//pos.y = 
+	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), 0.0 * DEGTORAD );
+	temp_object->getSprite()->setRotation(0.0);
+	temp_object->updateSpritePos();
+	this->static_object.push_back(temp_object);
+
+	//loop through all vertical boundaries
+
+	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), 90.0 * DEGTORAD );
+	temp_object->getSprite()->setRotation(90.0);
+	temp_object->updateSpritePos();
+	this->static_object.push_back(temp_object);
+
+	/*
+	fixture.density = 1;
+	fixture.restitution = 0.0;
+	fixture.friction = 0.0;
+	fixture.filter.categoryBits = BOUNDARY; 
+	fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
+		
+	temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+	
+
+	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
+	temp_object->getSprite()->setRotation(this->angle);
+	temp_object->updateSpritePos();
+	this->static_object.push_back(temp_object);
+	*/
+
 }
 
 //determines how to place objects to the screen in editor mode
@@ -530,6 +593,24 @@ void Editor::gameModeToggle(sf::Text &mode_text, Timer &clock, string &live, str
 		}
 	}
 }
+
+bool Editor::levelBoundaries(Camera &view, Object &player)
+{
+	//if the player goes out of bounds, they return to the spawn point
+	if(player.getSprite()->getPosition().x < 0 || player.getSprite()->getPosition().x > view.getLevelSize().x)
+	{
+		player.getBody()->SetTransform( b2Vec2(this->spawn_point.x * PIXELS_TO_METERS, -this->spawn_point.y* PIXELS_TO_METERS), player.getBody()->GetAngle() );
+		return true;
+	}
+
+	else if(player.getSprite()->getPosition().y < 0 || player.getSprite()->getPosition().y > view.getLevelSize().y)
+	{
+		player.getBody()->SetTransform( b2Vec2(this->spawn_point.x * PIXELS_TO_METERS, -this->spawn_point.y * PIXELS_TO_METERS), player.getBody()->GetAngle() );
+		return true;
+	}
+
+	return false;
+} 
 
 void Editor::deleteObject(b2World *world, sf::Vector2f &mouse_pos)
 {
@@ -826,6 +907,17 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		fixture.restitution = 0.75;
 		fixture.friction = 0.75;
 		fixture.filter.categoryBits = BOUNCE; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
+		
+		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+	}
+
+	else if(this->current_index == STATIC::LEVEL_BOUNDARY)
+	{
+		fixture.density = 1;
+		fixture.restitution = 0.0;
+		fixture.friction = 0.0;
+		fixture.filter.categoryBits = BOUNDARY; 
 		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 		
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);

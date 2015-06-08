@@ -12,6 +12,7 @@
 #include "Timer.h"
 #include "Physics.h"
 #include "Camera.h"
+#include "Particle.h"
 using namespace std;
 
 /*
@@ -69,11 +70,11 @@ public:
 
 	enum GAME_STATE {LIVE, EDITOR}; //two game states
 	enum BODY_TYPE{STATIC, DYNAMIC, KINEMATIC}; //determines what type of box2d body to create	
-	enum STATIC{ORB, MED_PLATFORM1, MED_PLATFORM2, MED_PLATFORM3, MED_PLATFORM4, MED_PLATFORM5, MED_PLATFORM6, MED_PLATFORM7, LARGE_PLATFORM, H_BOUNDARY, V_BOUNDARY, BOUNCE_PLATFORM}; 
+	enum STATIC{ORB, MED_PLATFORM1, MED_PLATFORM2, MED_PLATFORM3, MED_PLATFORM4, MED_PLATFORM5, MED_PLATFORM6, MED_PLATFORM7, LARGE_PLATFORM, H_BOUNDARY, V_BOUNDARY, BOUNCE_PLATFORM, LEVEL_BOUNDARY}; 
 	enum DYNAMIC{CRATE, CRATE2}; 
 	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL, HEALTH_ITEM};
 
-	enum FILE{LEVEL1, LEVEL2}; //used to index the levels in the vector
+	enum FILE{LEVEL1, LEVEL2, LEVEL3}; //used to index the levels in the vector
 	string current_level; //the string of the current level as a text file. ex. "level1.txt"
 	int current_level_index; //index of the current level
 	int max_level; //highest level so far
@@ -86,12 +87,16 @@ public:
 	void setObjectType(int o_type); //sets the current object type
 	void setCurrentIndex(int c_index); //sets the current index
 
+	void addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state); //adds the boundaries to the level
+
 	//determines how to place objects to the screen in editor mode
 	void keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state);
 	void keyboardCycleCommands(Timer &editor_clock); //used to cycle through objects in editor mode
 
 	//allows you toggle between live and editor mode
 	void gameModeToggle(sf::Text &mode_text, Timer &clock, string &live, string &edit, int &game_state);
+
+	bool levelBoundaries(Camera &view, Object &player); //kills the player and returns them to the spawn point if they go out of bounds
 
 	//cycles through all objects to see if the cursor is intersecting any.
 	//objects that are being intersected are deleted.

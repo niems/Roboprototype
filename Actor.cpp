@@ -146,7 +146,7 @@ void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edit
 				if(particles.getSystemClocks()[Particle::TYPE::EXPLOSION].getElapsedTime() >= 0.5)
 				{
 					particles.explosion(world, this->entity->getSprite()->getPosition() );
-					this->health_bar->damage(this->getHealthBar()->getMaxHealth()); //kills player
+					this->health_bar->damage(this->health_bar->getMaxHealth()); //kills player
 					
 					this->death(); //sets everything up so that the player is dead
 
