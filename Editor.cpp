@@ -357,12 +357,14 @@ void Editor::addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World 
 	for(source_pos.x = 0.0; source_pos.x < view.getLevelSize().x; source_pos.x += size.x)
 	{
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
-
-		//need to account for the objects having a centered origin
+		
 		temp_object->getBody()->SetTransform( b2Vec2( source_pos.x * PIXELS_TO_METERS, 0.0 * PIXELS_TO_METERS ), 0.0 * DEGTORAD );
 		temp_object->getSprite()->setRotation(0.0);
 		temp_object->updateSpritePos();
 		this->static_object.push_back(temp_object);
+
+
+		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 
 		temp_object->getBody()->SetTransform( b2Vec2( source_pos.x * PIXELS_TO_METERS, -view.getLevelSize().y * PIXELS_TO_METERS ), 0.0 * DEGTORAD );
 		temp_object->getSprite()->setRotation(0.0);
@@ -372,11 +374,12 @@ void Editor::addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World 
 
 	}	
 
+	
 	//loop through all vertical boundaries
 	for(source_pos.y = 0.0; source_pos.y < view.getLevelSize().y; source_pos.y += size.y)
 	{
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
-		temp_object->getBody()->SetTransform( b2Vec2( source_pos.x * PIXELS_TO_METERS, -source_pos.y * PIXELS_TO_METERS ), 90.0 * DEGTORAD );
+		temp_object->getBody()->SetTransform( b2Vec2( 0.0 * PIXELS_TO_METERS, -source_pos.y * PIXELS_TO_METERS ), 90.0 * DEGTORAD );
 		temp_object->getSprite()->setRotation(90.0);
 		temp_object->updateSpritePos();
 		this->static_object.push_back(temp_object);
@@ -387,6 +390,7 @@ void Editor::addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World 
 		temp_object->updateSpritePos();
 		this->static_object.push_back(temp_object);
 	}
+	
 }
 
 //determines how to place objects to the screen in editor mode

@@ -116,11 +116,11 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	editor.current_level_index = Editor::FILE::LEVEL1;
+	editor.current_level_index = Editor::FILE::LEVEL2;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
-	//editor.addLevelBoundaries(window, main_view, world);
+	editor.addLevelBoundaries(window, main_view, world);
 
 	//creates kinematic platform boundaries
 	mouse_pos_world.x = -50.0;
