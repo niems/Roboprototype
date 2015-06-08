@@ -187,7 +187,25 @@ int main()
 
 				//checks for player commands
 				actor.commandUpdate(mouse_pos_world);
-				actor.contactUpdate(window, world, editor, main_view, particles);
+
+				if(actor.contactUpdate(window, world, editor, main_view, particles) == Editor::ENTITY_CATEGORY::BOUNCE)
+				{
+					/*
+					sf::Vector2f p_texture( actor.getTexture()->getSize() ); //player texture
+					sf::Vector2f b_texture( editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM].getSize() ); //bounce texture
+
+					
+					//return the b2Vec2 position instead of the Object *
+					b2Vec2 *platform_position =  actor.getEntityContactPos();
+					//temp_object->getBody()->GetPosition(); //platform position
+
+					actor.getEntity()->getBody()->SetTransform( b2Vec2(platform_position->x, platform_position->y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), actor.getEntity()->getBody()->GetAngle() );
+					actor.getEntity()->getBody()->SetLinearVelocity(b2Vec2(actor.getEntity()->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
+					b2Vec2 impulse(0.0, actor.getEntity()->getBody()->GetMass() * 16);
+					actor.getEntity()->getBody()->ApplyLinearImpulse(impulse, actor.getEntity()->getBody()->GetWorldCenter(), true);
+					*/
+					
+				}
 
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);

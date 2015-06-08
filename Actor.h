@@ -14,6 +14,8 @@ class Actor
 private:
 	Health *health_bar;
 	Object *entity; //holds the box2d body and sprite
+	Object *entity_contact;
+	b2Vec2 *entity_contact_pos; //the contact position of the entity
 	
 	sf::Texture *texture; //holds entity texture
 	sf::Vector2f velocity; //actor velocity
@@ -32,6 +34,9 @@ public:
 	Object* getEntity(); //returns the entity
 	Health* getHealthBar(); 
 	Timer* getDeathClock(); //returns the death clock
+
+	Object* getEntityContact(); 
+	b2Vec2* getEntityContactPos(); //returns the position of the object contacting the player
 
 	bool isAlive(); //returns if the entity is alive
 	bool isLevelComplete(); //returns if the level is complete

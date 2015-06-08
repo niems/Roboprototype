@@ -55,6 +55,16 @@ Timer* Actor::getDeathClock()
 	return( &(this->death_clock) );
 }
 
+Object* Actor::getEntityContact()
+{
+	return( this->entity_contact );
+}
+
+b2Vec2* Actor::getEntityContactPos()
+{
+	return( this->entity_contact_pos );
+}
+
 bool Actor::isAlive()
 {
 	return( this->alive );
@@ -136,6 +146,8 @@ void Actor::commandUpdate(sf::Vector2f &mouse_pos)
 int Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles)
 {
 	int contact = -1; //the player isn't in contact with anything
+	this->entity_contact = NULL; //point to the object in contact with the player
+	this->entity_contact_pos = new b2Vec2(-1.0, -1.0); 
 
 	if(this->alive == true) //only updates if the player is alive
 	{
@@ -193,48 +205,19 @@ int Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edito
 			{
 				contact = Editor::ENTITY_CATEGORY::BOUNCE;
 				//particle bounce explosion
-
-				//editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM];
-				//this->getTexture()->getSize().x;
-
-				Object *temp_object;
-				sf::Vector2f p_texture( this->texture->getSize() ); //player texture
-				sf::Vector2f b_texture( editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM].getSize() ); //bounce texture
-
+				/*
 				if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
 				{
-					temp_object = static_cast<Object *>( edge->contact->GetFixtureA()->GetUserData() );
-					
-					/*
-					//sets the player right above the bounce platform
-					b2Vec2 platform_position = temp_object->getBody()->GetPosition();
-					//temp_object->getBody()->GetPosition(); //platform position
-
-					this->entity->getBody()->SetTransform( b2Vec2(platform_position.x, platform_position.y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), this->entity->getBody()->GetAngle() );
-					this->entity->getBody()->SetLinearVelocity(b2Vec2(this->entity->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
-					b2Vec2 impulse(0.0, this->entity->getBody()->GetMass() * 16);
-					this->entity->getBody()->ApplyLinearImpulse(impulse, this->entity->getBody()->GetWorldCenter(), true);
-					/*
+					this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureA()->GetUserData() );
+					this->entity_contact_pos = &(this->entity_contact->getBody()->GetPosition());
 				}
 
-				else
+				else if(edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
 				{
-					temp_object = static_cast<Object *>( edge->contact->GetFixtureB()->GetUserData() );
-
-					//because it's inside the timestep
-					//use a boolean to pass back if the user contacted a bounce platform
-
-					/*
-					//sets the player right above the bounce platform
-					b2Vec2 platform_position = temp_object->getBody()->GetPosition();
-
-					this->entity->getBody()->SetTransform( b2Vec2(platform_position.x, platform_position.y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), this->entity->getBody()->GetAngle() );
-					this->entity->getBody()->SetLinearVelocity(b2Vec2(this->entity->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
-					b2Vec2 impulse(0.0, this->entity->getBody()->GetMass() * 16);
-					this->entity->getBody()->ApplyLinearImpulse(impulse, this->entity->getBody()->GetWorldCenter(), true);
-					*/
+					this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureB()->GetUserData() );
+					this->entity_contact_pos = this->entity_contact->getBody()->GetPosition();
 				}
-
+				*/
 			}	
 		}
 
