@@ -212,7 +212,7 @@ void Actor::death()
 
 void Actor::respawn(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Object &player, string &file_name)
 {
-	if(this->death_clock.getElapsedTime() >= 1.5)
+	if(this->death_clock.getElapsedTime() >= 0.85)
 	{
 		editor.deleteAllObjects(world);
 		editor.loadFile(window, world, view, player, file_name); //use editor.current_level for file name
@@ -226,7 +226,6 @@ void Actor::respawn(sf::RenderWindow &window, b2World *world, Editor &editor, Ca
 		this->getHealthBar()->heal(this->getHealthBar()->getMaxHealth());
 
 		this->entity->getBody()->SetTransform( b2Vec2(spawn.x * PIXELS_TO_METERS, -spawn.y * PIXELS_TO_METERS), this->entity->getBody()->GetAngle() );
-
 	}
 	
 }
@@ -253,4 +252,5 @@ void Actor::loadNextLevel(sf::RenderWindow &window, b2World *world, Editor &edit
 		this->getHealthBar()->heal(this->getHealthBar()->getMaxHealth()); //full health for new level
 
 		this->entity->getBody()->SetTransform( b2Vec2(spawn.x * PIXELS_TO_METERS, -spawn.y * PIXELS_TO_METERS), this->entity->getBody()->GetAngle() );
+		this->entity->getBody()->SetLinearVelocity( b2Vec2(0.0, 0.0) );
 }

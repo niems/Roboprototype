@@ -339,52 +339,54 @@ void Editor::setCurrentIndex(int c_index) //sets the current index
 	this->current_index = c_index;
 }
 
-void Editor::addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state)
+void Editor::addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World *world)
 {
 	Object *temp_object;
 	b2FixtureDef fixture;
-	sf::Vector2f pos;
+	sf::Vector2f source_pos(0.0, 0.0);
+	sf::Vector2f size( this->static_texture[this->current_index].getSize() );
 	this->current_index = STATIC::LEVEL_BOUNDARY; //sets it up so the boundaries are loaded
 
 	fixture.density = 1.0;
 	fixture.restitution = 0.0;
 	fixture.friction = 0.0; 
 	fixture.filter.categoryBits = BOUNDARY;
-	fixture.filter.maskBits = FRIENDLY | DYNAMIC_OBJECT | WEAPON;
-
-	temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+	fixture.filter.maskBits = FRIENDLY | DYNAMIC_OBJECT | WEAPON;	
 	
 	//loop through all horizontal boundaries
-	pos.x = 0.0;
-	//pos.y = 
-	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), 0.0 * DEGTORAD );
-	temp_object->getSprite()->setRotation(0.0);
-	temp_object->updateSpritePos();
-	this->static_object.push_back(temp_object);
+	for(source_pos.x = 0.0; source_pos.x < view.getLevelSize().x; source_pos.x += size.x)
+	{
+		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+
+		//need to account for the objects having a centered origin
+		temp_object->getBody()->SetTransform( b2Vec2( source_pos.x * PIXELS_TO_METERS, 0.0 * PIXELS_TO_METERS ), 0.0 * DEGTORAD );
+		temp_object->getSprite()->setRotation(0.0);
+		temp_object->updateSpritePos();
+		this->static_object.push_back(temp_object);
+
+		temp_object->getBody()->SetTransform( b2Vec2( source_pos.x * PIXELS_TO_METERS, -view.getLevelSize().y * PIXELS_TO_METERS ), 0.0 * DEGTORAD );
+		temp_object->getSprite()->setRotation(0.0);
+		temp_object->updateSpritePos();
+		this->static_object.push_back(temp_object);
+
+
+	}	
 
 	//loop through all vertical boundaries
+	for(source_pos.y = 0.0; source_pos.y < view.getLevelSize().y; source_pos.y += size.y)
+	{
+		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+		temp_object->getBody()->SetTransform( b2Vec2( source_pos.x * PIXELS_TO_METERS, -source_pos.y * PIXELS_TO_METERS ), 90.0 * DEGTORAD );
+		temp_object->getSprite()->setRotation(90.0);
+		temp_object->updateSpritePos();
+		this->static_object.push_back(temp_object);
 
-	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), 90.0 * DEGTORAD );
-	temp_object->getSprite()->setRotation(90.0);
-	temp_object->updateSpritePos();
-	this->static_object.push_back(temp_object);
-
-	/*
-	fixture.density = 1;
-	fixture.restitution = 0.0;
-	fixture.friction = 0.0;
-	fixture.filter.categoryBits = BOUNDARY; 
-	fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
-		
-	temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
-	
-
-	temp_object->getBody()->SetTransform( b2Vec2( mouse_pos.x * PIXELS_TO_METERS, -mouse_pos.y * PIXELS_TO_METERS ), -this->angle * DEGTORAD );
-	temp_object->getSprite()->setRotation(this->angle);
-	temp_object->updateSpritePos();
-	this->static_object.push_back(temp_object);
-	*/
-
+		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
+		temp_object->getBody()->SetTransform( b2Vec2( view.getLevelSize().x * PIXELS_TO_METERS, -source_pos.y * PIXELS_TO_METERS ), 90.0 * DEGTORAD );
+		temp_object->getSprite()->setRotation(90.0);
+		temp_object->updateSpritePos();
+		this->static_object.push_back(temp_object);
+	}
 }
 
 //determines how to place objects to the screen in editor mode
@@ -596,20 +598,21 @@ void Editor::gameModeToggle(sf::Text &mode_text, Timer &clock, string &live, str
 
 bool Editor::levelBoundaries(Camera &view, Object &player)
 {
+	bool modified = false;
 	//if the player goes out of bounds, they return to the spawn point
 	if(player.getSprite()->getPosition().x < 0 || player.getSprite()->getPosition().x > view.getLevelSize().x)
 	{
 		player.getBody()->SetTransform( b2Vec2(this->spawn_point.x * PIXELS_TO_METERS, -this->spawn_point.y* PIXELS_TO_METERS), player.getBody()->GetAngle() );
-		return true;
+		modified = true;
 	}
 
 	else if(player.getSprite()->getPosition().y < 0 || player.getSprite()->getPosition().y > view.getLevelSize().y)
 	{
 		player.getBody()->SetTransform( b2Vec2(this->spawn_point.x * PIXELS_TO_METERS, -this->spawn_point.y * PIXELS_TO_METERS), player.getBody()->GetAngle() );
-		return true;
+		modified = true;
 	}
 
-	return false;
+	return modified;
 } 
 
 void Editor::deleteObject(b2World *world, sf::Vector2f &mouse_pos)

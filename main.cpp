@@ -116,16 +116,11 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	//enum FILE{LEVEL1};
-	//vector<string> levels;
-	
-	//levels.push_back("level1.txt");
-
-	//string file = levels[LEVEL1];
 	editor.current_level_index = Editor::FILE::LEVEL1;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
+	//editor.addLevelBoundaries(window, main_view, world);
 
 	//creates kinematic platform boundaries
 	mouse_pos_world.x = -50.0;
@@ -198,20 +193,19 @@ int main()
 			
 				particles.playerHair(world, *(actor.getEntity())); 
 
+				Object::updatePosition(*(actor.getEntity())); //updates the player sprite
 				/*
 				//PUT THIS IN A FUNCTION
 				if(editor.levelBoundaries(main_view, *(actor.getEntity()) ) == true) //if the player went out of bounds
 				{
-					
+					//Figure out why it hits this right when it starts.
 					particles.explosion(world, actor.getEntity()->getSprite()->getPosition());
 					actor.getHealthBar()->damage( actor.getHealthBar()->getMaxHealth() );
 					actor.death();
 
 					particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
-				}
-				*/
-
-				Object::updatePosition(*(actor.getEntity())); //updates the player sprite
+				} */
+				
 
 				//updates player health bar to the current position
 				actor.getHealthBar()->updateBar( sf::Vector2f(actor.getEntity()->getSprite()->getPosition().x, actor.getEntity()->getSprite()->getPosition().y) );

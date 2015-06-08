@@ -87,7 +87,7 @@ public:
 	void setObjectType(int o_type); //sets the current object type
 	void setCurrentIndex(int c_index); //sets the current index
 
-	void addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state); //adds the boundaries to the level
+	void addLevelBoundaries(sf::RenderWindow &window, Camera &view, b2World *world);
 
 	//determines how to place objects to the screen in editor mode
 	void keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2World *world, Object &player, Timer &mouse_clock, sf::Text &object_type, sf::Vector2f &mouse_pos, string *editor_type, int &game_state);
