@@ -18,6 +18,7 @@ private:
 	sf::Texture *texture; //holds entity texture
 	sf::Vector2f velocity; //actor velocity
 	bool alive;
+	bool level_complete;
 
 	//should be able to remove this with a sensor
 	Timer jump_clock; //used only for jumping
@@ -33,17 +34,18 @@ public:
 	Timer* getDeathClock(); //returns the death clock
 
 	bool isAlive(); //returns if the entity is alive
+	bool isLevelComplete(); //returns if the level is complete
 
 	void updateClocks(); //updates all clocks
 	void commandUpdate(sf::Vector2f &mouse_pos);
-	void contactUpdate(b2World *world, Particle &particles);
+	void contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles);
 
 	void setAlive(bool status);
+	void setLevelComplete(bool status); //determines if the level is complete
+
 	void death(); //sets everything so the character is dead
 	void respawn(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Object &player, string &file_name); //resets everything for the character respawn
-	//loadFile(sf::RenderWindow &window, b2World *world, Camera &view, Object &player, string &file_name);
-
-	
+	void loadNextLevel(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view);	
 
 };
 

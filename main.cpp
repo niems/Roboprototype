@@ -116,8 +116,13 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	string file = "default.txt";
-	editor.loadFile(window, world, main_view, *(actor.getEntity()), file);
+	//enum FILE{LEVEL1};
+	//vector<string> levels;
+	
+	//levels.push_back("level1.txt");
+
+	//string file = levels[LEVEL1];
+	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
 
 	//creates kinematic platform boundaries
 	mouse_pos_world.x = -50.0;
@@ -170,12 +175,20 @@ int main()
 			{
 				main_view.boundaryControl(actor.getEntity()->getSprite()->getPosition()); //camera follows player in live mode
 
+				if(actor.isLevelComplete() == true) //the the player finished the level
+				{
+					actor.loadNextLevel(window, world, editor, main_view); 
+					particles.explosion(world, actor.getEntity()->getSprite()->getPosition());
+					left_boundary = sf::Vector2f(0.0, mouse_pos_world.y);
+					right_boundary = sf::Vector2f(main_view.getLevelSize().x, mouse_pos_world.y);
+				}
+
 				//update clocks
 				actor.updateClocks();			
 
 				//checks for player commands
 				actor.commandUpdate(mouse_pos_world);
-				actor.contactUpdate(world, particles);
+				actor.contactUpdate(window, world, editor, main_view, particles);
 
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);

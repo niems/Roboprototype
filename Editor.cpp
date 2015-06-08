@@ -16,6 +16,13 @@ Editor::Editor()
 	this->current_background_index = 0; //default starting background
 	this->angle = 0.0;
 
+	this->levels.push_back("level1.txt");
+	this->current_level = levels[FILE::LEVEL1]; //start level
+	this->current_level_index = FILE::LEVEL1;
+
+	this->levels.push_back("default.txt");
+	this->max_level = FILE::LEVEL2;
+
 	//load static sprites
 	sf::Texture small_platform_texture;
 	sf::Sprite small_platform_sprite;
@@ -284,6 +291,12 @@ Editor::Editor()
 	health_sprite.setOrigin( health_texture.getSize().x / 2.0, health_texture.getSize().y / 2.0 );
 	this->kinematic_sprite.push_back( health_sprite );
 	
+}
+
+void Editor::nextLevel() //sets variables for next level
+{
+	this->current_level_index++;
+	this->current_level = this->levels[this->current_level_index];
 }
 
 void Editor::addStaticObject(Object *object)
@@ -910,7 +923,7 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.filter.maskBits = FRIENDLY | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE );
-		temp_object->getBody()->SetAngularVelocity(-600.0 * DEGTORAD );
+		temp_object->getBody()->SetAngularVelocity(-550.0 * DEGTORAD );
 		temp_object->getSprite()->setColor( sf::Color(0, 200, 200, 30) );
 	}
 

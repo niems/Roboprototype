@@ -73,6 +73,13 @@ public:
 	enum DYNAMIC{CRATE, CRATE2}; 
 	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL, HEALTH_ITEM};
 
+	enum FILE{LEVEL1, LEVEL2}; //used to index the levels in the vector
+	string current_level; //the string of the current level as a text file. ex. "level1.txt"
+	int current_level_index; //index of the current level
+	int max_level; //highest level so far
+	vector<string> levels; //strings of the text files used for the levels
+	void nextLevel(); //gets ready to load the next level
+
 	void addStaticObject(Object *object);      //adds a static object to the vector
 	void addDynamicObject(Object *object);    //adds a dynamic object to the vector
 	void addKinematicObject(Object *object); //adds a kinematic object to the vector

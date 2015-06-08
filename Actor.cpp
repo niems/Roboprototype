@@ -60,6 +60,11 @@ bool Actor::isAlive()
 	return( this->alive );
 }
 
+bool Actor::isLevelComplete()
+{
+	return( this->level_complete );
+}
+
 void Actor::updateClocks()
 {
 	this->clock.update();
@@ -127,12 +132,14 @@ void Actor::commandUpdate(sf::Vector2f &mouse_pos)
 	}
 }
 
-void Actor::contactUpdate(b2World *world, Particle &particles)
+//(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view)
+void Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles)
 {
 	if(this->alive == true) //only updates if the player is alive
 	{
 		for(b2ContactEdge *edge = this->entity->getBody()->GetContactList(); edge; edge = edge->next)
 		{
+			
 			if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY ||
 			   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNDARY )
 			{
@@ -145,7 +152,7 @@ void Actor::contactUpdate(b2World *world, Particle &particles)
 
 					particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
 				}
-			}
+			} 
 
 			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON ||
 					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::WEAPON )
@@ -164,15 +171,24 @@ void Actor::contactUpdate(b2World *world, Particle &particles)
 						particles.getSystemClocks()[Particle::TYPE::BLOOD_SPLATTER].restart();
 					}
 				}
+			
+			
+			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::TELEPORT ||
+			   edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::TELEPORT )
+			{
+				this->level_complete = true; //the player has reached the portal
+			} 
 
+			/*
 			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::HEALTH ||
 					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::HEALTH )
 			{
 				this->getHealthBar()->heal(20);
-			}
-
-		
+			}	*/	
 		}
+
+		//if the player is intersecting the portal, load next level
+
 	}
 	
 }
@@ -180,6 +196,11 @@ void Actor::contactUpdate(b2World *world, Particle &particles)
 void Actor::setAlive(bool status)
 {
 	this->alive = status;
+}
+
+void Actor::setLevelComplete(bool status)
+{
+	this->level_complete = status;
 }
 
 void Actor::death()
@@ -194,7 +215,7 @@ void Actor::respawn(sf::RenderWindow &window, b2World *world, Editor &editor, Ca
 	if(this->death_clock.getElapsedTime() >= 1.5)
 	{
 		editor.deleteAllObjects(world);
-		editor.loadFile(window, world, view, player, file_name);
+		editor.loadFile(window, world, view, player, file_name); //use editor.current_level for file name
 
 		sf::Vector2f spawn;
 		spawn.x = editor.getSpawnPoint().x;
@@ -208,4 +229,28 @@ void Actor::respawn(sf::RenderWindow &window, b2World *world, Editor &editor, Ca
 
 	}
 	
+}
+
+void Actor::loadNextLevel(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view)
+{
+		this->level_complete = false; //reset. The new level isn't completed yet
+
+		editor.current_level_index++; //goes to the index of the next level
+		if(editor.current_level_index > editor.max_level) //checks if the level exists
+			editor.current_level_index = Editor::FILE::LEVEL1; //the level system is circular
+
+		editor.current_level = editor.levels[editor.current_level_index]; //sets the current level
+
+		editor.deleteAllObjects(world);
+		editor.loadFile(window, world, view, *(this->entity), editor.current_level); //loads next level
+
+		sf::Vector2f spawn; //player's spawn point on the new level
+		spawn.x = editor.getSpawnPoint().x;
+		spawn.y = editor.getSpawnPoint().y;
+		
+		this->alive = true;
+		this->entity->getBody()->SetType(b2_dynamicBody);
+		this->getHealthBar()->heal(this->getHealthBar()->getMaxHealth()); //full health for new level
+
+		this->entity->getBody()->SetTransform( b2Vec2(spawn.x * PIXELS_TO_METERS, -spawn.y * PIXELS_TO_METERS), this->entity->getBody()->GetAngle() );
 }
