@@ -116,7 +116,7 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	editor.current_level_index = Editor::FILE::LEVEL3;
+	editor.current_level_index = Editor::FILE::LEVEL1;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
@@ -197,15 +197,9 @@ int main()
 					sf::Vector2f p_texture( actor.getTexture()->getSize() ); //player texture
 					sf::Vector2f b_texture( editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM].getSize() ); //bounce texture
 
-					
-					//return the b2Vec2 position instead of the Object *
-					b2Vec2 *platform_position =  actor.getEntityContactPos(); //this isn't getting set
-					//temp_object->getBody()->GetPosition(); //platform position
-					cout << "platform position: " << platform_position->x << ", " << platform_position->y << endl;
-
+					b2Vec2 *platform_position =  actor.getEntityContactPos();
 					actor.getEntity()->getBody()->SetTransform( b2Vec2(platform_position->x, platform_position->y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), actor.getEntity()->getBody()->GetAngle() );
 
-					//actor.getEntity()->getBody()->SetTransform( b2Vec2(platform_position->x, platform_position->y), actor.getEntity()->getBody()->GetAngle() );
 					actor.getEntity()->getBody()->SetLinearVelocity(b2Vec2(actor.getEntity()->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
 					b2Vec2 impulse(0.0, actor.getEntity()->getBody()->GetMass() * 30);
 					actor.getEntity()->getBody()->ApplyLinearImpulse(impulse, actor.getEntity()->getBody()->GetWorldCenter(), true);
@@ -246,7 +240,7 @@ int main()
 				editor.keyboardCycleCommands(editor_clock); //used to cycle through objects in editor mode
 			}			
 			 
-			window.clear(sf::Color(20, 20, 20) );//sf::Color(0, 255, 255) );
+			window.clear(sf::Color(30, 30, 30) );//sf::Color(0, 255, 255) );
 			//Draw::drawBackgroundGrid(window, main_view, background_tile_sprite1, background_tile_texture1);
 			
 			if(actor.isAlive())

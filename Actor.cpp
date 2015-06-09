@@ -209,7 +209,6 @@ int Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edito
 					this->contact_clock.restart();
 
 					contact = Editor::ENTITY_CATEGORY::BOUNCE;
-					//edge->contact->GetFixtureA()->GetBody()->GetPosition();
 
 					if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
 					{
@@ -226,28 +225,9 @@ int Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edito
 						this->entity_contact_pos->x = pos.x;
 						this->entity_contact_pos->y = pos.y;
 					}
-
-					//particle bounce explosion
-					/*
-					if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
-					{
-						this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureA()->GetUserData() );
-						this->entity_contact_pos = &(this->entity_contact->getBody()->GetPosition());
-					}
-
-					else if(edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
-					{
-						this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureB()->GetUserData() );
-						this->entity_contact_pos = this->entity_contact->getBody()->GetPosition();
-					}
-					*/
 				}	
-			}
-			
+			}			
 		}
-
-		//if the player is intersecting the portal, load next level
-
 	}
 
 	return contact; //returns if the player had contact with any objects

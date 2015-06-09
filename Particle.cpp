@@ -146,13 +146,13 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	b2ParticleSystemDef bounce_system_def;
 	sf::CircleShape *bounce_shape = new sf::CircleShape();
 
-	fill_color = sf::Color(255, 255, 255, 255);
-	outline_color = sf::Color(230, 230, 230, 180);
-	gravity_scale = -40.0;
+	fill_color = sf::Color(66, 217, 200, 255);
+	outline_color = sf::Color(128, 230, 217, 255);
+	gravity_scale = -50.0;
 	radius = 3;
 	outline_thickness = 2;
 	max_particles = 500;
-	lifetime = 2.0;	
+	lifetime = 0.5;	
 
 	this->particle_systems.push_back( bounce_system );
 	this->shapes.push_back( *bounce_shape ); //player hair shape
@@ -302,10 +302,10 @@ void Particle::bounce(b2World *world, const sf::Vector2f &pos)
 	sf::Vector2f offset;
 	b2ParticleDef p_def;
 
-	p_def.lifetime = 1.5;
+	p_def.lifetime = 1.0;
 	p_def.flags = b2_elasticParticle;
 
-	for(int i = 0; i < 300; i++)
+	for(int i = 0; i < 100; i++)
 	{
 		offset.x = rand() % 30;
 		offset.x = (rand() % 2 == 0) ? (offset.x * -1) : offset.x;
@@ -316,12 +316,14 @@ void Particle::bounce(b2World *world, const sf::Vector2f &pos)
 		offset.y += pos.y;
 
 		p_def.position.Set( offset.x, offset.y );
-		p_def.velocity.x = (rand() % 100) + 100;
+		p_def.velocity.x = 60;
 		p_def.velocity.x = (rand() % 2 == 0) ? p_def.velocity.x : -p_def.velocity.x;
 
 		//p_def.velocity.y = (rand() % 200) + 200;
 		//p_def.velocity.y *= -1;
 		//p_def.velocity.y = (rand() % 2 == 0) ? p_def.velocity.y : -p_def.velocity.y;
+
+		p_def.velocity.y = (rand() % 500) + 100;
 
 		this->particle_systems[TYPE::BOUNCE]->CreateParticle(p_def);
 	}
