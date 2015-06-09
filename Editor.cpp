@@ -911,7 +911,7 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 	else if(this->current_index == STATIC::BOUNCE_PLATFORM)
 	{
 		fixture.density = 1;
-		fixture.restitution = 0.75;
+		fixture.restitution = 0.0;
 		fixture.friction = 0.75;
 		fixture.filter.categoryBits = BOUNCE; 
 		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;

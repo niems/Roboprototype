@@ -116,7 +116,7 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	editor.current_level_index = Editor::FILE::LEVEL1;
+	editor.current_level_index = Editor::FILE::LEVEL3;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
@@ -209,7 +209,7 @@ int main()
 					actor.getEntity()->getBody()->SetLinearVelocity(b2Vec2(actor.getEntity()->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
 					b2Vec2 impulse(0.0, actor.getEntity()->getBody()->GetMass() * 30);
 					actor.getEntity()->getBody()->ApplyLinearImpulse(impulse, actor.getEntity()->getBody()->GetWorldCenter(), true);
-					
+					particles.bounce(world, actor.getEntity()->getSprite()->getPosition() );
 					
 				}
 				
@@ -255,6 +255,7 @@ int main()
 			Draw::drawParticles(window, world, particles, Particle::TYPE::BLOOD_SPLATTER); //draws all blood splatters to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::EXPLOSION); //draws all explosions to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::SPAWN); //draws all the spawn explosions to the screen
+			Draw::drawParticles(window, world, particles, Particle::TYPE::BOUNCE); //draws all the bounce particles to the screen
 			
 			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
 			Draw::draw( window, editor.getKinematicObjects() ); //draws all the kinematic objects to the screen
