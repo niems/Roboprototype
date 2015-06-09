@@ -53,8 +53,8 @@ Editor::Editor()
 	sf::Texture large_platform_texture;
 	sf::Sprite large_platform_sprite;	
 
-	sf::Texture horizontal_boundary_texture;
-	sf::Sprite horizontal_boundary_sprite;
+	sf::Texture glow_platform_texture;
+	sf::Sprite glow_platform_sprite;
 
 	sf::Texture vertical_boundary_texture;
 	sf::Sprite vertical_boundary_sprite;
@@ -157,15 +157,15 @@ Editor::Editor()
 	large_platform_sprite.setOrigin( large_platform_texture.getSize().x / 2.0, large_platform_texture.getSize().y / 2.0 );
 	this->static_sprite.push_back(large_platform_sprite);
 
-	if(!horizontal_boundary_texture.loadFromFile("images//horizontal_boundary.png") )
+	if(!glow_platform_texture.loadFromFile("images//glow_platform.png") )
 	{
 		printf("Failed to load texture on line %d \n", __LINE__);
 	}
 
-	this->static_texture.push_back( horizontal_boundary_texture );
-	horizontal_boundary_sprite.setTexture( this->static_texture.back() );
-	horizontal_boundary_sprite.setOrigin( horizontal_boundary_texture.getSize().x / 2.0, horizontal_boundary_texture.getSize().y / 2.0 );
-	this->static_sprite.push_back( horizontal_boundary_sprite );
+	this->static_texture.push_back( glow_platform_texture );
+	glow_platform_sprite.setTexture( this->static_texture.back() );
+	glow_platform_sprite.setOrigin( glow_platform_texture.getSize().x / 2.0, glow_platform_texture.getSize().y / 2.0 );
+	this->static_sprite.push_back( glow_platform_sprite );
 
 	if(!vertical_boundary_texture.loadFromFile("images//vertical_boundary.png") )
 	{
@@ -886,13 +886,13 @@ void Editor::createStaticBody(sf::RenderWindow &window, b2World *world, sf::Vect
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
 
-	else if(this->current_index == STATIC::H_BOUNDARY)
+	else if(this->current_index == STATIC::GLOW_PLATFORM)
 	{
 		fixture.density = 1;
 		fixture.restitution = 0.05;
-		fixture.friction = 0.0;
-		fixture.filter.categoryBits = BOUNDARY;
-		fixture.filter.maskBits = DYNAMIC_OBJECT | WEAPON | FRIENDLY;
+		fixture.friction = 0.75;
+		fixture.filter.categoryBits = PLATFORM; 
+		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT;
 
 		temp_object = new Object(window, world, fixture, this->static_texture[this->current_index], this->current_index, BODY_TYPE::STATIC, POLY_SHAPE);
 	}
