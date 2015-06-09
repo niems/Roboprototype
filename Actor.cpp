@@ -80,6 +80,7 @@ void Actor::updateClocks()
 	this->clock.update();
 	this->jump_clock.update();
 	this->death_clock.update();
+	this->contact_clock.update();
 }
 
 void Actor::commandUpdate(sf::Vector2f &mouse_pos)
@@ -200,25 +201,49 @@ int Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edito
 			} 
 
 			
-			else if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
-					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
+			if(this->contact_clock.getElapsedTime() >= 0.5)
 			{
-				contact = Editor::ENTITY_CATEGORY::BOUNCE;
-				//particle bounce explosion
-				/*
-				if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
+				if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
+					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )
 				{
-					this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureA()->GetUserData() );
-					this->entity_contact_pos = &(this->entity_contact->getBody()->GetPosition());
-				}
+					this->contact_clock.restart();
 
-				else if(edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
-				{
-					this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureB()->GetUserData() );
-					this->entity_contact_pos = this->entity_contact->getBody()->GetPosition();
-				}
-				*/
-			}	
+					contact = Editor::ENTITY_CATEGORY::BOUNCE;
+					//edge->contact->GetFixtureA()->GetBody()->GetPosition();
+
+					if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
+					{
+						const b2Vec2 pos = edge->contact->GetFixtureA()->GetBody()->GetPosition();
+
+						this->entity_contact_pos->x = pos.x;
+						this->entity_contact_pos->y = pos.y;
+					}
+
+					else if(edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
+					{
+						const b2Vec2 pos = edge->contact->GetFixtureB()->GetBody()->GetPosition();
+
+						this->entity_contact_pos->x = pos.x;
+						this->entity_contact_pos->y = pos.y;
+					}
+
+					//particle bounce explosion
+					/*
+					if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
+					{
+						this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureA()->GetUserData() );
+						this->entity_contact_pos = &(this->entity_contact->getBody()->GetPosition());
+					}
+
+					else if(edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE)
+					{
+						this->entity_contact = static_cast<Object *>( edge->contact->GetFixtureB()->GetUserData() );
+						this->entity_contact_pos = this->entity_contact->getBody()->GetPosition();
+					}
+					*/
+				}	
+			}
+			
 		}
 
 		//if the player is intersecting the portal, load next level

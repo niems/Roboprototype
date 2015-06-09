@@ -25,6 +25,7 @@ private:
 	//should be able to remove this with a sensor
 	Timer jump_clock; //used only for jumping
 	Timer clock; //used for commands
+	Timer contact_clock; //used for updating contacts
 	Timer death_clock; //used for when the player dies before the respawn
 
 public:

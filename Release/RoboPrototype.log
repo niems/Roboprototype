@@ -1,69 +1,20 @@
-﻿Build started 6/8/2015 10:16:25 PM.
+﻿Build started 6/9/2015 1:09:25 AM.
      1>Project "C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\RoboPrototype\RoboPrototype.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D SFML_STATIC /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Editor.cpp
-         Editor.cpp
-     1>Editor.cpp(9): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>Editor.cpp(75): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(86): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(96): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(106): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(116): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(126): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(136): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(146): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(157): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(167): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(177): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(187): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(197): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(216): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(232): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(262): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(273): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(284): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(295): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(306): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(361): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>Editor.cpp(382): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>Editor.cpp(382): warning C4305: 'argument' : truncation from 'double' to 'float32'
-     1>Editor.cpp(388): warning C4305: 'argument' : truncation from 'double' to 'float32'
-     1>Editor.cpp(499): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(506): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Editor.cpp(507): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Editor.cpp(569): warning C4018: '>=' : signed/unsigned mismatch
-     1>Editor.cpp(574): warning C4018: '>=' : signed/unsigned mismatch
-     1>Editor.cpp(579): warning C4018: '>=' : signed/unsigned mismatch
-     1>Editor.cpp(627): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(644): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(661): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(792): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(804): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(815): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(826): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(837): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(848): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(859): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(870): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(881): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(892): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(903): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(986): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(990): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>Editor.cpp(998): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(1003): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>Editor.cpp(1004): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
-     1>Editor.cpp(1012): warning C4305: '=' : truncation from 'double' to 'float32'
-     1>Editor.cpp(1017): warning C4305: 'argument' : truncation from 'double' to 'float32'
-     1>Editor.cpp(1029): warning C4305: 'argument' : truncation from 'double' to 'float32'
-     1>Editor.cpp(1042): warning C4305: 'argument' : truncation from 'double' to 'float32'
-     1>Editor.cpp(1096): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(1100): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(1114): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(1121): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(1137): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(1144): warning C4018: '<' : signed/unsigned mismatch
-     1>Editor.cpp(1174): warning C4101: 'angle' : unreferenced local variable
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I./ /I"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D SFML_STATIC /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>main.cpp(23): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>main.cpp(47): warning C4305: 'initializing' : truncation from 'double' to 'float32'
+     1>main.cpp(76): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>main.cpp(76): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>main.cpp(77): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>main.cpp(83): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>main.cpp(83): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>main.cpp(85): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>main.cpp(113): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>main.cpp(114): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>main.cpp(127): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>main.cpp(206): warning C4244: 'argument' : conversion from 'double' to 'float32', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Release\RoboPrototype.exe" /NOLOGO /LIBPATH:./lib /LIBPATH:"C:\Users\Niems\Desktop\Main\Programming\C++\SFML-2.3\lib" .\Release\liquidfun.lib "sfml-audio-s.lib" "sfml-graphics-s.lib" "sfml-main.lib" "sfml-network-s.lib" "sfml-system-s.lib" "sfml-window-s.lib" winmm.lib ws2_32.lib flac.lib ogg.lib vorbis.lib vorbisenc.lib vorbisfile.lib openal32.lib opengl32.lib gdi32.lib freetype.lib jpeg.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Release\RoboPrototype.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Niems\documents\visual studio 2012\Projects\RoboPrototype\Release\RoboPrototype.lib" /MACHINE:X86 /SAFESEH Release\Actor.obj
          Release\Camera.obj
@@ -82,4 +33,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.27
+Time Elapsed 00:00:03.16
