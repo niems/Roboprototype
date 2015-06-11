@@ -74,7 +74,7 @@ public:
 	enum DYNAMIC{CRATE, CRATE2}; 
 	enum KINEMATIC{MOVING_PLATFORM, SPIKES, SPHERE, PORTAL, SAW_ITEM};
 
-	enum FILE{LEVEL1, LEVEL2, LEVEL3}; //used to index the levels in the vector
+	enum FILE{LEVEL1, LEVEL2, LEVEL3, LEVEL4}; //used to index the levels in the vector
 	string current_level; //the string of the current level as a text file. ex. "level1.txt"
 	int current_level_index; //index of the current level
 	int max_level; //highest level so far

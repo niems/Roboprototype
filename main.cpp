@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Timer.h"
 #include "Object.h"
 #include "Editor.h"
@@ -27,6 +28,15 @@ enum {POLY_SHAPE, CIRCLE_SHAPE}; //determines what type of box2d shape to create
 
 //updates the mouse position
 void updateMousePos(sf::Vector2i &pos, sf::Vector2f &world_pos, sf::RenderWindow &window);
+
+string float_to_string(float f)
+{
+	std::stringstream stream;
+
+	stream << f;
+
+	return stream.str();
+}
 
 int main()
 {
@@ -90,6 +100,21 @@ int main()
 	sf::Vector2i mouse_pos;
 	sf::Vector2f mouse_pos_world; //world coordinates for the current mouse position
 
+	//level timer setup
+	sf::Text level_time_text;
+	Timer level_clock;
+	sf::Vector2i level_time_pos(window.getSize().x / 2.0, 10);
+
+	level_time_text.setFont(font);
+	level_time_text.setCharacterSize(60);
+	level_time_text.setPosition( level_time_pos.x, level_time_pos.y );
+	level_time_text.setString("Timer");
+	level_time_text.scale(window.getSize().x / 1600.0, window.getSize().y / 900); //scales based on the window size it was created on
+	level_time_text.setColor( sf::Color(255, 255, 255) );
+
+
+	//Draw::drawText(window, level_time_text, sf::Vector2i(level_time_text.getPosition().x, level_time_text.getPosition().y) );
+
 	//particles///////////
 	Particle particles(world, window);
 
@@ -116,7 +141,7 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	editor.current_level_index = Editor::FILE::LEVEL1;
+	editor.current_level_index = Editor::FILE::LEVEL4;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
@@ -161,7 +186,8 @@ int main()
 		{
 			editor_clock.update();
 			particles.updateClocks();
-
+			level_clock.update();
+			
 			//checks for game mode change
 			game_mode_clock.update();
 			editor.gameModeToggle(game_mode_text, game_mode_clock, game_mode_live, game_mode_editor, game_state);
@@ -174,12 +200,15 @@ int main()
 			{
 				main_view.boundaryControl(actor.getEntity()->getSprite()->getPosition()); //camera follows player in live mode
 
+				//put all of this in the isLevelComplete() function.
 				if(actor.isLevelComplete() == true) //the the player finished the level
 				{
 					actor.loadNextLevel(window, world, editor, main_view); 
 					particles.spawn(world, actor.getEntity()->getSprite()->getPosition());
 					left_boundary = sf::Vector2f(0.0, mouse_pos_world.y);
 					right_boundary = sf::Vector2f(main_view.getLevelSize().x, mouse_pos_world.y);
+					
+					level_clock.restart();
 				}
 
 				//update clocks
@@ -268,10 +297,23 @@ int main()
 
 				if(actor.isAlive() == true) //creates the spawn explosion right when the character respawns
 					particles.spawn(world, actor.getEntity()->getSprite()->getPosition() );
+
+				level_clock.restart(); //starts the level timer over since the player is respawning
 			}
 				
 
-			Draw::drawText(window, game_mode_text, game_mode_text_pos);	//draws live/editor text to the screen		
+			Draw::drawText(window, game_mode_text, game_mode_text_pos);	//draws live/editor text to the screen
+			
+			//level_time_text.setString( float_to_string( level_clock.getElapsedTime() ).substr(0, 5) );
+			//level_time_text.setString( float_to_string( level_clock.getElapsedTime() ).substr(0, string::find(level_time_text, 0) ) );
+
+			level_time_text.setString( float_to_string( level_clock.getElapsedTime() ) );
+			string temp_string = level_time_text.getString();
+			temp_string = temp_string.substr( 0, temp_string.find('.') + 2 );
+			level_time_text.setString( temp_string );
+
+			Draw::drawText(window, level_time_text, level_time_pos );
+			//window.draw(level_time_text);
 			
 			if(game_state == Editor::GAME_STATE::EDITOR) //draws editor only stuff
 			{

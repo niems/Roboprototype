@@ -201,7 +201,7 @@ int Actor::contactUpdate(sf::RenderWindow &window, b2World *world, Editor &edito
 			} 
 
 			
-			if(this->contact_clock.getElapsedTime() >= 0.5)
+			if(this->contact_clock.getElapsedTime() >= 0.25)
 			{
 				if(edge->contact->GetFixtureA()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE ||
 					edge->contact->GetFixtureB()->GetFilterData().categoryBits == Editor::ENTITY_CATEGORY::BOUNCE )

@@ -21,9 +21,10 @@ Editor::Editor()
 	this->current_level_index = FILE::LEVEL1;
 
 	this->levels.push_back("level2.txt");
-
 	this->levels.push_back("level3.txt");
-	this->max_level = FILE::LEVEL3; //the max level the player can reach
+
+	this->levels.push_back("level4.txt");
+	this->max_level = FILE::LEVEL4; //highest level the player can reach
 
 	//load static sprites
 	sf::Texture small_platform_texture;
@@ -467,11 +468,10 @@ void Editor::keyboardActionCommands(sf::RenderWindow &window, Camera &view, b2Wo
 
 		else if( sf::Keyboard::isKeyPressed( sf::Keyboard::LControl ) && sf::Keyboard::isKeyPressed( sf::Keyboard::L ) )
 		{
-			string filename; //"level3.txt";
+			string filename; 
 			
 			cout << "Load level as: ";
-			cin >> filename;
-			
+			cin >> filename;			
 
 			if(this->fileExists(filename) == true) //if the file exists
 			{
