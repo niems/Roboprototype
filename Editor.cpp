@@ -585,7 +585,7 @@ void Editor::keyboardCycleCommands(Timer &editor_clock) //used to cycle through 
 	}
 }
 
-void Editor::gameModeToggle(sf::Text &mode_text, Timer &clock, string &live, string &edit, int &game_state)
+void Editor::gameModeToggle(sf::Text &mode_text, Timer &clock, Timer &level_clock, string &live, string &edit, int &game_state)
 {
 	if(clock.getElapsedTime() >= 1.0) //long enough to toggle between game modes
 	{
@@ -595,6 +595,14 @@ void Editor::gameModeToggle(sf::Text &mode_text, Timer &clock, string &live, str
 			this->current_index = 0; //reset index 
 			this->angle = 0.0; //reset angle
 			game_state = (game_state == GAME_STATE::LIVE) ? GAME_STATE::EDITOR : GAME_STATE::LIVE; //assigns the opposite mode
+			
+			if(game_state == GAME_STATE::EDITOR)
+				level_clock.pause();
+
+			else
+				level_clock.resume();
+
+			//either put the clock pause/resume in the game state assignment or use the turing operator to make one for the clock
 			mode_text.setString( (game_state == GAME_STATE::LIVE) ? live : edit ); //assigns corresponding string
 		}
 	}
@@ -1014,7 +1022,7 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 		fixture.filter.maskBits = FRIENDLY;
 
 		temp_object = new Object(window, world, fixture, this->kinematic_texture[this->current_index], this->current_index, BODY_TYPE::KINEMATIC, CIRCLE_SHAPE);
-		temp_object->getBody()->SetAngularVelocity(-250.0 * DEGTORAD );
+		temp_object->getBody()->SetAngularVelocity(200.0 * DEGTORAD );
 	}
 
 	else if(this->current_index == KINEMATIC::PORTAL)
@@ -1032,9 +1040,9 @@ void Editor::createKinematicBody(sf::RenderWindow &window, b2World *world, sf::V
 
 	else if(this->current_index == KINEMATIC::SAW_ITEM)
 	{
-		fixture.friction = 1.0;
+		fixture.friction = 0.0;
 		fixture.density = 1.0;
-		fixture.restitution = 0.5;
+		fixture.restitution = 0.0;
 		fixture.filter.categoryBits = WEAPON; 
 		fixture.filter.maskBits = FRIENDLY | WEAPON | DYNAMIC_OBJECT | BOUNDARY | BOUNCE | PLATFORM;
 

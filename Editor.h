@@ -94,7 +94,7 @@ public:
 	void keyboardCycleCommands(Timer &editor_clock); //used to cycle through objects in editor mode
 
 	//allows you toggle between live and editor mode
-	void gameModeToggle(sf::Text &mode_text, Timer &clock, string &live, string &edit, int &game_state);
+	void gameModeToggle(sf::Text &mode_text, Timer &clock, Timer &level_clock, string &live, string &edit, int &game_state);
 
 	bool levelBoundaries(Camera &view, Object &player); //kills the player and returns them to the spawn point if they go out of bounds
 

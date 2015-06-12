@@ -171,10 +171,18 @@ int main()
 			}
 
 			else if(e.type == sf::Event::LostFocus)
+			{
 				in_focus = false;
+				level_clock.pause();
+			}
 
 			else if(e.type == sf::Event::GainedFocus)
+			{
 				in_focus = true;
+
+				if(game_state == Editor::GAME_STATE::LIVE) //only resumes clock if the game mode is live
+					level_clock.resume();
+			}
 
 			else if(e.type == sf::Event::MouseWheelMoved)
 			{				
@@ -190,7 +198,7 @@ int main()
 			
 			//checks for game mode change
 			game_mode_clock.update();
-			editor.gameModeToggle(game_mode_text, game_mode_clock, game_mode_live, game_mode_editor, game_state);
+			editor.gameModeToggle(game_mode_text, game_mode_clock, level_clock, game_mode_live, game_mode_editor, game_state);
 
 			//update mouse position
 			mouse_clock.update();
