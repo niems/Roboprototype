@@ -22,9 +22,10 @@ Editor::Editor()
 
 	this->levels.push_back("level2.txt");
 	this->levels.push_back("level3.txt");
-
 	this->levels.push_back("level4.txt");
-	this->max_level = FILE::LEVEL4; //highest level the player can reach
+
+	this->levels.push_back("test_level.txt");
+	this->max_level = FILE::TEST_LEVEL; //highest level the player can reach
 
 	//load static sprites
 	sf::Texture small_platform_texture;

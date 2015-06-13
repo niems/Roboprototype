@@ -141,7 +141,7 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	editor.current_level_index = Editor::FILE::LEVEL4;
+	editor.current_level_index = Editor::FILE::TEST_LEVEL;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
@@ -227,6 +227,7 @@ int main()
 
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
+				Object::updatePosition(*(actor.getEntity())); //updates the player sprite
 
 				if(actor.contactUpdate(window, world, editor, main_view, particles) == Editor::ENTITY_CATEGORY::BOUNCE)
 				{
@@ -235,7 +236,7 @@ int main()
 					sf::Vector2f b_texture( editor.getStaticTextures()[Editor::STATIC::BOUNCE_PLATFORM].getSize() ); //bounce texture
 
 					b2Vec2 *platform_position =  actor.getEntityContactPos();
-					actor.getEntity()->getBody()->SetTransform( b2Vec2(platform_position->x, platform_position->y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), actor.getEntity()->getBody()->GetAngle() );
+					actor.getEntity()->getBody()->SetTransform( b2Vec2( actor.getEntity()->getBody()->GetPosition().x, platform_position->y + ( ( (b_texture.y / 2.0) + (p_texture.y / 2.0) + 5) * PIXELS_TO_METERS ) ), actor.getEntity()->getBody()->GetAngle() );
 
 					actor.getEntity()->getBody()->SetLinearVelocity(b2Vec2(actor.getEntity()->getBody()->GetLinearVelocity().x, 0.0) ); //cancels out the velocity on the x axis before the impulse
 					b2Vec2 impulse(0.0, actor.getEntity()->getBody()->GetMass() * 30);
@@ -247,9 +248,9 @@ int main()
 			
 				particles.playerHair(world, *(actor.getEntity())); 
 
-				Object::updatePosition(*(actor.getEntity())); //updates the player sprite
-				/*
-				//PUT THIS IN A FUNCTION
+				
+				
+				//PUT THIS IN A FUNCTION (editor class)
 				if(editor.levelBoundaries(main_view, *(actor.getEntity()) ) == true) //if the player went out of bounds
 				{
 					//Figure out why it hits this right when it starts.
@@ -258,7 +259,7 @@ int main()
 					actor.death();
 
 					particles.getSystemClocks()[Particle::TYPE::EXPLOSION].restart();
-				} */
+				} 
 				
 
 				//updates player health bar to the current position
@@ -307,21 +308,17 @@ int main()
 					particles.spawn(world, actor.getEntity()->getSprite()->getPosition() );
 
 				level_clock.restart(); //starts the level timer over since the player is respawning
-			}
-				
+			}				
 
 			Draw::drawText(window, game_mode_text, game_mode_text_pos);	//draws live/editor text to the screen
-			
-			//level_time_text.setString( float_to_string( level_clock.getElapsedTime() ).substr(0, 5) );
-			//level_time_text.setString( float_to_string( level_clock.getElapsedTime() ).substr(0, string::find(level_time_text, 0) ) );
 
+			//PUT THIS IN A FUNCTION
 			level_time_text.setString( float_to_string( level_clock.getElapsedTime() ) );
 			string temp_string = level_time_text.getString();
 			temp_string = temp_string.substr( 0, temp_string.find('.') + 2 );
 			level_time_text.setString( temp_string );
 
 			Draw::drawText(window, level_time_text, level_time_pos );
-			//window.draw(level_time_text);
 			
 			if(game_state == Editor::GAME_STATE::EDITOR) //draws editor only stuff
 			{
