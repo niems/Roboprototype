@@ -16,6 +16,7 @@ Actor::Actor(sf::RenderWindow &window, b2World *world, int current_index, int bo
 	b2FixtureDef fixture;
 	this->texture = new sf::Texture();
 	this->velocity = sf::Vector2f(500.0, 600.0);
+	this->teleport_distance = 250.0; //distance to teleport the player in pixels
 	this->alive = true; //actor always starts alive
 
 	fixture.restitution = 0.1;
@@ -81,12 +82,37 @@ void Actor::updateClocks()
 	this->jump_clock.update();
 	this->death_clock.update();
 	this->contact_clock.update();
+	this->teleport_clock.update();
 }
 
-void Actor::commandUpdate(sf::Vector2f &mouse_pos)
+void Actor::commandUpdate(b2World *world, Particle particles, sf::Vector2f &mouse_pos)
 {
 	if(this->alive == true) //only updates if the player is alive
 	{
+		//dash ability
+		if( this->teleport_clock.getElapsedTime() >= 1.0 && (sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) || sf::Keyboard::isKeyPressed( sf::Keyboard::RShift ) ) )
+		{
+			if(this->getEntity()->getBody()->GetLinearVelocity().x >= 0.0)
+			{
+				//teleport player that distance towards the mouse cursor instead
+
+				//teleport player small distance in this direction
+				particles.spawn(world, this->entity->getSprite()->getPosition() );
+				this->entity->getBody()->SetTransform( b2Vec2(this->entity->getBody()->GetPosition().x + (this->teleport_distance * PIXELS_TO_METERS), this->entity->getBody()->GetPosition().y), this->entity->getBody()->GetAngle() );
+				particles.spawn(world, sf::Vector2f(this->entity->getBody()->GetPosition().x * METERS_TO_PIXELS, -this->entity->getBody()->GetPosition().y * METERS_TO_PIXELS ) );
+				this->teleport_clock.restart();
+			}
+
+			else
+			{
+				particles.spawn(world, this->getEntity()->getSprite()->getPosition());
+				this->entity->getBody()->SetTransform( b2Vec2(this->entity->getBody()->GetPosition().x - (this->teleport_distance * PIXELS_TO_METERS), this->entity->getBody()->GetPosition().y), this->entity->getBody()->GetAngle() );
+				particles.spawn(world, sf::Vector2f(this->entity->getBody()->GetPosition().x * METERS_TO_PIXELS, -this->entity->getBody()->GetPosition().y * METERS_TO_PIXELS ) );
+				this->teleport_clock.restart();
+			}
+		}
+
+		//general moving
 		if( this->clock.getElapsedTime() >= 0.05 )
 		{
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) ) //moving right
@@ -113,7 +139,7 @@ void Actor::commandUpdate(sf::Vector2f &mouse_pos)
 			{
 				b2Vec2 vel;
 				vel.x = 0.0;
-				vel.y = this->entity->getBody()->GetLinearVelocity().y * 2.0;
+				vel.y = this->entity->getBody()->GetLinearVelocity().y * 1.5;
 				vel.y = (vel.y > 0) ? (vel.y * -1) : vel.y;
 
 				this->entity->getBody()->SetLinearVelocity(vel);

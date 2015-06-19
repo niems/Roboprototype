@@ -19,10 +19,12 @@ private:
 	
 	sf::Texture *texture; //holds entity texture
 	sf::Vector2f velocity; //actor velocity
+	float teleport_distance; //determines how far the player can teleport on the x axis
 	bool alive;
 	bool level_complete;
 
 	//should be able to remove this with a sensor
+	Timer teleport_clock; //used to determine if the player can dash
 	Timer jump_clock; //used only for jumping
 	Timer clock; //used for commands
 	Timer contact_clock; //used for updating contacts
@@ -42,8 +44,10 @@ public:
 	bool isAlive(); //returns if the entity is alive
 	bool isLevelComplete(); //returns if the level is complete
 
+
+
 	void updateClocks(); //updates all clocks
-	void commandUpdate(sf::Vector2f &mouse_pos);
+	void commandUpdate(b2World *world, Particle particles, sf::Vector2f &mouse_pos);
 	int contactUpdate(sf::RenderWindow &window, b2World *world, Editor &editor, Camera &view, Particle &particles);
 
 	void setAlive(bool status);

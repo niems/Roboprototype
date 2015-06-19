@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include <iostream>
 #include <vector>
@@ -141,7 +141,7 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	editor.current_level_index = Editor::FILE::TEST_LEVEL;
+	//editor.current_level_index = Editor::FILE::TEST_LEVEL;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
@@ -223,7 +223,7 @@ int main()
 				actor.updateClocks();			
 
 				//checks for player commands
-				actor.commandUpdate(mouse_pos_world);
+				actor.commandUpdate(world, particles, mouse_pos_world);
 
 				//update world
 				world->Step(time_step, velocity_iterations, position_iterations);
@@ -301,7 +301,6 @@ int main()
 
 			else
 			{
-				//actor.respawn(editor); //respaws the character at the spawn point after a period of time
 				actor.respawn( window, world, editor, main_view, *(actor.getEntity()), editor.getFileName() );
 
 				if(actor.isAlive() == true) //creates the spawn explosion right when the character respawns
