@@ -24,7 +24,7 @@ private:
 	vector<int> types; //current particle type
 
 public: 
-	enum TYPE{BLOOD_SPLATTER, HAIR, EXPLOSION, SPAWN, BOUNCE};
+	enum TYPE{BLOOD_SPLATTER, HAIR, EXPLOSION, SPAWN, TELEPORT, BOUNCE};
 
 	Particle(b2World *world, sf::RenderWindow &window);
 
@@ -34,6 +34,7 @@ public:
 	void bloodSplatter(b2World *world, const sf::Vector2f &pos); //used for the blood splatter instance
 	void explosion(b2World *world, const sf::Vector2f &pos); //creates an explosion at the position
 	void spawn(b2World *world, const sf::Vector2f &pos); //creates an explosion when the player spawns in a new level
+	void teleport(b2World *world, const sf::Vector2f &pos); //creates 
 	void bounce(b2World *world, const sf::Vector2f &pos);
 
 	sf::CircleShape& getShape(int type); //returns the shape for the corresponding particle type.

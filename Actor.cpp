@@ -90,24 +90,24 @@ void Actor::commandUpdate(b2World *world, Particle particles, sf::Vector2f &mous
 	if(this->alive == true) //only updates if the player is alive
 	{
 		//dash ability
-		if( this->teleport_clock.getElapsedTime() >= 1.0 && (sf::Keyboard::isKeyPressed( sf::Keyboard::LShift ) || sf::Keyboard::isKeyPressed( sf::Keyboard::RShift ) ) )
+		if( this->teleport_clock.getElapsedTime() >= 1.0 && sf::Mouse::isButtonPressed( sf::Mouse::Right ) )
 		{
 			if(this->getEntity()->getBody()->GetLinearVelocity().x >= 0.0)
 			{
 				//teleport player that distance towards the mouse cursor instead
 
 				//teleport player small distance in this direction
-				particles.spawn(world, this->entity->getSprite()->getPosition() );
+				particles.teleport(world, this->entity->getSprite()->getPosition() );
 				this->entity->getBody()->SetTransform( b2Vec2(this->entity->getBody()->GetPosition().x + (this->teleport_distance * PIXELS_TO_METERS), this->entity->getBody()->GetPosition().y), this->entity->getBody()->GetAngle() );
-				particles.spawn(world, sf::Vector2f(this->entity->getBody()->GetPosition().x * METERS_TO_PIXELS, -this->entity->getBody()->GetPosition().y * METERS_TO_PIXELS ) );
+				particles.teleport(world, sf::Vector2f(this->entity->getBody()->GetPosition().x * METERS_TO_PIXELS, -this->entity->getBody()->GetPosition().y * METERS_TO_PIXELS ) );
 				this->teleport_clock.restart();
 			}
 
 			else
 			{
-				particles.spawn(world, this->getEntity()->getSprite()->getPosition());
+				particles.teleport(world, this->getEntity()->getSprite()->getPosition());
 				this->entity->getBody()->SetTransform( b2Vec2(this->entity->getBody()->GetPosition().x - (this->teleport_distance * PIXELS_TO_METERS), this->entity->getBody()->GetPosition().y), this->entity->getBody()->GetAngle() );
-				particles.spawn(world, sf::Vector2f(this->entity->getBody()->GetPosition().x * METERS_TO_PIXELS, -this->entity->getBody()->GetPosition().y * METERS_TO_PIXELS ) );
+				particles.teleport(world, sf::Vector2f(this->entity->getBody()->GetPosition().x * METERS_TO_PIXELS, -this->entity->getBody()->GetPosition().y * METERS_TO_PIXELS ) );
 				this->teleport_clock.restart();
 			}
 		}

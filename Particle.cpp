@@ -173,6 +173,39 @@ Particle::Particle(b2World *world, sf::RenderWindow &window)
 	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
 	this->particle_systems.back()->SetGravityScale(gravity_scale);
 
+	//teleport particle animation
+	Timer teleport_clock;
+	b2ParticleSystem *teleport_system;
+	b2ParticleSystemDef teleport_system_def;
+	sf::CircleShape *teleport_shape = new sf::CircleShape();
+
+	fill_color = sf::Color(255, 255, 255, 255);
+	outline_color = sf::Color(128, 230, 217, 255);
+	gravity_scale = -50.0;
+	radius = 4;
+	outline_thickness = 3;
+	max_particles = 500;
+	lifetime = 0.5;	
+
+	this->particle_systems.push_back( teleport_system );
+	this->shapes.push_back( *teleport_shape ); //player hair shape
+	this->system_clocks.push_back( teleport_clock );
+
+	this->shapes.back().setFillColor( fill_color );
+	this->shapes.back().setOutlineThickness( outline_thickness );
+	this->shapes.back().setOutlineColor( outline_color );
+	this->shapes.back().setRadius( radius );
+	this->shapes.back().setOrigin( teleport_shape->getRadius(), teleport_shape->getRadius() );
+
+	teleport_system_def.density = 1;
+	teleport_system_def.radius = (shape->getRadius() + (shape->getOutlineThickness() / 2.0) ) * PIXELS_TO_METERS;
+	teleport_system_def.maxCount = max_particles; //maximum number of particles on the screen
+
+	this->particle_systems.back() = world->CreateParticleSystem(&teleport_system_def); //creates the particle system to hold all the particles
+	this->particle_systems.back()->SetRadius( this->shapes.back().getRadius() );
+	this->particle_systems.back()->SetDestructionByAge(true); //particles are automatically destroyed based on their age
+	this->particle_systems.back()->SetGravityScale(gravity_scale);
+
 
 }
 
@@ -294,6 +327,36 @@ void Particle::spawn(b2World *world, const sf::Vector2f &pos)
 		
 
 		this->particle_systems[TYPE::SPAWN]->CreateParticle(p_def);
+	}
+}
+
+void Particle::teleport(b2World *world, const sf::Vector2f &pos)
+{
+	sf::Vector2f offset;
+	b2ParticleDef p_def;
+
+	p_def.lifetime = 0.5;
+	p_def.flags = b2_elasticParticle;
+
+	for(int i = 0; i < 50; i++)
+	{
+		offset.x = rand() % 15;
+		offset.x = (rand() % 2 == 0) ? (offset.x * -1) : offset.x;
+		offset.x += pos.x;
+
+		offset.y = rand() % 5;
+		offset.y = (rand() % 2 == 0) ? (offset.y * -1) : offset.y;
+		offset.y += pos.y;
+
+		p_def.position.Set( offset.x, offset.y );
+		p_def.velocity.x = (rand() % 100) + 50;
+		p_def.velocity.x = (rand() % 2 == 0) ? p_def.velocity.x : -p_def.velocity.x;
+
+		p_def.velocity.y = (rand() % 100) + 50;
+		p_def.velocity.y = (rand() % 2 == 0) ? p_def.velocity.y : -p_def.velocity.y;
+		
+
+		this->particle_systems[TYPE::TELEPORT]->CreateParticle(p_def);
 	}
 }
 

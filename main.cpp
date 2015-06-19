@@ -141,7 +141,7 @@ int main()
 
 	Camera main_view(center_pos, view_size, level_size);
 
-	//editor.current_level_index = Editor::FILE::TEST_LEVEL;
+	editor.current_level_index = Editor::FILE::TEST_LEVEL;
 	editor.current_level = editor.levels[editor.current_level_index];
 
 	editor.loadFile(window, world, main_view, *(actor.getEntity()), editor.current_level);
@@ -287,6 +287,7 @@ int main()
 			Draw::drawParticles(window, world, particles, Particle::TYPE::BLOOD_SPLATTER); //draws all blood splatters to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::EXPLOSION); //draws all explosions to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::SPAWN); //draws all the spawn explosions to the screen
+			Draw::drawParticles(window, world, particles, Particle::TYPE::TELEPORT); //draws all the teleport animations to the screen
 			Draw::drawParticles(window, world, particles, Particle::TYPE::BOUNCE); //draws all the bounce particles to the screen
 			
 			Draw::draw( window, editor.getDynamicObjects() ); //draws all the dynamic objects to the screen
